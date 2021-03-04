@@ -1,0 +1,51 @@
+// MENU
+
+// .menu_container {
+
+// }
+
+blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html, iframe, legend, li, ol, p, pre, textarea, ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+.menu_label {
+    color: #7a7a7a;
+    font-size: .75em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.menu_label:not(:first-child) {
+    margin-top: 1em;
+}
+.menu_label:not(:last-child) {
+    margin-bottom: 1em;
+}
+.menu_list {
+    line-height: 1.25;
+}
+.menu_list a {
+    border-radius: 2px;
+    color: #4a4a4a;
+    display: block;
+    padding: .5em .75em;
+}
+.menu_list a:hover {
+    background-color: #f5f5f5;
+    color: #363636;
+}
+a {
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+
+// NAVIGATION
+
+.MAIN__navigationbar {
+    position: relative;
+    display: none;
+}

@@ -1,0 +1,10 @@
+{
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.root": "/",
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.https": {
+    "enable": true,
+    "cert": "/Users/Zen/source/repos/VisualStudioCode/.vscode/for https/localhost.pem",
+    "key": "/Users/Zen/source/repos/VisualStudioCode/.vscode/for https/localhost.key",
+    "passphrase": "12345678"
+  }

@@ -1,0 +1,118 @@
+// For flatpickr
+.flatpickr-day {
+    &.inRange {
+        background: #bbdefb;
+        border-color: #bbdefb;
+        -webkit-box-shadow: -5px 0 0 #bbdefb, 5px 0 0 #bbdefb;
+        box-shadow: -5px 0 0 #bbdefb, 5px 0 0 #bbdefb;
+    }
+    &.prevMonthDay.inRange {
+        background: #bbdefb;
+        border-color: #bbdefb;
+    }
+    &.today.inRange {
+        background: #bbdefb;
+        border-color: #bbdefb;
+        color: white;
+    }
+
+    &.selected,
+    &.startRange {
+        background: #2196f3;
+        border-color: #2196f3;
+    }
+}
+.rangeMode .flatpickr-day {
+    margin: 0;
+}
+
+// For EDIT area
+.EDIT__padding {
+    position: relative;
+    height: 96%;
+    padding: 1rem 0 1rem;
+    display: none;
+}
+
+.EDIT__btn_exit_wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.EDITPANEL__task {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 80%;
+    margin: 0;
+    width: 100%;
+}
+
+.EDIT__task_container {
+    position: relative;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    color: #4a4a4a;
+    display: block;
+    display: none;
+    height: 93%;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    // width: auto;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+.EDIT__task {
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.EDIT__task_body {
+    height: 10%;
+}
+
+.update_add_card {
+    position: relative;
+    height: 15%;
+    padding: 0;
+}
+
+.update_add_card .update_add_card_body {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+}
+
+.update_add_card .update_add_card_body button,
+.update_add_card .update_add_card_body button .icon {
+    width: 100%;
+}
+
+.update_add_card_body button {
+    background-color: royalblue;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.update_add_card_body button:hover {
+    background-color: rgb(60, 97, 207);
+}
+
+
+.EDIT__ask_add_task {
+    position: relative;
+    top: 40%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 20%;
+}

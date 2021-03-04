@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Free Web tutorials" />
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> -->
+
+    <!-- Old Dependencies -->
+    <!-- <link rel="stylesheet" href="lib/bootstrap.min.css"> -->
+    <!-- <script src="lib/jquery.min.js"></script> -->
+    <!-- <script src="lib/popper.min.js"></script> -->
+    <!-- <script src="lib/bootstrap.min.js"></script> -->
+    <!-- <script src="lib/fontawesome.all.js"></script> -->
+    <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
+
+    <!-- Litepicker LINKS-->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"/> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script> -->
+
+
+
+    <!-- Flatpickr -->
+    <!-- <link rel="stylesheet" href="lib/datepicker/flatpickr/flatpickr.min.css"> -->
+    <!-- <script src="lib/datepicker/flatpickr/flatpickr.js"></script> -->
+
+    <!--Markdown Editor LINKS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/styles/dracula.min.css"/> -->
+
+    <!-- Flatpickr LINK-->
+    <link rel="preload" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css"  as="style" onload="this.rel='stylesheet'"/>
+
+    <!--Markdown Editor  -->
+    <link rel="preload" href="lib/markdown/dracula.min.css"  as="style" onload="this.rel='stylesheet'"/>
+
+    <!-- REQUIRED Stylesheet -->
+    <link href="sass/styles.css" rel='stylesheet'/>
+</head>
+
+<body>
+    <div class="section">
+        <div class="SECTION__columns">
+            <div class="column column_padding one_quarter">
+                <div class="menu_container">
+                    <p class="menu_label">To-do List</p>
+                    <ul class="menu_list">
+                        <li>
+                            <a href="/todolist/" class="router-link-exact-active router-link-active">
+                                <span class="icon is-small"><i class="mdi mdi-format-list-checks"></i></span>
+                                <span>All items</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/todolist/projects/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-folder-open"></i></span>
+                                <span>Projects</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/todolist/tags/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-tag-multiple"></i></span>
+                                <span>Tags</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/todolist/tasks/new/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-plus-circle"></i></span>
+                                <span>New</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="menu_label">Calendar</p>
+                    <ul class="menu_list">
+                        <li>
+                            <a href="/todolist/calendar/today/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-calendar-today"></i></span>
+                                <span>Day Tasks</span>
+                            </a>
+                            <!---->
+                        </li>
+                        <li>
+                            <a href="/todolist/calendar/week/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-calendar-week"></i></span>
+                                <span>Week Tasks</span>
+                            </a>
+                            <!---->
+                        </li>
+                        <li>
+                            <a href="/todolist/calendar/month/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-calendar-month"></i></span>
+                                <span>Month Tasks</span>
+                            </a>
+                            <!---->
+                        </li>
+                    </ul>
+                    <p class="menu_label">Settings</p>
+                    <ul class="menu_list">
+                        <li>
+                            <a href="/todolist/settings/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-cogs"></i></span>
+                                <span>General Settings</span>
+                            </a>
+                            <!---->
+                        </li>
+                        <li>
+                            <a href="/todolist/theme/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-palette"></i></span>
+                                <span>Theme</span>
+                            </a>
+                            <!---->
+                        </li>
+                        <li>
+                            <a href="/todolist/settings/reset/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-reload"></i></span>
+                                <span>Database Reset</span>
+                            </a>
+                            <!---->
+                        </li>
+                        <li>
+                            <a href="/todolist/about/" class="">
+                                <span class="icon is-small"><i class="mdi mdi-information"></i></span>
+                                <span>About</span>
+                            </a>
+                            <!---->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="column box">
+                <div class="MAIN__padding">
+                    <!-- <div class="box_filter"></div> -->
+
+                    <div class="titlebar">
+                        <div class="MAIN__navigationbar">
+                            <button type="button" class="button btn_color_blue">
+                                <span class="icon">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="titlebar_text">
+                            <input type="text" placeholder="Group Name" />
+                        </div>
+                        <div class="titlebar_right">
+                            <button type="button" class="button btn_add_card btn_border_15 btn_color_blue">
+                                <span class="icon">
+                                    <svg class="svg-inline--fa fa-plus fa-w-14 fa-sm" aria-hidden="true"
+                                        data-prefix="fa" data-icon="plus" role="img" viewBox="0 0 448 512"
+                                        data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                        </path>
+                                    </svg>
+                                    Add Card
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="margin: 10px 2rem" />
+
+                    <div class="PANEL__card">
+                        <div class="card_container">
+                            <div class="card_body btn-group-vertical card_width">
+                                <div class="card_header">
+                                    <div class="card_header_bottom_fill"></div>
+                                    <div class="card_title">basic card but this is a long card long</div>
+                                    <div class="card_header_options">
+                                        <button type="button"
+                                            class="button PANEL__btn_add_task btn_color_blue btn_padding" id="PANEL__btn_add_task">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-plus fa-w-14 fa-sm" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="plus" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button type="button"
+                                            class="button PANEL__btn_delete_card btn_color_red btn_padding" id="PANEL__btn_delete_card">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="trash" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button type="button"
+                                            class="button PANEL__btn_edit_card btn_color_white btn_padding" id="PANEL__btn_edit_card">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
+                                                    aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
+                                                    role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="task_container">
+                                    <div class="task_body">
+                                        <div class="task_options">
+                                            <button type="button"
+                                                class="button PANEL__btn_edit_task btn_color_whitesmoke" id="PANEL__btn_edit_task">
+                                                <span class="icon icon_centered">
+                                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
+                                                        aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
+                                                        role="img" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512" data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red" id="PANEL__btn_delete_task">
+                                                <span class="icon icon_centered">
+                                                    <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm"
+                                                        aria-hidden="true" data-prefix="fa" data-icon="trash" role="img"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                        data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="task_title">
+                                            basic task title basic task title basic task title basic task title
+                                        </div>
+                                        <div class="task_description">
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task
+                                            descriptionbasic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description
+                                        </div>
+                                        <div class="task_date">
+                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
+                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
+                                        </div>
+                                    </div>
+                                    <div class="task_body">
+                                        <div class="task_options">
+                                            <button type="button"
+                                                class="button PANEL__btn_edit_task btn_color_whitesmoke">
+                                                <span class="icon icon_centered">
+                                                    <i class="fa fa-pencil-alt fa-sm" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red">
+                                                <span class="icon icon_centered">
+                                                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="task_title">
+                                            basic task title basic task title basic task title basic task title
+                                        </div>
+                                        <div class="task_description">
+                                            basic task description basic task description
+                                        </div>
+                                        <div class="task_date">
+                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
+                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End of card_container -->
+
+                        <div class="card_container">
+                            <div class="card_body btn-group-vertical card_width">
+                                <div class="card_header">
+                                    <div class="card_header_bottom_fill"></div>
+                                    <div class="card_title">basic card but this is a long card long</div>
+                                    <div class="card_header_options">
+                                        <button type="button"
+                                            class="button PANEL__btn_add_task btn_color_blue btn_padding">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-plus fa-w-14 fa-sm" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="plus" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button type="button"
+                                            class="button PANEL__btn_delete_card btn_color_red btn_padding">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="trash" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button type="button"
+                                            class="button PANEL__btn_edit_card btn_color_white btn_padding">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
+                                                    aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
+                                                    role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="task_container">
+                                    <div class="task_body">
+                                        <div class="task_options">
+                                            <button type="button"
+                                                class="button PANEL__btn_edit_task btn_color_whitesmoke">
+                                                <span class="icon icon_centered">
+                                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
+                                                        aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
+                                                        role="img" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512" data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red">
+                                                <span class="icon icon_centered">
+                                                    <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm"
+                                                        aria-hidden="true" data-prefix="fa" data-icon="trash" role="img"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                        data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="task_title">
+                                            basic task title basic task title basic task title basic task title
+                                        </div>
+                                        <div class="task_description">
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task
+                                            descriptionbasic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description
+                                        </div>
+                                        <div class="task_date">
+                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
+                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
+                                        </div>
+                                    </div>
+                                    <div class="task_body">
+                                        <div class="task_options">
+                                            <button type="button"
+                                                class="button PANEL__btn_edit_task btn_color_whitesmoke">
+                                                <span class="icon icon_centered">
+                                                    <i class="fa fa-pencil-alt fa-sm" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red">
+                                                <span class="icon icon_centered">
+                                                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="task_title">
+                                            basic task title basic task title basic task title basic task title
+                                        </div>
+                                        <div class="task_description">
+                                            basic task description basic task description
+                                        </div>
+                                        <div class="task_date">
+                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
+                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End of card_container -->
+
+                        <div class="card_container">
+                            <div class="card_body btn-group-vertical card_width">
+                                <div class="card_header">
+                                    <div class="card_header_bottom_fill"></div>
+                                    <div class="card_title">basic card but this is a long card long</div>
+                                    <div class="card_header_options">
+                                        <button type="button"
+                                            class="button PANEL__btn_add_task btn_color_blue btn_padding">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-plus fa-w-14 fa-sm" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="plus" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button type="button"
+                                            class="button PANEL__btn_delete_card btn_color_red btn_padding">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="trash" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button type="button"
+                                            class="button PANEL__btn_edit_card btn_color_white btn_padding">
+                                            <span class="icon icon_up">
+                                                <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
+                                                    aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
+                                                    role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="task_container">
+                                    <div class="task_body">
+                                        <div class="task_options">
+                                            <button type="button"
+                                                class="button PANEL__btn_edit_task btn_color_whitesmoke">
+                                                <span class="icon icon_centered">
+                                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
+                                                        aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
+                                                        role="img" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512" data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red">
+                                                <span class="icon icon_centered">
+                                                    <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm"
+                                                        aria-hidden="true" data-prefix="fa" data-icon="trash" role="img"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                                        data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="task_title">
+                                            basic task title basic task title basic task title basic task title
+                                        </div>
+                                        <div class="task_description">
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task description
+                                            basic task description basic task description basic task
+                                            descriptionbasic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description basic task description basic task description basic task
+                                            description
+                                        </div>
+                                        <div class="task_date">
+                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
+                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
+                                        </div>
+                                    </div>
+                                    <div class="task_body">
+                                        <div class="task_options">
+                                            <button type="button"
+                                                class="button PANEL__btn_edit_task btn_color_whitesmoke">
+                                                <span class="icon icon_centered">
+                                                    <i class="fa fa-pencil-alt fa-sm" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red">
+                                                <span class="icon icon_centered">
+                                                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="task_title">
+                                            basic task title basic task title basic task title basic task title
+                                        </div>
+                                        <div class="task_description">
+                                            basic task description basic task description
+                                        </div>
+                                        <div class="task_date">
+                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
+                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End of card_container -->
+
+                    </div> <!-- End of PANEL__card-->
+                </div>
+
+                <div class="EDIT__padding">
+                    <div class="EDIT__btn_exit_wrapper">
+                        <button type="button" class="button EDIT__btn_exit">
+                            <span class="icon icon_up">
+                                <svg class="svg-inline--fa fa-times fa-w-12 fa-lg" aria-hidden="true" data-prefix="fa"
+                                    data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512" data-fa-i2svg="">
+                                    <path fill="currentColor"
+                                        d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="titlebar">
+                        <div class="titlebar_text">
+                            <input type="text" placeholder="Card Name" />
+                        </div>
+                        <div class="titlebar_right">
+                            <button type="button" class="button EDIT__btn_add_task btn_border_10 btn_color_whitesmoke">
+                                <span class="icon">
+                                    <svg class="svg-inline--fa fa-plus fa-w-14" aria-hidden="true" data-prefix="fa"
+                                        data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 448 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                        </path>
+                                    </svg>
+                                    Add Task
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="margin: 10px 2rem" />
+
+                    <div class="EDITPANEL__task">
+                        <div class="EDIT__ask_add_task">
+                            <p>Seems empty, why don't you try adding a task!</p><br />
+                            <button type="button" class="button EDIT__btn_add_task btn_border_10 btn_color_whitesmoke">
+                                <span class="icon">
+                                    <svg class="svg-inline--fa fa-plus fa-w-14" aria-hidden="true" data-prefix="fa"
+                                        data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 448 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                        </path>
+                                    </svg>
+                                    Add Task
+                                </span>
+                            </button>
+                        </div>
+                        <div class="EDIT__task_container">
+                            <div class="EDIT__task_body">
+                                <div class="titlebar">
+                                    <div class="titlebar_text">
+                                        <input type="text" placeholder="Task Title" />
+                                    </div>
+                                    <div class="titlebar_date">
+                                        <button type="button" id="myDatepicker"
+                                            class="button EDIT__btn_set_date btn_border_10 btn_color_white form-control form-control-sm">
+                                            <span class="icon">
+                                                <svg class="svg-inline--fa fa-clock fa-w-16" aria-hidden="true"
+                                                    data-prefix="fa" data-icon="clock" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                    data-fa-i2svg="">
+                                                    <path fill="currentColor"
+                                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm57.1 350.1L224.9 294c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v137.7l63.5 46.2c5.4 3.9 6.5 11.4 2.6 16.8l-28.2 38.8c-3.9 5.3-11.4 6.5-16.8 2.6z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="EDIT__textarea">
+                                <div class="EDIT__textarea_container">
+                                    <div class="EDIT__textarea_body">
+                                        <div class="EDIT__textarea_tools_body">
+                                            <div class="EDIT__textarea_tools">
+                                                <button onclick="apply('bold')" title="Bold">B</button>
+                                                <button onclick="apply('italic')" title="Italic">
+                                                    <i>I</i>
+                                                </button>
+                                                <button onclick="apply('strike')" title="Strikethrough">
+                                                    <strike>S</strike>
+                                                </button>
+                                                <button onclick="apply('h1')" title="Header 1">H1</button>
+                                                <button onclick="apply('h2')" title="Header 2">H2</button>
+                                                <button onclick="apply('h3')" title="Header 3">H3</button>
+                                                <button onclick="apply('ul')" title="Unordered list">•</button>
+                                                <button onclick="apply('ol')" title="Ordered list">1.</button>
+                                                <button onclick="apply('check')" title="Check list">✔</button>
+                                                <button onclick="apply('bq')" title="Blockquote">“”</button>
+                                                <button onclick="apply('ic')" title="Inline code">I&lt;></button>
+                                                <button onclick="apply('bc')" title="Block code">&lt;/></button>
+                                                <button onclick="apply('link')" title="Link">
+                                                    <svg class="svg-inline--fa fa-link fa-w-16" aria-hidden="true"
+                                                        data-prefix="fa" data-icon="link" role="img"
+                                                        viewBox="0 0 512 512" data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                                <button onclick="apply('image')" title="Image">
+                                                    <svg class="svg-inline--fa fa-image fa-w-16" aria-hidden="true"
+                                                        data-prefix="fa" data-icon="image" role="img"
+                                                        viewBox="0 0 512 512" data-fa-i2svg="">
+                                                        <path fill="currentColor"
+                                                            d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                                <button onclick="apply('hr')" title="Horizontal rule">——</button>
+                                                <button onclick="apply('table')" title="Table">⚏</button>
+                                            </div>
+                                        </div>
+                                        <div class="EDIT__textarea_panel">
+                                            <div id="EDIT__textarea_left">
+                                                <textarea class="syncscroll" name="sync" id="getm"
+                                                    placeholder="paste markdown here ✨" onkeyup="Preview.Update()"
+                                                    autofocus="" spellcheck="false"></textarea>
+                                            </div>
+                                            <div id="EDIT__textarea_right">
+                                                <div class="markdown" id="viewer"
+                                                    style="display: none; overflow-y: scroll; overflow-x: hidden"></div>
+                                                <div class="markdown" id="buffer" style="display: flex"></div>
+                                            </div>
+                                        </div>
+                                        <div class="EDIT__textarea_bottom_panel">
+                                            <div class="preview">
+                                                <button onclick="slide('nill')" title="Hide editor">←</button>
+                                                <button onclick="slide('half')" title="Side by side">●</button>
+                                                <button onclick="slide('full')" title="Hide viewer">→</button>
+                                            </div>
+                                            <div style="flex: 1 1 0; text-align: right">
+                                                <span id="EDIT__charcount">43 chars</span>
+                                                <span id="EDIT__wordcount">9 words</span>
+                                                <span class="trigger">❓</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p id="EDIT__wordcount"></p>
+                                <p id="EDIT__charcount"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="update_add_card">
+                        <div class="update_add_card_body">
+                            <button type="button" class="button btn_confirm_add_card">
+                                <span class="icon">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Complete
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Flatpickr script LINK-->
+    <!-- <script  src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
+    <script  src="lib/datepicker/flatpickr/flatpickr.js"></script>
+
+    <!--Markdown Editor Scripts  -->
+    <script  src="script.js"></script>
+    <script  src="lib/markdown/marked.min.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
+    <script  src="lib/markdown/marcdown.min.js"></script>
+    <script async src="lib/markdown/highlight.min.js"></script>
+
+</body>
+
+</html>

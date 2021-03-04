@@ -1,0 +1,130 @@
+
+
+.button {
+    -webkit-appearance: none;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 2.25em;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    line-height: 1.5;
+    padding-bottom: calc(.375em - 1px);
+    padding-left: calc(.625em - 1px);
+    padding-right: calc(.625em - 1px);
+    padding-top: calc(.375em - 1px);
+    position: relative;
+    vertical-align: top;
+    outline: none;
+}
+
+.btn_border_10 {
+    border-radius: 10px;
+}
+.btn_border_15 {
+    border-radius: 15px;
+}
+.btn_border_20 {
+    border-radius: 20px;
+}
+
+.btn_padding {
+    padding: 0;
+    height: 30px
+}
+
+.btn_color_blue {
+    background-color: royalblue;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgb(60, 97, 207);
+    }
+}
+
+.btn_color_red {
+    background-color: rgb(206, 0, 0);
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgb(173, 0, 0);
+    }
+}
+
+.btn_color_white {
+    background-color: white;
+    border-color: transparent;
+    color: black;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgb(245, 245, 245);
+    }
+}
+
+.btn_color_whitesmoke {
+    background-color: rgb(252, 252, 252);
+    border-color: transparent;
+    color: black;
+    cursor: pointer;
+
+    &:hover{
+        background-color: whitesmoke;
+    }
+}
+
+.task_options {
+    .button {
+        padding: 0;
+        margin: 0 2.5px 0;
+        height: 100%
+    }
+}
+
+.icon {
+    pointer-events: none;
+}
+
+.icon_up{
+    position: relative;
+    top: -2px;
+    width: 1.5em;
+}
+
+.icon_centered {
+    position: relative;
+    width: 1.5em;
+}
+
+
+
+
+// For the EDIT container
+
+.EDIT__btn_exit {
+    background: transparent;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    height: 30px;
+    cursor: pointer;
+
+
+    &:hover {
+    color: rgb(131, 0, 0);
+    }
+
+}
+
