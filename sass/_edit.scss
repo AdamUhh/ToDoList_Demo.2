@@ -55,15 +55,13 @@
     -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     color: #4a4a4a;
-    display: block;
     display: none;
     height: 93%;
     margin-bottom: 20px;
     overflow-y: auto;
     overflow-x: hidden;
-    // width: auto;
     margin: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0.2rem;
 }
 
 .EDIT__task {
@@ -73,46 +71,30 @@
 
 .EDIT__task_body {
     height: 10%;
-}
 
-.update_add_card {
-    position: relative;
-    height: 15%;
-    padding: 0;
-}
-
-.update_add_card .update_add_card_body {
-    margin: 0;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-}
-
-.update_add_card .update_add_card_body button,
-.update_add_card .update_add_card_body button .icon {
-    width: 100%;
-}
-
-.update_add_card_body button {
-    background-color: royalblue;
-    border-color: transparent;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.update_add_card_body button:hover {
-    background-color: rgb(60, 97, 207);
+    .titlebar {
+        padding: 0 2em 0 1em;
+    }
 }
 
 
 .EDIT__ask_add_task {
+    display: none;
     position: relative;
     top: 40%;
     text-align: center;
     vertical-align: middle;
     padding: 0 20%;
 }
+
+
+.EDIT__confirm_container {
+    position: relative;
+    height: 15%;
+    padding: 0 16px 16px;
+    text-align: center;
+
+}
+
+
+

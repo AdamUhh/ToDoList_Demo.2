@@ -17,10 +17,10 @@
   -ms-flex-pack: start;
   justify-content: flex-start;
   line-height: 1.5;
-  padding-bottom: calc(.375em - 1px);
-  padding-left: calc(.625em - 1px);
-  padding-right: calc(.625em - 1px);
-  padding-top: calc(.375em - 1px);
+  padding-bottom: calc(0.375em - 1px);
+  padding-left: calc(0.625em - 1px);
+  padding-right: calc(0.625em - 1px);
+  padding-top: calc(0.375em - 1px);
   position: relative;
   vertical-align: top;
   outline: none;
@@ -63,6 +63,17 @@
 
 .btn_color_red:hover {
   background-color: #ad0000;
+}
+
+.btn_color_green {
+  background-color: green;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn_color_green:hover {
+  background-color: #007900;
 }
 
 .btn_color_white {
@@ -118,6 +129,85 @@
 
 .EDIT__btn_exit:hover {
   color: #830000;
+}
+
+.EDIT__confirm_right {
+  display: none;
+  position: relative;
+  width: 100%;
+  top: -10px;
+}
+
+.EDIT__confirm_right .EDIT__btn_confirm_and_add_task {
+  position: relative;
+  right: 0;
+  margin-left: auto;
+  overflow: hidden;
+  color: #fff;
+  max-width: 30px;
+  -webkit-transition: max-width 0.2s ease-in-out;
+  -webkit-transition: max-width 0.2s linear;
+  transition: max-width 0.2s linear;
+}
+
+.EDIT__confirm_right .EDIT__btn_confirm_and_add_task svg {
+  padding-right: 10px;
+}
+
+.EDIT__confirm_right .EDIT__btn_confirm_and_add_task .icon {
+  position: relative;
+  left: -1px;
+  display: block;
+  white-space: nowrap;
+}
+
+.EDIT__confirm_right .EDIT__btn_confirm_and_add_task:hover {
+  max-width: 280px;
+}
+
+.EDIT__confirm_left {
+  display: none;
+  position: relative;
+  width: 100%;
+  top: -10px;
+}
+
+.EDIT__confirm_left .EDIT__btn_confirm_and_go_back {
+  position: relative;
+  left: 0;
+  overflow: hidden;
+  color: #fff;
+  max-width: 30px;
+  -webkit-transition: max-width 0.2s ease-in-out;
+  -webkit-transition: max-width 0.2s linear;
+  transition: max-width 0.2s linear;
+}
+
+.EDIT__confirm_left .EDIT__btn_confirm_and_go_back svg {
+  padding-right: 10px;
+}
+
+.EDIT__confirm_left .EDIT__btn_confirm_and_go_back .icon {
+  position: relative;
+  left: -2px;
+  display: block;
+  white-space: nowrap;
+}
+
+.EDIT__confirm_left .EDIT__btn_confirm_and_go_back:hover {
+  max-width: 280px;
+}
+
+.EDIT__confirm_center {
+  position: relative;
+}
+
+.EDIT__confirm_center .EDIT__btn_confirm {
+  position: relative;
+  width: 90%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html, iframe, legend, li, ol, p, pre, textarea, ul {
@@ -189,13 +279,6 @@ a {
     display: -ms-flexbox !important;
     display: flex !important;
     left: 0 !important;
-  }
-  .titlebar_text {
-    padding-left: 10px;
-    left: 20px;
-  }
-  .titlebar_right {
-    left: 20px;
   }
   .box {
     height: 100vh !important;
@@ -284,14 +367,13 @@ a {
   -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   color: #4a4a4a;
-  display: block;
   display: none;
   height: 93%;
   margin-bottom: 20px;
   overflow-y: auto;
   overflow-x: hidden;
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.2rem;
 }
 
 .EDIT__task {
@@ -303,46 +385,24 @@ a {
   height: 10%;
 }
 
-.update_add_card {
-  position: relative;
-  height: 15%;
-  padding: 0;
-}
-
-.update_add_card .update_add_card_body {
-  margin: 0;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  margin-right: -50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 70%;
-}
-
-.update_add_card .update_add_card_body button,
-.update_add_card .update_add_card_body button .icon {
-  width: 100%;
-}
-
-.update_add_card_body button {
-  background-color: royalblue;
-  border-color: transparent;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-.update_add_card_body button:hover {
-  background-color: #3c61cf;
+.EDIT__task_body .titlebar {
+  padding: 0 2em 0 1em;
 }
 
 .EDIT__ask_add_task {
+  display: none;
   position: relative;
   top: 40%;
   text-align: center;
   vertical-align: middle;
   padding: 0 20%;
+}
+
+.EDIT__confirm_container {
+  position: relative;
+  height: 15%;
+  padding: 0 16px 16px;
+  text-align: center;
 }
 
 :root {
@@ -502,24 +562,6 @@ a {
   background: #c6d5dd;
 }
 
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .EDIT__textarea a {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -543,97 +585,6 @@ a {
   font-size: 18px;
   font-family: sans-serif;
   cursor: pointer;
-}
-
-.EDIT__textarea button[disabled] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.EDIT__textarea .trigger {
-  cursor: pointer;
-}
-
-.EDIT__textarea .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 99;
-  visibility: hidden;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-}
-
-.EDIT__textarea .show-modal {
-  visibility: visible;
-  opacity: 1;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-}
-
-.EDIT__textarea .modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  overflow: auto;
-  padding: 16px 32px;
-  max-width: 80%;
-  max-height: 80%;
-  border-radius: 8px;
-  background-color: var(--bg-color);
-  -webkit-filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-          filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-.EDIT__textarea .close-button {
-  position: fixed;
-  top: 13px;
-  right: 13px;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: var(--secondary-color);
-  cursor: pointer;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.EDIT__textarea .close-button:hover {
-  color: var(--font-color);
-}
-
-.EDIT__textarea input[type="file"] {
-  display: none;
-}
-
-.EDIT__textarea .theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 32px;
-  height: 16px;
-}
-
-.EDIT__textarea .theme-switch input {
-  display: none;
 }
 
 .EDIT__textarea textarea {
@@ -938,7 +889,7 @@ body {
 }
 
 .card_body .card_header .card_header_bottom_fill {
-  width: 94%;
+  width: 96%;
   height: 5px;
   position: absolute;
   display: -webkit-box;
