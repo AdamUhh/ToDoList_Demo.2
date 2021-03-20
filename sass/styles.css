@@ -123,11 +123,21 @@
   background: transparent;
   color: black;
   padding: 0;
-  height: 30px;
   cursor: pointer;
 }
 
 .EDIT__btn_exit:hover {
+  color: #830000;
+}
+
+.EDIT__btn_go_back {
+  background: transparent;
+  color: black;
+  padding: 0;
+  cursor: pointer;
+}
+
+.EDIT__btn_go_back:hover {
   color: #830000;
 }
 
@@ -349,6 +359,13 @@ a {
 .EDIT__btn_exit_wrapper {
   position: absolute;
   right: 0;
+  top: 0;
+}
+
+.EDIT__btn_go_back_wrapper {
+  display: none;
+  position: absolute;
+  left: 0;
   top: 0;
 }
 
@@ -908,7 +925,7 @@ body {
   background: #ffffff;
   border-radius: 10px 10px 1px 1px;
   overflow: hidden;
-  max-width: 60%;
+  max-width: 50%;
 }
 
 .card_body .card_header .card_header_options {
