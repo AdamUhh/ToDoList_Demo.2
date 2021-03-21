@@ -1,8 +1,34 @@
 // MENU
 
-// .menu_container {
 
-// }
+.menu_container {
+    margin-top: 1em;
+    max-height: 86vh;
+    overflow-y: scroll;
+}
+.MENU__add_group {
+    position: relative;
+    text-align: center;
+    .MENU__btn_add_group {
+        position: relative;
+        text-align: center;
+        width: 95%;
+        justify-content: center;
+    }
+}
+
+.MENU__exit_wrapper {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.menu_body {
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
 
 blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html, iframe, legend, li, ol, p, pre, textarea, ul {
     margin: 0;

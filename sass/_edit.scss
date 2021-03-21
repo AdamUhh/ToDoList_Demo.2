@@ -84,7 +84,6 @@
     }
 }
 
-
 .EDIT__ask_add_task {
     display: none;
     position: relative;
@@ -94,14 +93,50 @@
     padding: 0 20%;
 }
 
-
 .EDIT__confirm_container {
     position: relative;
     height: 15%;
     padding: 0 16px 16px;
     text-align: center;
-
 }
 
+.EDIT__select_task_container {
+    // position: relative;
+    // border-radius: 6px;
+    // -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    // box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    // color: #4a4a4a;
+    // // display: none;
+    height: 93%;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0.5rem;
+    padding: 0.5rem 0.2rem;
+}
+
+.EDIT__select_task_wrapper {
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+
+    &:hover {
+        background-color: whitesmoke;
+        cursor: pointer;
+
+    }
+
+    h2, h4 {
+        width: 90%;
+    }
 
 
+    .EDIT__select_task_svg {
+        position: relative;
+        top: -39px;
+        float: right;
+    }
+
+
+}

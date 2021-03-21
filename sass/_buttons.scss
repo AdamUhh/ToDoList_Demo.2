@@ -118,12 +118,16 @@
     width: 1.5em;
 }
 
-// For the EDIT container
+// For the MENU container
 
-.EDIT__btn_exit {
+
+
+// For the EDIT container
+.EDIT__btn_exit, .MENU__btn_exit {
     background: transparent;
     color: rgb(0, 0, 0);
     padding: 0;
+    z-index: 50;
     // height: 40px;
     cursor: pointer;
 
