@@ -1,5 +1,37 @@
-// MENU
+// ADD GROUP STUFF
+.GROUP__add_group_container {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1001;
+    background-color: rgba(255, 255, 255, 0.295);
+}
+.GROUP__add_group_wrapper {
+    position: absolute;
+    background-color: #dfdad7;
+    z-index: 1002;
+    height: 135px;
+    border-radius: 5px;
+    margin: auto;
+    top: -200px; left: 0; bottom: 0; right: 0;
 
+    .GROUP__header_wrapper {
+        text-align: center;
+        font-weight: bold;
+        font-size:larger;
+        font-family: sans-serif;
+        padding-top: .25em
+    }
+
+    .titlebar {
+        padding: 1rem 1rem 1rem 1rem !important;
+    }
+}
+
+
+
+// MENU
 
 .menu_container {
     margin-top: 1em;
@@ -17,7 +49,7 @@
     }
 }
 
-.MENU__exit_wrapper {
+.MENU__btn_exit_wrapper {
     display: none;
     position: absolute;
     right: 0;

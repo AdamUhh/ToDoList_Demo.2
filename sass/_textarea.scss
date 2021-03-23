@@ -90,7 +90,7 @@
     }
 }
 
-.EDIT__textarea
+.EDIT__textarea, .task_description
  {
     * {
         box-sizing: border-box;
@@ -141,112 +141,6 @@
         font-family: sans-serif;
         cursor: pointer;
     }
-
-
-    // .modal {
-    //     position: fixed;
-    //     top: 0;
-    //     left: 0;
-    //     z-index: 99;
-    //     visibility: hidden;
-    //     width: 100%;
-    //     height: 100%;
-    //     background-color: rgba(0, 0, 0, 0.6);
-    //     opacity: 0;
-    //     transition: all 0.2s;
-    //     transform: scale(1.05);
-    // }
-
-    // .show-modal {
-    //     visibility: visible;
-    //     opacity: 1;
-    //     transition: all 0.2s;
-    //     transform: scale(1);
-    // }
-
-    // .modal-content {
-    //     position: absolute;
-    //     top: 50%;
-    //     left: 50%;
-    //     overflow: auto;
-    //     padding: 16px 32px;
-    //     max-width: 80%;
-    //     max-height: 80%;
-    //     border-radius: 8px;
-    //     background-color: var(--bg-color);
-    //     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-    //     transform: translate(-50%, -50%);
-    // }
-
-    // .close-button {
-    //     position: fixed;
-    //     top: 13px;
-    //     right: 13px;
-    //     display: inline-flex;
-    //     width: 32px;
-    //     height: 32px;
-    //     border-radius: 50%;
-    //     color: var(--secondary-color);
-    //     cursor: pointer;
-    //     transition: all 0.2s;
-    //     align-items: center;
-    //     justify-content: center;
-    // }
-
-    // .close-button:hover {
-    //     color: var(--font-color);
-    // }
-
-    // .theme-switch {
-    //     position: relative;
-    //     display: inline-block;
-    //     width: 32px;
-    //     height: 16px;
-    // }
-
-    // .theme-switch input {
-    //     display: none;
-    // }
-
-    // .slider {
-    //     position: absolute;
-    //     top: 0;
-    //     right: 0;
-    //     bottom: 0;
-    //     left: 0;
-    //     border-radius: 8px;
-    //     background-color: rgba(0, 0, 0, 0.1);
-    //     cursor: pointer;
-    //     transition: 0.2s;
-    // }
-
-    // .slider:hover:before {
-    //     background: rgba(0, 0, 0, 0.2);
-    // }
-
-    // .slider:active:before {
-    //     background: rgba(0, 0, 0, 0.3);
-    // }
-
-    // .slider:before {
-    //     position: absolute;
-    //     bottom: 0;
-    //     left: 0;
-    //     width: 16px;
-    //     height: 16px;
-    //     border-radius: 8px;
-    //     background-color: rgba(0, 0, 0, 0.1);
-    //     content: "";
-    //     transition: 0.2s;
-    // }
-
-    // input:checked + .slider {
-    //     background-color: var(--afont-color);
-    // }
-
-    // input:checked + .slider:before {
-    //     transform: translateX(16px);
-    // }
 
     textarea {
         z-index: 0;

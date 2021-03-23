@@ -118,17 +118,16 @@
     width: 1.5em;
 }
 
-// For the MENU container
+// * For the MENU container
 
 
 
-// For the EDIT container
-.EDIT__btn_exit, .MENU__btn_exit {
+// * For exit buttons
+.EDIT__btn_exit, .MENU__btn_exit, .GROUP__btn_exit {
     background: transparent;
     color: rgb(0, 0, 0);
     padding: 0;
     z-index: 50;
-    // height: 40px;
     cursor: pointer;
 
     &:hover {
@@ -226,3 +225,17 @@
         justify-content: center;
     }
 }
+
+// For GROUP CONFIRM
+.GROUP__confirm_center {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    .GROUP__btn_confirm {
+        position: relative;
+        margin-left: auto;
+        justify-content: center;
+
+    }
+}
+

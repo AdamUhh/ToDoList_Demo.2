@@ -12,7 +12,7 @@
 
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-width: 6px;
+width: 4px;
 }
 
 *::-webkit-scrollbar-track {
@@ -209,6 +209,11 @@ body {
             position: absolute;
             right: 20px;
             bottom: -5px;
+
+            button {
+                margin-right: 5px;
+
+            }
         }
     }
 }

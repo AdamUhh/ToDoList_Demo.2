@@ -26,7 +26,7 @@
     margin: 0;
 }
 
-// For EDIT area
+// * For EDIT area
 .EDIT__padding {
     position: relative;
     height: 96%;
@@ -34,7 +34,8 @@
     display: none;
 }
 
-.EDIT__btn_exit_wrapper {
+.EDIT__btn_exit_wrapper,
+.GROUP__btn_exit_wrapper {
     position: absolute;
     right: 0;
     top: 0;
@@ -71,11 +72,6 @@
     padding: 0.5rem 0.2rem;
 }
 
-.EDIT__task {
-    height: 80%;
-    overflow-y: scroll;
-}
-
 .EDIT__task_body {
     height: 10%;
 
@@ -101,18 +97,13 @@
 }
 
 .EDIT__select_task_container {
-    // position: relative;
-    // border-radius: 6px;
-    // -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-    // box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-    // color: #4a4a4a;
-    // // display: none;
     height: 93%;
     margin-bottom: 20px;
     overflow-y: auto;
     overflow-x: hidden;
     margin: 0.5rem;
     padding: 0.5rem 0.2rem;
+    display: none;
 }
 
 .EDIT__select_task_wrapper {
@@ -124,12 +115,17 @@
     &:hover {
         background-color: whitesmoke;
         cursor: pointer;
-
     }
 
-    h2, h4 {
+    h3,
+    h5 {
         width: 90%;
     }
+
+    h5 {
+        font-weight: 500;
+    }
+
 
 
     .EDIT__select_task_svg {
@@ -137,6 +133,4 @@
         top: -39px;
         float: right;
     }
-
-
 }
