@@ -95,6 +95,11 @@ ul {
     background-color: #f5f5f5;
     color: #363636;
 }
+.menu_list li.active {
+    background-color: #f7f7f7;
+    text-align: center;
+    font-weight: bold;
+}
 a {
     cursor: pointer;
     text-decoration: none !important;
@@ -106,4 +111,5 @@ a {
 .MAIN__navigationbar {
     position: relative;
     display: none;
+    z-index: 100;
 }
