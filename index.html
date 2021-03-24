@@ -207,7 +207,7 @@
                             </button>
                         </div>
                         <div class="titlebar_text">
-                            <input type="text" placeholder="Group Name" onChange="editGroup(this)"/>
+                            <input type="text" placeholder="Group Name" onchange="editGroupInput(this)"/>
                         </div>
                         <div class="titlebar_right">
                             <button type="button" class="button btn_add_card btn_border_15 btn_color_blue">
@@ -442,7 +442,7 @@
 
                     <div class="titlebar">
                         <div class="titlebar_text">
-                            <input type="text" placeholder="Card Name" />
+                            <input type="text" placeholder="Card Name" onchange="editCardInput(this)"/>
                         </div>
 
                     </div>
@@ -652,11 +652,14 @@
 
     <!--Markdown Editor Scripts  -->
     <script src="lib/markdown/marked.min.js"></script>
+
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured">
     </script>
     <script src="lib/markdown/marcdown.min.js"></script>
     <script async src="lib/markdown/highlight.min.js"></script>
+    <!-- Used to convert html to markdown (for editing) -->
+    <script async src="lib/markdown/europa.min.js"></script>
 
 </body>
 
