@@ -9,12 +9,14 @@ window.onload = function () {
         let Main_Padding = document.querySelector(".MAIN__padding");
         Main_Padding.querySelector(".titlebar_text").style.display = "none";
         Main_Padding.querySelector("hr").style.display = "none";
-
+        // todo when user adds a group, showcase these elements again, and put the newly made grouptitle in the input
     }
 };
 
 var isCardAdded = false;
+var isCardAddedExecute = true;
 var isTaskAdded = false;
+var isRepTaskAdded = false;
 var currentGroupID;
 var currentCardID;
 var currentTaskID;
@@ -58,6 +60,7 @@ document.querySelector(".EDIT__btn_exit").addEventListener("click", function () 
     document.querySelector("#viewer").innerHTML = "";
     document.querySelector("#buffer").innerHTML = "";
 
+    isCardAdded = false;
     isTaskAdded = false;
 });
 
@@ -95,6 +98,17 @@ document.querySelector(".EDIT__btn_ask_add_task").addEventListener("click", func
     document.querySelector(".EDIT__confirm_right").style.display = "inline-flex";
 
     isTaskAdded = true;
+});
+
+// ? User clicks Complete and Add another task (inside add card EDIT screen)
+document.querySelector(".EDIT__btn_confirm_and_add_task ").addEventListener("click", function () {
+    isRepTaskAdded = true;
+    isTaskAdded = true;
+
+    if (isCardAdded && isCardAddedExecute) {
+        getCardInput();
+    }
+    getTaskInput();
 });
 
 // ? User clicks add a group (from MENU) to show the wrapper
@@ -187,10 +201,17 @@ function editTask() {
     document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "block";
 }
 
+// ? User edits the Group Name input (from MAIN titlebar)
+function editGroup(obj) {
+    let span = document.querySelector("#" + currentGroupID);
+    span.textContent = obj.value;
+
+    // Append groupDict with new title
+    groupDict[currentGroupID].groupInfoTitle = obj.value;
+    console.log(groupDict);
+}
+
 // ! Creation of elements - Groups, Cards, Tasks
-// let currentGroupTitle;
-// let currentCardTitle;
-// let currentTaskTitle;
 
 let groupDict = {};
 let cardDict = {};
@@ -219,13 +240,30 @@ document.querySelector(".GROUP__btn_confirm").addEventListener("click", function
     document.querySelector(".GROUP__add_group_container").style.display = "none";
 });
 
-// ? Get Card and Task Input
+// ? Get Card and Task Input when user clicks the confirm button
 document.querySelector(".EDIT__btn_confirm").addEventListener("click", function () {
+    getCardInput();
+
+    getTaskInput();
+
+    setTimeout(() => {
+        document.querySelector(".EDIT__btn_exit").click();
+    }, 320);
+
+    isCardAddedExecute = true;
+    isCardAdded = false;
+    isTaskAdded = false;
+    isRepTaskAdded = false;
+    currentCardID = ""; //May cause error?!
+});
+
+function getCardInput() {
     let css_class = document.querySelector(".EDIT__padding");
     let cardID;
 
     // If user clicked AddCard, create card, otherwise continue
-    if (isCardAdded) {
+    if (isCardAdded && isCardAddedExecute) {
+        if (isRepTaskAdded) isCardAddedExecute = false;
         // Get Card Title
         let cardTitle = css_class.querySelector("input");
         console.log(cardTitle.value);
@@ -240,13 +278,20 @@ document.querySelector(".EDIT__btn_confirm").addEventListener("click", function 
         createCard(cardTitle.value, cardID);
 
         // Store in Group Dictionary
-        groupDict[currentGroupID].groupInfoContainsCards.push("cardBody"+cardID);
+        groupDict[currentGroupID].groupInfoContainsCards.push("cardBody" + cardID);
         // console.log(groupDict);
 
         // Store card data in dictionary
         cardDict["cardBody" + cardID] = cardInfo;
         // console.log(cardDict);
+
+        currentCardID = "cardBody" + cardID;
     }
+}
+function getTaskInput() {
+    let css_class = document.querySelector(".EDIT__padding");
+    let cardID = currentCardID.replace("cardBody", "");
+
     // If there is a task/markdown element on the screen
     if (isTaskAdded) {
         let css_class_task = document.querySelector(".EDIT__task_body");
@@ -278,43 +323,56 @@ document.querySelector(".EDIT__btn_confirm").addEventListener("click", function 
                 createTask(taskTitle.value, TaskDescriptionBuffer.innerHTML, taskDate.value, taskID, cardID);
                 taskInfo = {
                     taskInfoID: taskID,
+                    taskInfoTitle: taskTitle.value,
                     taskInfoDesc: TaskDescriptionBuffer.innerHTML,
                     taskDate: taskDate.value,
                 };
+                taskTitle.value = "";
+                TaskDescriptionMarkdown.value = "";
+                taskDate = "";
             } else {
                 createTask(taskTitle.value, TaskDescriptionViewer.innerHTML, taskDate.value, taskID, cardID);
                 taskInfo = {
                     taskInfoID: taskID,
+                    taskInfoTitle: taskTitle.value,
                     taskInfoDesc: TaskDescriptionViewer.innerHTML,
                     taskDate: taskDate.value,
                 };
+                taskTitle.value = "";
+                TaskDescriptionMarkdown.value = "";
+                taskDate = "";
             } // end of if else statement
 
             //Store in Card Dictionary
-            cardDict["cardBody" + cardID].cardInfoContainsTasks.push("taskBody"+taskID);
+            cardDict["cardBody" + cardID].cardInfoContainsTasks.push("taskBody" + taskID);
 
             // Store task data in dictionary
             taskDict["taskBody" + taskID] = taskInfo;
             // console.log(taskDict);
 
-            document.querySelector(".EDIT__btn_exit").click();
-        }, 300);
+            // document.querySelector(".EDIT__btn_exit").click();
+        }, 300); //end of setTimeout
     } else {
         document.querySelector(".EDIT__btn_exit").click();
     }
-
-    isCardAdded = false;
-    isTaskAdded = false;
-    currentCardID = "";
-});
+}
 
 // * Create Element
 
 // ? Create Group
 function createGroup(groupTitle, groupIDRef) {
+    let Main_Padding = document.querySelector(".MAIN__padding");
     if (Object.entries(groupDict).length === 0) {
+        //If there is no group but you are adding one now
         document.querySelector(".btn_add_card").style.display = "block";
+        Main_Padding.querySelector(".titlebar_text").style.display = "block";
+        Main_Padding.querySelector("hr").style.display = "block";
     }
+
+    // When new group is created, automatically clear all current cards on screen
+    document.querySelectorAll(".card_container").forEach((obj) => {
+        obj.remove();
+    });
 
     let parent = document.querySelector(".menu_list");
     let li = document.createElement("li");
@@ -324,6 +382,8 @@ function createGroup(groupTitle, groupIDRef) {
 
     // set span to user input
     span.textContent = groupTitle;
+    // set group name input to user input
+    Main_Padding.querySelector("input").value = groupTitle;
 
     // Append child
     li.appendChild(a);
@@ -336,13 +396,16 @@ function createGroup(groupTitle, groupIDRef) {
         let listItems = parent.querySelectorAll("li");
         for (let i = 0; i < listItems.length; i++) {
             if (listItems[i].classList.contains("active")) listItems[i].classList.remove("active");
-            li.className = "active";
         }
+        li.className = "active";
         // Hide all card containers
         document.querySelectorAll(".card_container").forEach((obj) => {
             obj.remove();
         });
         loadCards();
+        // set group name input to user input
+        let Main_Padding = document.querySelector(".MAIN__padding");
+        Main_Padding.querySelector("input").value = document.querySelector("#" + currentGroupID).textContent;
     };
 
     // When user creates a group, make its class active
@@ -351,6 +414,8 @@ function createGroup(groupTitle, groupIDRef) {
         if (listItems[i].classList.contains("active")) listItems[i].classList.remove("active");
         li.className = "active";
     }
+
+    // Change currentgroupid to newly created group
     currentGroupID = span.id;
 }
 
@@ -466,10 +531,6 @@ function createCard(cardTitle, cardIDRef) {
     card_Body.appendChild(card_Header);
     card_Container.appendChild(card_Body);
     parent.appendChild(card_Container);
-
-    // Store in Group Dictionary
-    // groupDict[currentGroupID].groupInfoContainsCards.push(card_Body.id);
-    // console.log(groupDict);
 }
 
 // ? Create Task
@@ -579,9 +640,6 @@ function createTask(taskTitle, taskDescription, taskDate, taskIDRef, cardIDRef) 
     task_Body.appendChild(task_Options);
     task_Container.appendChild(task_Body);
     parent.appendChild(task_Container);
-
-    //Store in Card Dictionary
-    // cardDict["cardBody" + cardIDRef].cardInfoContainsTasks.push(task_Body.id);
 }
 
 // * Load Elements
@@ -589,15 +647,17 @@ function createTask(taskTitle, taskDescription, taskDate, taskIDRef, cardIDRef) 
 // ? Load Cards
 function loadCards() {
     for (const containedCards of groupDict[currentGroupID].groupInfoContainsCards) {
-        console.log(containedCards)
-        createCard(cardDict[containedCards].cardInfoTitle, containedCards.replace("cardBody", ""))
+        // console.log(containedCards);
+        createCard(cardDict[containedCards].cardInfoTitle, containedCards.replace("cardBody", ""));
         for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
-            console.log(containedTasks)
-            createTask(taskDict[containedTasks].taskInfoTitle, taskDict[containedTasks].taskInfoDesc, taskDict[containedTasks].taskDate, containedTasks.replace("taskBody", ""), containedCards.replace("cardBody", ""))
+            // console.log(containedTasks);
+            createTask(
+                taskDict[containedTasks].taskInfoTitle,
+                taskDict[containedTasks].taskInfoDesc,
+                taskDict[containedTasks].taskDate,
+                containedTasks.replace("taskBody", ""),
+                containedCards.replace("cardBody", "")
+            );
         }
-
     }
-
-
-
 }
