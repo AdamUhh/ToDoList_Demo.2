@@ -120,10 +120,10 @@
 
 // * For the MENU container
 
-
-
 // * For exit buttons
-.EDIT__btn_exit, .MENU__btn_exit, .GROUP__btn_exit {
+.EDIT__btn_exit,
+.MENU__btn_exit,
+.GROUP__btn_exit {
     background: transparent;
     color: rgb(0, 0, 0);
     padding: 0;
@@ -141,7 +141,7 @@
     padding: 0;
     // height: 30px;
     cursor: pointer;
-
+    z-index: 50;
     &:hover {
         color: rgb(131, 0, 0);
     }
@@ -224,6 +224,13 @@
         width: 90%;
         justify-content: center;
     }
+
+    .EDIT__btn_confirm_edit {
+        display: none;
+        position: relative;
+        width: 90%;
+        justify-content: center;
+    }
 }
 
 // For GROUP CONFIRM
@@ -235,7 +242,10 @@
         position: relative;
         margin-left: auto;
         justify-content: center;
-
     }
 }
 
+
+.btn_add_card, .MAIN__padding .titlebar_text, .MAIN__padding hr {
+    display: none;
+}
