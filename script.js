@@ -17,6 +17,8 @@ let groupDict = {};
 let cardDict = {};
 let taskDict = {};
 
+// todo create a function to clear task names, and another function to clear card names
+
 // * For Navigation --------------------------------------------------------------
 // ? User CLICKS/OPENS the NAVIGATION menu (on phone in MAIN)
 document.querySelector(".btn_open_nav").addEventListener("click", function () {
@@ -117,14 +119,15 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         let css_class_task = document.querySelector(".EDIT__task_body");
         let css_class_markdown = document.querySelector(".EDIT__task_container");
-        let taskTitleElement = css_class_task.querySelector("input");
-        let taskDateElement = css_class_task.querySelector("#myDatepicker");
-        let taskDescElement = css_class_markdown.querySelector("#getm");
+        let taskTitle = css_class_task.querySelector("input");
+        let taskDate = css_class_task.querySelector("#myDatepicker");
+        let TaskDescriptionMarkdown = css_class_markdown.querySelector("#getm");
 
         // revert textContent in task title, description, date
-        taskTitleElement.value = "";
-        taskDateElement.value = "";
-        taskDescElement.value = "";
+        taskTitle.value = "";
+        taskDate.value = "";
+        taskDate._flatpickr.clear();
+        TaskDescriptionMarkdown.value = "";
 
         hasTaskEditMode = false;
     });
@@ -168,7 +171,10 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         let taskDate = css_class_task.querySelector("#myDatepicker");
         let task = document.querySelector("#" + currentTaskID);
 
-        if (taskDate.value == null) taskDate = "";
+        if (taskDate.value == null) {
+            taskDate.value = "";
+            taskDate._flatpickr.clear();
+        }
 
         // Get Task Description - Viewer, Buffer, Markdown
         let TaskDescriptionViewer = css_class.querySelector("#viewer");
@@ -233,6 +239,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // revert textContent in task title, description, date
         taskTitle.value = "";
         taskDate.value = "";
+        taskDate._flatpickr.clear();
         TaskDescriptionMarkdown.value = "";
 
         if (goBack) {
@@ -572,6 +579,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             taskTitle.value = "";
             TaskDescriptionMarkdown.value = "";
             taskDate.value = "";
+            taskDate._flatpickr.clear();
 
             // Store taskID to cardDict.contains
             cardDict["cardBody" + cardIDNum].cardInfoContainsTasks.push("taskBody" + taskIDNum);
