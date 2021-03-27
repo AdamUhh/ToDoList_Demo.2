@@ -496,7 +496,6 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Get text of card name
         let cardTitle = css_class.querySelector("input");
-        // console.log(cardTitle.value);
 
         // create numeric card ID
         cardIDNum = new Date().getTime();
@@ -513,11 +512,9 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Store cardID to groupDict.contains
         groupDict[currentGroupID].groupInfoContainsCards.push("cardBody" + cardIDNum);
-        // console.log(groupDict);
 
         // Store card data in cardDict
         cardDict["cardBody" + cardIDNum] = cardInfo;
-        // console.log(cardDict);
 
         // assign cardID to currentCardID
         currentCardID = "cardBody" + cardIDNum;
@@ -586,7 +583,6 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
             // Store task data in dictionary
             taskDict["taskBody" + taskIDNum] = taskInfo;
-            // console.log(taskDict);
         } else {
             // hides EDIT screen and displays MAIN screen
             document.querySelector(".EDIT__btn_exit").click();
@@ -855,7 +851,6 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
             // assign cardID to currentCardID
             currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
-            console.log(currentCardID);
 
             // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
             let cardTitle = document.querySelector("#" + currentCardID);
@@ -964,7 +959,6 @@ function loadCards() {
 // ? User deletes a group (from MENU)
 function deleteGroup() {
     var g = this.parentNode;
-    // console.log(g.id);
 
     //delete animation
     g.animate(
@@ -1002,7 +996,6 @@ function deleteGroup() {
 // ? User deletes a card (from MAIN titlebar)
 function deleteCard() {
     var c = this.parentNode.parentNode.parentNode.parentNode;
-    console.log(c);
     //delete animation
     c.animate(
         [
