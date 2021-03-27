@@ -23,28 +23,6 @@ let taskDict = {};
 // todo for goback/confirmgoback, do not use EDIT__btn_confirm. Create a new function instead.
 
 
-// * Simulate the ENTER keypress
-function enter(obj) {
-    var keyEventDown = new KeyboardEvent("keydown", {
-        code: "Enter",
-        key: "Enter",
-        charKode: 13,
-        keyCode: 13,
-        view: window,
-    });
-
-    var keyEventUp = new KeyboardEvent("keyup", {
-        code: "Enter",
-        key: "Enter",
-        charKode: 13,
-        keyCode: 13,
-        view: window,
-    });
-
-    obj.dispatchEvent(keyEventDown);
-    obj.dispatchEvent(keyEventUp);
-}
-
 // * For Navigation --------------------------------------------------------------
 // ? User CLICKS/OPENS the NAVIGATION menu (on phone in MAIN)
 document.querySelector(".btn_open_nav").addEventListener("click", function () {
@@ -111,7 +89,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 }
 
 // * Edit Stuff --------------------------------------------------------------
-// ? User EDITS CARD NAME (from EDIT titlebar)
+// ? User EDITS CARD NAME input (from EDIT titlebar)
 function editCardInput(obj) {
     // If currentCardID has a value - prevents errors
     if (currentCardID) {
@@ -120,6 +98,17 @@ function editCardInput(obj) {
         cardDict[currentCardID].cardInfoTitle = obj.value;
     }
 }
+
+// ? User EDITS GROUP NAME input (from MAIN titlebar)
+function editGroupInput(obj) {
+    let span = document.querySelector("#" + currentGroupID);
+    span.textContent = obj.value;
+
+    // Append groupDict with new title
+    groupDict[currentGroupID].groupInfoTitle = obj.value;
+}
+
+
 
 // ? User clicks edit btn of a card (from MAIN titlebar)
 function editCardScreen() {
@@ -136,6 +125,63 @@ function editCardScreen() {
 
     loadEditSelectedTasks();
 }
+// ? Used to LOAD -> CREATE selected tasks in the EDIT CARD Screen
+function loadEditSelectedTasks() {
+    for (const containedTasks of cardDict[currentCardID].cardInfoContainsTasks) {
+        createEditSelectedTasks(containedTasks);
+    }
+}
+// ? Create selected task (from EDIT CARD)
+function createEditSelectedTasks(taskIDRef) {
+    let parent = document.querySelector(".EDIT__select_task_container");
+    let taskTitle = taskDict[taskIDRef].taskInfoTitle;
+    let taskDesc = taskDict[taskIDRef].taskInfoDesc;
+
+    // Create elements
+    let div = document.createElement("div");
+    div.className = "EDIT__select_task_wrapper";
+    let h3 = document.createElement("h3");
+    h3.textContent = taskTitle;
+    let h5 = document.createElement("h5");
+    h5.innerHTML = taskDesc.substring(0, 100);
+    let task_Select_Options = document.createElement("div");
+    task_Select_Options.className = "EDIT__select_task_svg";
+
+    let task_Select_Option1_span = document.createElement("span");
+    task_Select_Option1_span.className = "icon icon_up";
+    let task_Select_Option1_svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    task_Select_Option1_svg.setAttribute("class", "svg-inline--fa fa-pencil-alt fa-w-18 fa-lg");
+    task_Select_Option1_svg.setAttribute("aria-hidden", "true");
+    task_Select_Option1_svg.setAttribute("data-prefix", "fa");
+    task_Select_Option1_svg.setAttribute("data-icon", "pencil-alt");
+    task_Select_Option1_svg.setAttribute("role", "img");
+    task_Select_Option1_svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    task_Select_Option1_svg.setAttribute("viewBox", "0 0 512 512");
+    task_Select_Option1_svg.setAttribute("data-fa-i2svg", "");
+    let task_Select_Option1_path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    task_Select_Option1_path.setAttribute("fill", "currentColor");
+    task_Select_Option1_path.setAttribute(
+        "d",
+        "M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+    );
+    task_Select_Option1_svg.appendChild(task_Select_Option1_path);
+    task_Select_Option1_span.appendChild(task_Select_Option1_svg);
+    task_Select_Options.appendChild(task_Select_Option1_span);
+    div.addEventListener("click", function () {
+        editTaskScreen(taskIDRef);
+        document.querySelectorAll(".EDIT__select_task_wrapper").forEach((e) => e.parentNode.removeChild(e));
+    });
+
+    div.appendChild(h3);
+    div.appendChild(h5);
+    div.appendChild(task_Select_Options);
+    parent.appendChild(div);
+}
+
+
+
+
+
 
 // ? User edits a task (from CARD EDIT screen )
 function editTaskScreen(taskIDRef) {
@@ -165,15 +211,7 @@ function editTaskScreen(taskIDRef) {
     taskDescElement.value = europa.convert(taskDesc);
 }
 
-// ? User edits the Group Name input (from MAIN titlebar)
-function editGroupInput(obj) {
-    let span = document.querySelector("#" + currentGroupID);
-    span.textContent = obj.value;
 
-    // Append groupDict with new title
-    groupDict[currentGroupID].groupInfoTitle = obj.value;
-    // console.log(groupDict);
-}
 
 // * Add Stuff --------------------------------------------------------------
 {
@@ -687,6 +725,13 @@ function createTask(taskTitle, taskDescription, taskDate, taskIDNumRef, cardIDNu
 
             task_Date.appendChild(task_Date_Left);
         }
+    } else {
+        let task_Date_Left = document.createElement("div");
+        task_Date_Left.className = "task_date_left";
+        task_Date_Left.textContent = "";
+
+        task_Date.appendChild(task_Date_Left);
+
     }
 
     // Append elements to card parent
@@ -698,52 +743,7 @@ function createTask(taskTitle, taskDescription, taskDate, taskIDNumRef, cardIDNu
     parent.appendChild(task_Container);
 }
 
-// ? Create selected task (from EDIT CARD)
-function createEditSelectedTasks(taskIDRef) {
-    let parent = document.querySelector(".EDIT__select_task_container");
-    let taskTitle = taskDict[taskIDRef].taskInfoTitle;
-    let taskDesc = taskDict[taskIDRef].taskInfoDesc;
 
-    // Create elements
-    let div = document.createElement("div");
-    div.className = "EDIT__select_task_wrapper";
-    let h3 = document.createElement("h3");
-    h3.textContent = taskTitle;
-    let h5 = document.createElement("h5");
-    h5.innerHTML = taskDesc.substring(0, 100);
-    let task_Select_Options = document.createElement("div");
-    task_Select_Options.className = "EDIT__select_task_svg";
-
-    let task_Select_Option1_span = document.createElement("span");
-    task_Select_Option1_span.className = "icon icon_up";
-    let task_Select_Option1_svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    task_Select_Option1_svg.setAttribute("class", "svg-inline--fa fa-pencil-alt fa-w-18 fa-lg");
-    task_Select_Option1_svg.setAttribute("aria-hidden", "true");
-    task_Select_Option1_svg.setAttribute("data-prefix", "fa");
-    task_Select_Option1_svg.setAttribute("data-icon", "pencil-alt");
-    task_Select_Option1_svg.setAttribute("role", "img");
-    task_Select_Option1_svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    task_Select_Option1_svg.setAttribute("viewBox", "0 0 512 512");
-    task_Select_Option1_svg.setAttribute("data-fa-i2svg", "");
-    let task_Select_Option1_path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    task_Select_Option1_path.setAttribute("fill", "currentColor");
-    task_Select_Option1_path.setAttribute(
-        "d",
-        "M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
-    );
-    task_Select_Option1_svg.appendChild(task_Select_Option1_path);
-    task_Select_Option1_span.appendChild(task_Select_Option1_svg);
-    task_Select_Options.appendChild(task_Select_Option1_span);
-    div.addEventListener("click", function () {
-        editTaskScreen(taskIDRef);
-        document.querySelectorAll(".EDIT__select_task_wrapper").forEach((e) => e.parentNode.removeChild(e));
-    });
-
-    div.appendChild(h3);
-    div.appendChild(h5);
-    div.appendChild(task_Select_Options);
-    parent.appendChild(div);
-}
 
 // * Load Elements --------------------------------------------------------------
 // ? Load Cards
@@ -762,11 +762,7 @@ function loadCards() {
     }
 }
 
-function loadEditSelectedTasks() {
-    for (const containedTasks of cardDict[currentCardID].cardInfoContainsTasks) {
-        createEditSelectedTasks(containedTasks);
-    }
-}
+
 
 // * Delete Stuff --------------------------------------------------------------
 // ? User deletes a card (from MAIN titlebar)

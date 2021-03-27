@@ -107,6 +107,7 @@
 }
 
 .EDIT__select_task_wrapper {
+    position: relative;
     background-color: white;
     border-radius: 20px;
     padding: 10px 10px 10px 10px;
@@ -129,8 +130,8 @@
 
 
     .EDIT__select_task_svg {
-        position: relative;
-        top: -39px;
-        float: right;
+        position: absolute;
+        top: 20px;
+        right: 20px;
     }
 }

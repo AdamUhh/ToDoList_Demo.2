@@ -498,6 +498,7 @@ a {
 }
 
 .EDIT__select_task_wrapper {
+  position: relative;
   background-color: white;
   border-radius: 20px;
   padding: 10px 10px 10px 10px;
@@ -519,9 +520,9 @@ a {
 }
 
 .EDIT__select_task_wrapper .EDIT__select_task_svg {
-  position: relative;
-  top: -39px;
-  float: right;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 :root {
@@ -589,6 +590,7 @@ a {
   display: flex;
   width: 100%;
   height: 95%;
+  word-break: break-all;
   color: g;
 }
 
@@ -750,6 +752,7 @@ a {
 
 .EDIT__textarea pre .hljs, .task_description pre .hljs {
   display: block !important;
+  white-space: break-spaces;
 }
 
 .EDIT__textarea h1,
@@ -1065,6 +1068,7 @@ body {
   margin: 1em 1em 1em 1em;
   font-family: sans-serif;
   position: relative;
+  word-break: break-all;
 }
 
 .card_body {
