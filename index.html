@@ -42,7 +42,7 @@
             </div>
             <div class="titlebar">
                 <div class="titlebar_text">
-                    <input type="text" placeholder="Group Name" />
+                    <input type="text" placeholder="Group Name" id="groupTitleInput" />
                 </div>
             </div>
             <div class="GROUP__confirm_center">
@@ -117,21 +117,21 @@
                     <p class="menu_label">Calendar</p>
                     <ul class="menu_list">
                         <li>
-                            <a href="/todolist/calendar/today/" class="">
+                            <a  class="">
                                 <span class="icon is-small"><i class="mdi mdi-calendar-today"></i></span>
                                 <span>Daily Tasks</span>
                             </a>
                             <!---->
                         </li>
                         <li>
-                            <a href="/todolist/calendar/week/" class="">
+                            <a  class="">
                                 <span class="icon is-small"><i class="mdi mdi-calendar-week"></i></span>
                                 <span>Weekly Tasks</span>
                             </a>
                             <!---->
                         </li>
                         <li>
-                            <a href="/todolist/calendar/month/" class="">
+                            <a class="">
                                 <span class="icon is-small"><i class="mdi mdi-calendar-month"></i></span>
                                 <span>Monthly Tasks</span>
                             </a>
@@ -141,30 +141,9 @@
                     <p class="menu_label">Settings</p>
                     <ul class="menu_list">
                         <li>
-                            <a href="/todolist/settings/" class="">
+                            <a xclass="">
                                 <span class="icon is-small"><i class="mdi mdi-cogs"></i></span>
                                 <span>General Settings</span>
-                            </a>
-                            <!---->
-                        </li>
-                        <li>
-                            <a href="/todolist/theme/" class="">
-                                <span class="icon is-small"><i class="mdi mdi-palette"></i></span>
-                                <span>Theme</span>
-                            </a>
-                            <!---->
-                        </li>
-                        <li>
-                            <a href="/todolist/settings/reset/" class="">
-                                <span class="icon is-small"><i class="mdi mdi-reload"></i></span>
-                                <span>Database Reset</span>
-                            </a>
-                            <!---->
-                        </li>
-                        <li>
-                            <a href="/todolist/about/" class="">
-                                <span class="icon is-small"><i class="mdi mdi-information"></i></span>
-                                <span>About</span>
                             </a>
                             <!---->
                         </li>
@@ -173,7 +152,6 @@
                                 <span class="icon is-small"><i class="mdi mdi-information"></i></span>
                                 <span>Display Data</span>
                             </a>
-                            <!---->
                         </li>
                     </ul>
                 </div>
@@ -217,7 +195,8 @@
                             </button>
                         </div>
                         <div class="titlebar_text">
-                            <input type="text" placeholder="Group Name" onchange="editGroupInput(this)" />
+                            <input type="text" placeholder="Group Name" onchange="editGroupInput(this)"
+                                id="MainGroupTitleInput" />
                         </div>
                         <div class="titlebar_right">
                             <button type="button" class="button btn_add_card btn_border_15 btn_color_blue">
@@ -452,7 +431,8 @@
 
                     <div class="titlebar">
                         <div class="titlebar_text">
-                            <input type="text" placeholder="Card Name" onchange="editCardInput(this)" />
+                            <input type="text" placeholder="Card Name" onchange="editCardInput(this)"
+                                id="cardTitleInput" />
                         </div>
 
                     </div>
@@ -507,7 +487,7 @@
                             <div class="EDIT__task_body">
                                 <div class="titlebar">
                                     <div class="titlebar_text">
-                                        <input type="text" placeholder="Task Title" />
+                                        <input type="text" placeholder="Task Title" id="taskTitleInput" />
                                     </div>
                                     <div class="titlebar_date">
                                         <button type="button" id="myDatepicker"

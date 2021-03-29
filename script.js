@@ -1,13 +1,14 @@
 window.onload = function () {
     flatpickr("#myDatepicker", {
         mode: "range",
-        dateFormat: "d-m-Y",
+        dateFormat: "j F, y",
+        // dateFormat: "d-m-Y",
     });
 };
 
 var hasCardBeenAdded = false;
 var hasMarkdown = false;
-var hasTaskEditMode = false;
+var isTaskEditMode = false;
 var goBack = false;
 var currentGroupID;
 var currentCardID;
@@ -17,7 +18,28 @@ let groupDict = {};
 let cardDict = {};
 let taskDict = {};
 
-// todo create a function to clear task names, and another function to clear card names
+function clearValues(clearTask = false, clearCard = false) {
+    if (clearTask) {
+        let taskTitle = document.querySelector("#taskTitleInput");
+        let TaskDescriptionMarkdown = document.querySelector("#getm");
+        let TaskDescriptionViewer = document.querySelector("#viewer");
+        let TaskDescriptionBuffer = document.querySelector("#buffer");
+        let taskDate = document.querySelector("#myDatepicker");
+
+        // clear textContent in task title, description, date
+        taskTitle.value = "";
+        TaskDescriptionMarkdown.value = "";
+        TaskDescriptionViewer.value = "";
+        TaskDescriptionBuffer.value = "";
+        TaskDescriptionViewer.innerHTML = "";
+        TaskDescriptionBuffer.innerHTML = "";
+        taskDate.value = "";
+        taskDate._flatpickr.clear();
+    }
+    if (clearCard) {
+        document.querySelector("#cardTitleInput").value = "";
+    }
+}
 
 // * For Navigation --------------------------------------------------------------
 // ? User CLICKS/OPENS the NAVIGATION menu (on phone in MAIN)
@@ -25,6 +47,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
     document.querySelector(".column.box").style.display = "none";
     document.querySelector(".column").style.display = "none";
     document.querySelector(".one_quarter").style.display = "block";
+    // Used to hide [x] when user switches screen size from phone to laptop
     document.querySelector(".MENU__btn_exit_wrapper").style.display = "block";
 });
 
@@ -37,46 +60,42 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // Used to fix bug where MAIN won't display if screen size changes from phone to laptop
         if (window.innerWidth < 1100) {
             document.querySelector(".one_quarter").style.display = "none";
-        } else if (window.innerWidth >= 1100 && document.querySelector(".MENU__btn_exit_wrapper").style.display == "block") document.querySelector(".one_quarter").style.display = "none";
-
-        document.querySelector(".MENU__btn_exit_wrapper").style.display = "none";
+        } else if (
+            window.innerWidth >= 1100 &&
+            document.querySelector(".MENU__btn_exit_wrapper").style.display == "block"
+        ) {
+            document.querySelector(".one_quarter").style.display = "none";
+            document.querySelector(".MENU__btn_exit_wrapper").style.display = "none";
+        }
     });
 
     // ? User CLICKS/EXITS the EDIT screen [X]
     document.querySelector(".EDIT__btn_exit").addEventListener("click", function () {
         // Hides appropriate elements of EDIT screen and shows only the MAIN screen
-        document.querySelector(".MAIN__padding").style.display = "block";
-        document.querySelector(".EDIT__padding").style.display = "none";
-        document.querySelector(".EDIT__ask_add_task").style.display = "none";
-        document.querySelector(".EDIT__confirm_left").style.display = "none"; //Complete and go back
-        document.querySelector(".EDIT__confirm_right").style.display = "none"; //Complete and add task
-        document.querySelector(".EDIT__task_container").style.display = "none";
-        document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "none";
-        document.querySelector(".EDIT__select_task_container").style.display = "none";
+        document.querySelector(".MAIN__padding").style.display = "block"; //show MAIN
+        document.querySelector(".EDIT__padding").style.display = "none"; //hide EDIT
+        document.querySelector(".EDIT__ask_add_task").style.display = "none"; //hides Seems empty, add a task
+        document.querySelector(".EDIT__confirm_left").style.display = "none"; //hides Complete and go back
+        document.querySelector(".EDIT__confirm_right").style.display = "none"; //hides Complete and add task
+        document.querySelector(".EDIT__task_container").style.display = "none"; //hides task container
+        document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "none"; //hides EDIT CARD -> Task go back button
 
         // removes all elements inside 'Edit Card -> Select Tasks'
         document.querySelectorAll(".EDIT__select_task_wrapper").forEach((e) => e.parentNode.removeChild(e));
+        document.querySelector(".EDIT__select_task_container").style.display = "none";
 
-        // Removes text (and child elements) of
-        document.querySelector("#getm").value = "";
-        document.querySelector("#viewer").value = "";
-        document.querySelector("#buffer").value = "";
-        document.querySelector("#viewer").innerHTML = "";
-        document.querySelector("#buffer").innerHTML = "";
+        // clear task and card input values
+        clearValues(true, true);
 
-        // Removes text of card name in EDIT screen
-        let Edit_Padding = document.querySelector(".EDIT__padding");
-        Edit_Padding.querySelector("input").value = "";
-        Edit_Padding.querySelector(".EDIT__btn_confirm").style.display = "inline-flex";
-        Edit_Padding.querySelector(".EDIT__btn_confirm_edit").style.display = "none";
-        // note: task title, desc, date is cleared when user clicks .EDIT__btn_confirm -> getTaskInput()
-        // note: card title name is cleared when user clicks .EDIT__btn_confirm
+        // switch to correct 'edit confirm' buttons
+        document.querySelector(".EDIT__btn_confirm").style.display = "inline-flex";
+        document.querySelector(".EDIT__btn_confirm_edit").style.display = "none";
 
         // reset booleans
         hasCardBeenAdded = false; //no cards have been created
         hasMarkdown = false; //markdowns are no longer visible
-        hasTaskEditMode = false; //  task edit mode disabled
-        goBack = false; // go back to edit selected task screen disabled
+        isTaskEditMode = false; //task edit mode disabled
+        goBack = false; //go back to edit selected task screen disabled
 
         // reset currentCardID
         currentCardID = "";
@@ -85,6 +104,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
     // ? User CLICKS/EXITS the GROUP container [X]
     document.querySelector(".GROUP__btn_exit").addEventListener("click", function () {
         document.querySelector(".GROUP__add_group_container").style.display = "none";
+        document.querySelector("#groupTitleInput").value = "";
     });
 }
 
@@ -111,49 +131,29 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
     // ? User CLICKS/GO BACK to edit of CARD->TASK (from CARD-EDIT) [<-]
     // note: also clears the task title, description, date
     document.querySelector(".EDIT__btn_go_back_wrapper").addEventListener("click", function () {
-        // display EDIT Card selected tasks again
+        // display EDIT Card selected tasks again, and hide '<-' and 'Complete and go back' buttons and the task container
         document.querySelector(".EDIT__select_task_container").style.display = "block";
+        document.querySelector(".EDIT__task_container").style.display = "none";
         document.querySelector(".EDIT__confirm_left").style.display = "none";
         document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "none";
+
         loadEditSelectedTasks();
 
-        let css_class_task = document.querySelector(".EDIT__task_body");
-        let css_class_markdown = document.querySelector(".EDIT__task_container");
-        let taskTitle = css_class_task.querySelector("input");
-        let taskDate = css_class_task.querySelector("#myDatepicker");
-        let TaskDescriptionMarkdown = css_class_markdown.querySelector("#getm");
+        // clear Task Inputs
+        clearValues(true);
 
-        // revert textContent in task title, description, date
-        taskTitle.value = "";
-        taskDate.value = "";
-        taskDate._flatpickr.clear();
-        TaskDescriptionMarkdown.value = "";
-
-        hasTaskEditMode = false;
+        isTaskEditMode = false;
     });
 
     // ? User CLICKS/CONFIRMS edit of CARD/TASK (from CARD-EDIT) [+ Confirm Edit]
     // note: also clears the card name
     document.querySelector(".EDIT__btn_confirm_edit").addEventListener("click", function () {
         // As cards are already checked by editCardInput(obj), only run if the user clicks edit (selected) task
-        if (hasTaskEditMode) {
+        if (isTaskEditMode) {
             EditConfirm();
-            hasTaskEditMode = false;
         }
 
-        let Edit_Padding = document.querySelector(".EDIT__padding");
-        Edit_Padding.querySelector("input").value = "";
-        Edit_Padding.style.display = "none";
-        // change confirm buttons again
-        Edit_Padding.querySelector(".EDIT__btn_confirm").style.display = "inline-flex";
-        Edit_Padding.querySelector(".EDIT__btn_confirm_edit").style.display = "none";
-
-        document.querySelector(".EDIT__select_task_container").style.display = "none";
-        document.querySelector(".EDIT__confirm_left").style.display = "none";
-        document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "none";
-
-        // Display Main
-        document.querySelector(".MAIN__padding").style.display = "block";
+        document.querySelector(".EDIT__btn_exit").click();
     });
 
     // ? User CLICKS/CONFIRMS edit of CARD->TASK (from CARD-EDIT) [Complete and Go Back]
@@ -165,21 +165,17 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
     // ? FUNCTION when EDITING CARDS/TASKS to reduce redundancy
     // note: also clears the task title, description, date
     function EditConfirm() {
-        let css_class = document.querySelector(".EDIT__padding");
-        let css_class_task = document.querySelector(".EDIT__task_body");
-        let taskTitle = css_class_task.querySelector("input");
-        let taskDate = css_class_task.querySelector("#myDatepicker");
+        isTaskEditMode = false;
+
+        let taskTitle = document.querySelector("#taskTitleInput");
+        let TaskDescriptionMarkdown = document.querySelector("#getm");
+        let TaskDescriptionViewer = document.querySelector("#viewer");
+        let TaskDescriptionBuffer = document.querySelector("#buffer");
+        let taskDate = document.querySelector("#myDatepicker");
         let task = document.querySelector("#" + currentTaskID);
 
-        if (taskDate.value == null) {
-            taskDate.value = "";
-            taskDate._flatpickr.clear();
-        }
-
-        // Get Task Description - Viewer, Buffer, Markdown
-        let TaskDescriptionViewer = css_class.querySelector("#viewer");
-        let TaskDescriptionBuffer = css_class.querySelector("#buffer");
-        let TaskDescriptionMarkdown = css_class.querySelector("#getm");
+        // append task in MAIN to new task title
+        task.querySelector(".task_title").textContent = taskTitle.value;
 
         // Simulate Keypress (ENTER) to update markdown incase of LAG
         var keyEventPress = new KeyboardEvent("keypress", {
@@ -211,18 +207,14 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             task.querySelector(".task_description").innerHTML = TaskDescriptionViewer.innerHTML;
         } // end of if else statement
 
-        // append task in MAIN to new task title
-        task.querySelector(".task_title").textContent = taskTitle.value;
-
         // check if task_date has a value and ppend task in MAIN to new task date
         var task_Date = task.querySelector(".task_date");
         var task_Date_Left = task_Date.querySelector(".task_date_left");
         var task_Date_Right = task_Date.querySelector(".task_date_right");
         if (taskDate.value.length > 0) {
             var taskDateArr = taskDate.value.split(" to ");
-
             if (taskDateArr.length > 1) {
-                task_Date_Left.textContent = "Made On: " + taskDateArr[0];
+                task_Date_Left.textContent = "Made On: " + taskDateArr[0] + " —\u00A0";
                 task_Date_Right.textContent = "Due On: " + taskDateArr[1];
             } else {
                 task_Date_Left.textContent = "Made On: " + taskDateArr[0];
@@ -236,30 +228,30 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // save new task data to taskDict
         taskDict[currentTaskID] = taskInfo;
 
-        // revert textContent in task title, description, date
-        taskTitle.value = "";
-        taskDate.value = "";
-        taskDate._flatpickr.clear();
-        TaskDescriptionMarkdown.value = "";
-
         if (goBack) {
             goBack = false;
-            // display EDIT Card selected tasks again
+            // clear task values
+            clearValues(true);
+            // display EDIT Card selected tasks again, and hide edit buttons
             document.querySelector(".EDIT__select_task_container").style.display = "block";
             document.querySelector(".EDIT__confirm_left").style.display = "none";
             document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "none";
+
             loadEditSelectedTasks();
         }
     }
 
     // ? FUNCTION to ASSIGN VALUES for when User CLICKS/EDITS CARD (from MAIN titlebar)
     function editCardScreen() {
-        let Edit_Padding = document.querySelector(".EDIT__padding");
-        Edit_Padding.style.display = "block";
-        Edit_Padding.querySelector(".EDIT__btn_confirm").style.display = "none";
-        // this is a new/specific btn for card/task edits
-        Edit_Padding.querySelector(".EDIT__btn_confirm_edit").style.display = "inline-flex";
+        // hides MAIN and shows EDIT
+        document.querySelector(".EDIT__padding").style.display = "block";
         document.querySelector(".MAIN__padding").style.display = "none";
+
+        // switches 'confirm' button for 'confirm edit' button
+        document.querySelector(".EDIT__btn_confirm").style.display = "none";
+        document.querySelector(".EDIT__btn_confirm_edit").style.display = "inline-flex";
+
+        // displays EDIT CARD selected task container
         document.querySelector(".EDIT__select_task_container").style.display = "block";
 
         // assign cardID to currentCardID
@@ -267,7 +259,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
         let cardTitle = document.querySelector("#" + currentCardID);
-        Edit_Padding.querySelector("input").value = cardTitle.querySelector(".card_title").textContent;
+        document.querySelector("#cardTitleInput").value = cardTitle.querySelector(".card_title").textContent;
 
         // to load -> create selected tasks specific to the currentCardID
         loadEditSelectedTasks();
@@ -275,6 +267,10 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
     // ? Used to LOAD -> CREATE selected tasks in the EDIT CARD Screen
     function loadEditSelectedTasks() {
+        // removes all elements inside 'Edit Card -> Select Tasks'
+        document.querySelectorAll(".EDIT__select_task_wrapper").forEach((e) => e.parentNode.removeChild(e));
+
+        // Creates selected tasks relative to current card
         for (const containedTasks of cardDict[currentCardID].cardInfoContainsTasks) {
             createEditSelectedTasks(containedTasks);
         }
@@ -292,7 +288,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         let h3 = document.createElement("h3");
         h3.textContent = taskTitle;
         let h5 = document.createElement("h5");
-        h5.innerHTML = taskDesc.substring(0, 100);
+        h5.innerHTML = taskDesc.substring(0, 100) + "...";
         let task_Select_Options = document.createElement("div");
         task_Select_Options.className = "EDIT__select_task_svg";
 
@@ -317,7 +313,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         task_Select_Option1_span.appendChild(task_Select_Option1_svg);
         task_Select_Options.appendChild(task_Select_Option1_span);
         div.onclick = function () {
-            hasTaskEditMode = true;
+            isTaskEditMode = true;
             document.querySelector(".EDIT__confirm_left").style.display = "inline-flex";
             document.querySelector(".EDIT__btn_go_back_wrapper").style.display = "block";
             document.querySelector(".EDIT__select_task_container").style.display = "none";
@@ -333,27 +329,25 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
     // ? FUNCTION to ASSIGN VALUES for when User EDITS a task (from CARD EDIT screen)
     function editTaskScreen(taskIDRef) {
+        // hides MAIN and shows EDIT
         document.querySelector(".EDIT__padding").style.display = "block";
-        document.querySelector(".EDIT__task_container").style.display = "block";
-        document.querySelector(".EDIT__confirm_right").style.display = "none";
         document.querySelector(".MAIN__padding").style.display = "none";
 
-        let css_class_task = document.querySelector(".EDIT__task_body");
-        let css_class_markdown = document.querySelector(".EDIT__task_container");
-        let taskTitleElement = css_class_task.querySelector("input");
-        let taskDescElement = css_class_markdown.querySelector("#getm");
+        // Displays task container but hides 'complete and add task' button
+        document.querySelector(".EDIT__task_container").style.display = "block";
+        document.querySelector(".EDIT__confirm_right").style.display = "none";
 
-        let taskTitle = taskDict[taskIDRef].taskInfoTitle;
-        let taskDesc = taskDict[taskIDRef].taskInfoDesc;
-        // todo add taskDate for the flatpickr
-
-        // assign correct tasktitle to tasktitleinput
-        taskTitleElement.value = taskTitle;
+        // assign taskTitle to correct taskTitleInput
+        document.querySelector("#taskTitleInput").value = taskDict[taskIDRef].taskInfoTitle;
 
         // convert html to markdown and assign to textarea/markdown editor
         var europa = new Europa();
-        taskDescElement.value = europa.convert(taskDesc);
+        document.querySelector("#getm").value = europa.convert(taskDict[taskIDRef].taskInfoDesc);
 
+        // assign taskDate to correct taskDateInput
+        document.querySelector("#myDatepicker")._flatpickr.setDate(taskDict[taskIDRef].taskInfoDate);
+
+        // assigns the taskID to currentTaskID
         currentTaskID = taskIDRef;
     }
 }
@@ -373,9 +367,10 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
     // ? User CLICKS/ADDS a TASK (from CARD - card_header_options) [+]
     // note: also sets card input to correct cardTitle
     function addTask() {
-        document.querySelector(".MAIN__padding").style.display = "none";
-        document.querySelector(".EDIT__ask_add_task").style.display = "none";
+        // Hide MAIN and show EDIT
         document.querySelector(".EDIT__padding").style.display = "block";
+        document.querySelector(".MAIN__padding").style.display = "none";
+
         document.querySelector(".EDIT__task_container").style.display = "block";
         document.querySelector(".EDIT__confirm_right").style.display = "inline-flex";
 
@@ -389,15 +384,14 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Since it opens the EDIT screen, this sets the card name to the correct cardTitle (from MAIN)
         let cardTitle = document.querySelector("#" + currentCardID);
-        let Edit_Padding = document.querySelector(".EDIT__padding");
-        Edit_Padding.querySelector("input").value = cardTitle.querySelector(".card_title").textContent;
+        document.querySelector("#cardTitleInput").value = cardTitle.querySelector(".card_title").textContent;
 
         // focus on the group input so user does not have to click it.
         let css_class_task = document.querySelector(".EDIT__task_body");
         css_class_task.querySelector("input").focus();
     }
 
-    // ? User CLICKS/ADDS a task after being ASKED (from EDIT - after {+ Add Card}) [+ Add Task]
+    // ? User CLICKS/ADDS a task after being ASKED (from EDIT - after {+ Add Card}) [Seems empty, + Add Task]
     document.querySelector(".EDIT__btn_ask_add_task").addEventListener("click", function () {
         document.querySelector(".EDIT__ask_add_task").style.display = "none";
         document.querySelector(".EDIT__task_container").style.display = "block";
@@ -407,8 +401,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         hasMarkdown = true;
 
         // focus on the group input so user does not have to click it.
-        let css_class_task = document.querySelector(".EDIT__task_body");
-        css_class_task.querySelector("input").focus();
+        document.querySelector("#taskTitleInput").focus();
     });
 
     // ? User CLICKS Complete and Add another task (from EDIT - after {+ Add Card}) [+ Complete and Add another task]
@@ -424,17 +417,15 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         getTaskInput();
 
         // focus on the group input so user does not have to click it.
-        let css_class_task = document.querySelector(".EDIT__task_body");
-        css_class_task.querySelector("input").focus();
+        document.querySelector("#taskTitleInput").focus();
     });
 
     // ? User CLICKS and DISPLAYS the GROUP_container for user to create new group (from MAIN - MENU) [+ Add Group]
     document.querySelectorAll(".MENU__btn_add_group").forEach((obj) => {
         obj.addEventListener("click", function () {
-            let group_Container = document.querySelector(".GROUP__add_group_container");
-            group_Container.style.display = "block";
+            document.querySelector(".GROUP__add_group_container").style.display = "block";
             // focus on the group input so user does not have to click it.
-            group_Container.querySelector("input").focus();
+            document.querySelector("#groupTitleInput").focus();
         });
     });
 }
@@ -442,11 +433,16 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
 // * Get Inputs/CONFIRM --------------------------------------------------------------
 {
+    // ? KEYPRESS - if user presses enter on the Group Input, call the GROUP__btn_confirm button
+    document.querySelector("#groupTitleInput").addEventListener("keydown", function onEvent(event) {
+        if (event.key === "Enter") {
+            document.querySelector(".GROUP__btn_confirm").click();
+        }
+    });
     // ? CONFIRM - Get Group Input and store it
     // note: also clears the group-wrapper name
     document.querySelector(".GROUP__btn_confirm").addEventListener("click", function () {
-        let css_class = document.querySelector(".GROUP__add_group_wrapper");
-        let groupWrapperTitle = css_class.querySelector("input");
+        let groupWrapperTitle = document.querySelector("#groupTitleInput");
         let groupIDNum = new Date().getTime();
 
         // data to store in groupDict
@@ -466,7 +462,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         groupWrapperTitle.value = "";
 
         // Hide GROUP-wrapper Elements
-        css_class.parentNode.style.display = "none";
+        groupWrapperTitle.parentNode.parentNode.parentNode.parentNode.style.display = "none";
     });
 
     // ? CONFIRM - Call Card and Task Input when user clicks the confirm button
@@ -482,20 +478,14 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // display MAIN, and reset all required variables, values, etc.
         document.querySelector(".EDIT__btn_exit").click();
-
-        // clear text in card name
-        let css_class = document.querySelector(".EDIT__padding");
-        let cardTitle = css_class.querySelector("input");
-        cardTitle.value = "";
     });
 
     // ? Get Card Input and store it
     function getCardInput() {
-        let css_class = document.querySelector(".EDIT__padding");
         let cardIDNum;
 
-        // Get text of card name
-        let cardTitle = css_class.querySelector("input");
+        // Get text of card title input
+        let cardTitle = document.querySelector("#cardTitleInput");
 
         // create numeric card ID
         cardIDNum = new Date().getTime();
@@ -527,22 +517,20 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
     function getTaskInput() {
         // If there is a task/markdown element on the screen
         if (hasMarkdown) {
-            let css_class = document.querySelector(".EDIT__padding");
-            let css_class_task = document.querySelector(".EDIT__task_body");
             let cardIDNum = currentCardID.replace("cardBody", "");
             let taskIDNum = new Date().getTime();
             var taskInfo;
 
-            // Get text of task title
-            let taskTitle = css_class_task.querySelector("input");
+            // Get text of task title input
+            let taskTitle = document.querySelector("#taskTitleInput");
 
-            // Get text of task date
-            let taskDate = css_class_task.querySelector("#myDatepicker");
+            // Get text of task date input
+            let taskDate = document.querySelector("#myDatepicker");
 
             // Get Task Description - Viewer, Buffer, Markdown
-            let TaskDescriptionViewer = css_class.querySelector("#viewer");
-            let TaskDescriptionBuffer = css_class.querySelector("#buffer");
-            let TaskDescriptionMarkdown = css_class.querySelector("#getm");
+            let TaskDescriptionViewer = document.querySelector("#viewer");
+            let TaskDescriptionBuffer = document.querySelector("#buffer");
+            let TaskDescriptionMarkdown = document.querySelector("#getm");
 
             // Simulate Keypress (ENTER) to update markdown incase of LAG
             var keyEventPress = new KeyboardEvent("keypress", {
@@ -575,6 +563,8 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             // clear text in task title, description, date
             taskTitle.value = "";
             TaskDescriptionMarkdown.value = "";
+            TaskDescriptionBuffer.innerHTML = "";
+            TaskDescriptionViewer.innerHTML = "";
             taskDate.value = "";
             taskDate._flatpickr.clear();
 
@@ -615,6 +605,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         let span = document.createElement("span");
         span.id = "group" + groupIDNumRef;
 
+        // Option 1
         let group_Options = document.createElement("button");
         group_Options.className = "button GROUP__btn_delete_group btn_color_red btn_padding";
         group_Options.setAttribute("type", "button");
@@ -661,13 +652,20 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             }
             a.parentNode.className = "active";
             // Hide all card containers
+
+            // If user is in EDIT and clicks a group (in desktop device), goes directly to MAIN and undo's everything
+            document.querySelector(".EDIT__btn_exit").click();
+
+            // Remove all card containers from the screen
             document.querySelectorAll(".card_container").forEach((obj) => {
                 obj.remove();
             });
+            // Load appropriate card containers, relative to the currentGroupID
             loadCards();
             // set group name input in MAIN to user input
-            let Main_Padding = document.querySelector(".MAIN__padding");
-            Main_Padding.querySelector("input").value = document.querySelector("#" + currentGroupID).textContent;
+            document.querySelector("#MainGroupTitleInput").value = document.querySelector(
+                "#" + currentGroupID
+            ).textContent;
         };
 
         // When user creates a group, make its class active
@@ -840,21 +838,21 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         task_Option1.appendChild(task_Option1_span);
         task_Options.appendChild(task_Option1);
         task_Option1.onclick = function () {
-            let Edit_Padding = document.querySelector(".EDIT__padding");
-            Edit_Padding.style.display = "block";
-            Edit_Padding.querySelector(".EDIT__btn_confirm").style.display = "none";
-            // this is a new/specific btn for card/task edits
-            Edit_Padding.querySelector(".EDIT__btn_confirm_edit").style.display = "inline-flex";
+            // hides MAIN and shows EDIT
+            document.querySelector(".EDIT__padding").style.display = "block";
             document.querySelector(".MAIN__padding").style.display = "none";
-            document.querySelector(".EDIT__select_task_container").style.display = "none";
-            hasTaskEditMode = true;
+            // switches 'confirm' button for 'confirm edit' button
+            document.querySelector(".EDIT__btn_confirm").style.display = "none";
+            document.querySelector(".EDIT__btn_confirm_edit").style.display = "inline-flex";
+
+            isTaskEditMode = true;
 
             // assign cardID to currentCardID
             currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
 
             // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
             let cardTitle = document.querySelector("#" + currentCardID);
-            Edit_Padding.querySelector("input").value = cardTitle.querySelector(".card_title").textContent;
+            document.querySelector("#cardTitleInput").value = cardTitle.querySelector(".card_title").textContent;
 
             editTaskScreen("taskBody" + taskIDNumRef);
         };
@@ -897,7 +895,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             if (taskDateArr.length > 1) {
                 let task_Date_Left = document.createElement("div");
                 task_Date_Left.className = "task_date_left";
-                task_Date_Left.textContent = "Made On: " + taskDateArr[0];
+                task_Date_Left.textContent = "Made On: " + taskDateArr[0] + " —\u00A0";
                 let task_Date_Right = document.createElement("div");
                 task_Date_Right.className = "task_date_right";
                 task_Date_Right.textContent = "Due On: " + taskDateArr[1];
@@ -955,111 +953,118 @@ function loadCards() {
 }
 
 // * Delete Stuff --------------------------------------------------------------
+{
+    // ? User deletes a group (from MENU)
+    function deleteGroup() {
+        var g = this.parentNode;
 
-// ? User deletes a group (from MENU)
-function deleteGroup() {
-    var g = this.parentNode;
+        //delete animation
+        g.animate(
+            [
+                // keyframes
+                { opacity: ".5" },
+                { opacity: "0" },
+            ],
+            {
+                // timing options
+                duration: 500,
+            }
+        );
 
-    //delete animation
-    g.animate(
-        [
-            // keyframes
-            { opacity: ".5" },
-            { opacity: "0" },
-        ],
-        {
-            // timing options
-            duration: 500,
+        let tempGroupID = this.parentNode.firstChild.lastChild.id;
+
+        // delete card data that was inside groupDict.contains
+        for (const containedCards of groupDict[tempGroupID].groupInfoContainsCards) {
+            for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
+                delete taskDict[containedTasks];
+            }
+            delete cardDict[containedCards];
         }
-    );
+        delete groupDict[tempGroupID];
 
-    let tempGroupID = this.parentNode.firstChild.lastChild.id;
+        // Timeout to delete until animation complete and check if there are any groups left
+        setTimeout(function () {
+            g.remove();
+            if (Object.entries(groupDict).length === 0) {
+                // check if groupDict has any keys/values - if it doesn't, display appropriate elements
+                let Main_Padding = document.querySelector(".MAIN__padding");
+                document.querySelector(".GROUP__ask_add_group_container").style.display = "block";
+                document.querySelector(".btn_add_card").style.display = "none";
+                Main_Padding.querySelector(".titlebar_text").style.display = "none";
+                Main_Padding.querySelector("hr").style.display = "none";
+            } else {
+                //automatically select first list in menu_list when a group is deleted
+                let menu_list = document.querySelector(".menu_list");
+                let li = menu_list.querySelector("li");
+                li.querySelector("a").click();
+            }
+        }, 500);
+    }
+    // ? User deletes a card (from MAIN titlebar)
+    function deleteCard() {
+        var c = this.parentNode.parentNode.parentNode.parentNode;
+        //delete animation
+        c.animate(
+            [
+                // keyframes
+                { opacity: ".5" },
+                { opacity: "0" },
+            ],
+            {
+                // timing options
+                duration: 500,
+            }
+        );
 
-    // delete card data that was inside groupDict.contains
-    for (const containedCards of groupDict[tempGroupID].groupInfoContainsCards) {
-        for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
+        // Timeout to delete until animation complete
+        setTimeout(function () {
+            c.remove();
+        }, 500);
+
+        // Delete all card data
+        let deletedCardID = this.parentNode.parentNode.parentNode.id;
+        // delete task data that was inside cardDict.contains
+        for (const containedTasks of cardDict[deletedCardID].cardInfoContainsTasks) {
             delete taskDict[containedTasks];
         }
-        delete cardDict[containedCards];
+        // delete card data from cardDict
+        delete cardDict[deletedCardID];
+        // delete card data that was inside groupDict.contains
+        let deletedCardIndex = groupDict[currentGroupID].groupInfoContainsCards.indexOf(deletedCardID);
+        groupDict[currentGroupID].groupInfoContainsCards.splice(deletedCardIndex, 1);
     }
-    delete groupDict[currentGroupID];
 
-    setTimeout(function () {
-        g.remove();
-    }, 500);
+    // ? User deletes a task (from MAIN titlebar)
+    function deleteTask() {
+        var t = this.parentNode.parentNode;
+        //delete animation
+        t.animate(
+            [
+                // keyframes
+                { opacity: ".5", transform: "scale(1)" },
+                { opacity: "0", transform: "scale(.5)" },
+            ],
+            {
+                // timing options
+                duration: 500,
+            }
+        );
 
-    //automatically select first list in menu_list when a group is deleted
-    let menu_list = document.querySelector(".menu_list");
-    let li = menu_list.querySelector("li");
-    li.querySelector("a").click();
-}
-// ? User deletes a card (from MAIN titlebar)
-function deleteCard() {
-    var c = this.parentNode.parentNode.parentNode.parentNode;
-    //delete animation
-    c.animate(
-        [
-            // keyframes
-            { opacity: ".5" },
-            { opacity: "0" },
-        ],
-        {
-            // timing options
-            duration: 500,
-        }
-    );
+        // Timeout to delete until animation complete
+        setTimeout(function () {
+            t.remove();
+        }, 500);
 
-    // Timeout to delete until animation complete
-    setTimeout(function () {
-        c.remove();
-    }, 500);
-
-    // Delete all card data
-    let deletedCardID = this.parentNode.parentNode.parentNode.id;
-    // delete task data that was inside cardDict.contains
-    for (const containedTasks of cardDict[deletedCardID].cardInfoContainsTasks) {
-        delete taskDict[containedTasks];
+        // Delete all task data
+        let deletedTaskID = this.parentNode.parentNode.id;
+        currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
+        // delete task data that was inside cardDict.contains
+        let deletedTaskIndex = cardDict[currentCardID].cardInfoContainsTasks.indexOf(deletedTaskID);
+        cardDict[currentCardID].cardInfoContainsTasks.splice(deletedTaskIndex, 1);
+        // delete task data from taskDict
+        delete taskDict[deletedTaskID];
     }
-    // delete card data from cardDict
-    delete cardDict[deletedCardID];
-    // delete card data that was inside groupDict.contains
-    let deletedCardIndex = groupDict[currentGroupID].groupInfoContainsCards.indexOf(deletedCardID);
-    groupDict[currentGroupID].groupInfoContainsCards.splice(deletedCardIndex, 1);
-
-    // todo Loop through all tasks inside ContainsCards and delete them in taskDict. Also Delete this cardDict[DeletedCardId] - do the same for GROUP later on
 }
-
-// ? User deletes a task (from MAIN titlebar)
-function deleteTask() {
-    var t = this.parentNode.parentNode;
-    //delete animation
-    t.animate(
-        [
-            // keyframes
-            { opacity: ".5", transform: "scale(1)" },
-            { opacity: "0", transform: "scale(.5)" },
-        ],
-        {
-            // timing options
-            duration: 500,
-        }
-    );
-
-    // Timeout to delete until animation complete
-    setTimeout(function () {
-        t.remove();
-    }, 500);
-
-    // Delete all task data
-    let deletedTaskID = this.parentNode.parentNode.id;
-    currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
-    // delete task data that was inside cardDict.contains
-    let deletedTaskIndex = cardDict[currentCardID].cardInfoContainsTasks.indexOf(deletedTaskID);
-    cardDict[currentCardID].cardInfoContainsTasks.splice(deletedTaskIndex, 1);
-    // delete task data from taskDict
-    delete taskDict[deletedTaskID];
-}
-
 // * Testing
 function displayData() {
     console.log(groupDict);
