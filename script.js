@@ -1,10 +1,11 @@
-window.onload = function () {
+
+function loadFlatpickr() {
     flatpickr("#myDatepicker", {
         mode: "range",
         dateFormat: "j F, y",
         // dateFormat: "d-m-Y",
     });
-};
+}
 
 var hasCardBeenAdded = false;
 var hasMarkdown = false;
@@ -22,16 +23,13 @@ function clearValues(clearTask = false, clearCard = false) {
     if (clearTask) {
         let taskTitle = document.querySelector("#taskTitleInput");
         let TaskDescriptionMarkdown = document.querySelector("#getm");
-        let TaskDescriptionViewer = document.querySelector("#viewer");
         let TaskDescriptionBuffer = document.querySelector("#buffer");
         let taskDate = document.querySelector("#myDatepicker");
 
         // clear textContent in task title, description, date
         taskTitle.value = "";
         TaskDescriptionMarkdown.value = "";
-        TaskDescriptionViewer.value = "";
         TaskDescriptionBuffer.value = "";
-        TaskDescriptionViewer.innerHTML = "";
         TaskDescriptionBuffer.innerHTML = "";
         taskDate.value = "";
         taskDate._flatpickr.clear();
@@ -169,7 +167,6 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         let taskTitle = document.querySelector("#taskTitleInput");
         let TaskDescriptionMarkdown = document.querySelector("#getm");
-        let TaskDescriptionViewer = document.querySelector("#viewer");
         let TaskDescriptionBuffer = document.querySelector("#buffer");
         let taskDate = document.querySelector("#myDatepicker");
         let task = document.querySelector("#" + currentTaskID);
@@ -177,8 +174,8 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // append task in MAIN to new task title
         task.querySelector(".task_title").textContent = taskTitle.value;
 
-        // Simulate Keypress (ENTER) to update markdown incase of LAG
-        var keyEventPress = new KeyboardEvent("keypress", {
+        // Simulate Keyup (ENTER) to update markdown incase of LAG
+        var keyEventPress = new KeyboardEvent("keyup", {
             code: "Enter",
             key: "Enter",
             charKode: 13,
@@ -187,25 +184,14 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         });
         TaskDescriptionMarkdown.dispatchEvent(keyEventPress);
 
-        if (TaskDescriptionBuffer.innerHTML.length >= TaskDescriptionViewer.innerHTML.length) {
-            taskInfo = {
-                taskInfoIDNum: currentTaskID.replace("taskBody", ""),
-                taskInfoTitle: taskTitle.value,
-                taskInfoDesc: TaskDescriptionBuffer.innerHTML,
-                taskInfoDate: taskDate.value,
-            };
-            // append task in MAIN to new task description
-            task.querySelector(".task_description").innerHTML = TaskDescriptionBuffer.innerHTML;
-        } else {
-            taskInfo = {
-                taskInfoIDNum: currentTaskID.replace("taskBody", ""),
-                taskInfoTitle: taskTitle.value,
-                taskInfoDesc: TaskDescriptionViewer.innerHTML,
-                taskInfoDate: taskDate.value,
-            };
-            // append task in MAIN to new task description
-            task.querySelector(".task_description").innerHTML = TaskDescriptionViewer.innerHTML;
-        } // end of if else statement
+        taskInfo = {
+            taskInfoIDNum: currentTaskID.replace("taskBody", ""),
+            taskInfoTitle: taskTitle.value,
+            taskInfoDesc: TaskDescriptionBuffer.innerHTML,
+            taskInfoDate: taskDate.value,
+        };
+        // append task in MAIN to new task description
+        task.querySelector(".task_description").innerHTML = TaskDescriptionBuffer.innerHTML;
 
         // check if task_date has a value and ppend task in MAIN to new task date
         var task_Date = task.querySelector(".task_date");
@@ -288,7 +274,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         let h3 = document.createElement("h3");
         h3.textContent = taskTitle;
         let h5 = document.createElement("h5");
-        h5.innerHTML = taskDesc.substring(0, 100) + "...";
+        h5.innerHTML = taskDesc.substring(0, 150) + "<em>...</em>";
         let task_Select_Options = document.createElement("div");
         task_Select_Options.className = "EDIT__select_task_svg";
 
@@ -340,9 +326,27 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // assign taskTitle to correct taskTitleInput
         document.querySelector("#taskTitleInput").value = taskDict[taskIDRef].taskInfoTitle;
 
+        // Configure turndown
+        var options = {
+            emDelimiter: "*",
+            bulletListMarker: "-",
+            hr: "---",
+            codeBlockStyle: "fenced",
+            headingStyle: "atx",
+        };
         // convert html to markdown and assign to textarea/markdown editor
-        var europa = new Europa();
-        document.querySelector("#getm").value = europa.convert(taskDict[taskIDRef].taskInfoDesc);
+        var turndownService = new TurndownService(options);
+        document.querySelector("#getm").value = turndownService.turndown(taskDict[taskIDRef].taskInfoDesc);
+
+        // Simulate Keyup (ENTER) to update markdown incase of LAG
+        var keyEventPress = new KeyboardEvent("keyup", {
+            code: "Enter",
+            key: "Enter",
+            charKode: 13,
+            keyCode: 13,
+            view: window,
+        });
+        document.querySelector("#getm").dispatchEvent(keyEventPress);
 
         // assign taskDate to correct taskDateInput
         document.querySelector("#myDatepicker")._flatpickr.setDate(taskDict[taskIDRef].taskInfoDate);
@@ -528,12 +532,11 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             let taskDate = document.querySelector("#myDatepicker");
 
             // Get Task Description - Viewer, Buffer, Markdown
-            let TaskDescriptionViewer = document.querySelector("#viewer");
             let TaskDescriptionBuffer = document.querySelector("#buffer");
             let TaskDescriptionMarkdown = document.querySelector("#getm");
 
-            // Simulate Keypress (ENTER) to update markdown incase of LAG
-            var keyEventPress = new KeyboardEvent("keypress", {
+            // Simulate Keyup (ENTER) to update markdown incase of LAG
+            var keyEventPress = new KeyboardEvent("keyup", {
                 code: "Enter",
                 key: "Enter",
                 charKode: 13,
@@ -542,29 +545,18 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             });
             TaskDescriptionMarkdown.dispatchEvent(keyEventPress);
 
-            if (TaskDescriptionBuffer.innerHTML.length >= TaskDescriptionViewer.innerHTML.length) {
-                createTask(taskTitle.value, TaskDescriptionBuffer.innerHTML, taskDate.value, taskIDNum, cardIDNum);
-                taskInfo = {
-                    taskInfoIDNum: taskIDNum,
-                    taskInfoTitle: taskTitle.value,
-                    taskInfoDesc: TaskDescriptionBuffer.innerHTML,
-                    taskInfoDate: taskDate.value,
-                };
-            } else {
-                createTask(taskTitle.value, TaskDescriptionViewer.innerHTML, taskDate.value, taskIDNum, cardIDNum);
-                taskInfo = {
-                    taskInfoIDNum: taskIDNum,
-                    taskInfoTitle: taskTitle.value,
-                    taskInfoDesc: TaskDescriptionViewer.innerHTML,
-                    taskInfoDate: taskDate.value,
-                };
-            } // end of if else statement
+            createTask(taskTitle.value, TaskDescriptionBuffer.innerHTML, taskDate.value, taskIDNum, cardIDNum);
+            taskInfo = {
+                taskInfoIDNum: taskIDNum,
+                taskInfoTitle: taskTitle.value,
+                taskInfoDesc: TaskDescriptionBuffer.innerHTML,
+                taskInfoDate: taskDate.value,
+            };
 
             // clear text in task title, description, date
             taskTitle.value = "";
             TaskDescriptionMarkdown.value = "";
             TaskDescriptionBuffer.innerHTML = "";
-            TaskDescriptionViewer.innerHTML = "";
             taskDate.value = "";
             taskDate._flatpickr.clear();
 

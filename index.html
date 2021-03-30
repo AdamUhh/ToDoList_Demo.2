@@ -12,9 +12,6 @@
     <link rel="preload" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css" as="style"
         onload="this.rel='stylesheet'" />
 
-    <!--Markdown Editor  -->
-    <link rel="preload" href="lib/markdown/dracula.min.css" as="style" onload="this.rel='stylesheet'" />
-
     <!-- REQUIRED Stylesheet -->
     <link href="sass/styles.css" rel='stylesheet' />
 </head>
@@ -117,14 +114,14 @@
                     <p class="menu_label">Calendar</p>
                     <ul class="menu_list">
                         <li>
-                            <a  class="">
+                            <a class="">
                                 <span class="icon is-small"><i class="mdi mdi-calendar-today"></i></span>
                                 <span>Daily Tasks</span>
                             </a>
                             <!---->
                         </li>
                         <li>
-                            <a  class="">
+                            <a class="">
                                 <span class="icon is-small"><i class="mdi mdi-calendar-week"></i></span>
                                 <span>Weekly Tasks</span>
                             </a>
@@ -182,7 +179,7 @@
 
                     <div class="titlebar">
                         <div class="MAIN__navigationbar">
-                            <button type="button" class="button btn_open_nav btn_color_blue">
+                            <button type="button" class="button btn_open_nav btn_color_blue" aria-label="navigation button">
                                 <span class="icon">
                                     <svg class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" data-prefix="fa"
                                         data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -515,15 +512,12 @@
                                                 <button onclick="apply('italic')" title="Italic">
                                                     <i>I</i>
                                                 </button>
-                                                <button onclick="apply('strike')" title="Strikethrough">
-                                                    <strike>S</strike>
-                                                </button>
+
                                                 <button onclick="apply('h1')" title="Header 1">H1</button>
                                                 <button onclick="apply('h2')" title="Header 2">H2</button>
                                                 <button onclick="apply('h3')" title="Header 3">H3</button>
                                                 <button onclick="apply('ul')" title="Unordered list">•</button>
                                                 <button onclick="apply('ol')" title="Ordered list">1.</button>
-                                                <button onclick="apply('check')" title="Check list">✔</button>
                                                 <button onclick="apply('bq')" title="Blockquote">“”</button>
                                                 <button onclick="apply('ic')" title="Inline code">I&lt;></button>
                                                 <button onclick="apply('bc')" title="Block code">&lt;/></button>
@@ -546,19 +540,15 @@
                                                     </svg>
                                                 </button>
                                                 <button onclick="apply('hr')" title="Horizontal rule">——</button>
-                                                <button onclick="apply('table')" title="Table">⚏</button>
                                             </div>
                                         </div>
                                         <div class="EDIT__textarea_panel">
                                             <div id="EDIT__textarea_left">
                                                 <textarea class="syncscroll" name="sync" id="getm"
-                                                    placeholder="paste markdown here ✨" onkeyup="Preview.Update()"
-                                                    autofocus="" onkeypress="Preview.UpdateKeyPress(event)"
-                                                    spellcheck="false"></textarea>
+                                                    placeholder="paste markdown here ✨" onkeyup="getTextMarkdown(this)"
+                                                    autofocus="" spellcheck="false"></textarea>
                                             </div>
                                             <div id="EDIT__textarea_right">
-                                                <div class="markdown" id="viewer"
-                                                    style="display: none; overflow-y: scroll; overflow-x: hidden"></div>
                                                 <div class="markdown" id="buffer" style="display: flex"></div>
                                             </div>
                                         </div>
@@ -569,9 +559,9 @@
                                                 <button onclick="slide('full')" title="Hide viewer">→</button>
                                             </div>
                                             <div style="flex: 1 1 0; text-align: right">
-                                                <span id="EDIT__charcount">43 chars</span>
-                                                <span id="EDIT__wordcount">9 words</span>
-                                                <span class="trigger">❓</span>
+                                                <span id="EDIT__charcount">0 chars</span>
+                                                <span id="EDIT__wordcount">0 words</span>
+                                                <!-- <span class="trigger">❓</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -649,20 +639,18 @@
     </div>
     <!-- Flatpickr script LINK-->
     <!-- <script  src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
-    <script src="lib/datepicker/flatpickr/flatpickr.js"></script>
 
-    <script async src="script.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
+
+    <script async src="lib/datepicker/flatpickr/flatpickr.js" onload="loadFlatpickr()"></script>
 
     <!--Markdown Editor Scripts  -->
-    <script src="lib/markdown/marked.min.js"></script>
+    <!-- <script async src="lib/markdown/commonmark.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/commonmark@0.29.3/dist/commonmark.min.js"></script>
+    <script async src="lib/markdown/cmScript.js"></script>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured">
-    </script>
-    <script src="lib/markdown/marcdown.min.js"></script>
-    <script async src="lib/markdown/highlight.min.js"></script>
     <!-- Used to convert html to markdown (for editing) -->
-    <script async src="lib/markdown/europa.min.js"></script>
+    <script async src="https://unpkg.com/turndown/dist/turndown.js"></script>
 
 </body>
 
