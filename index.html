@@ -17,6 +17,34 @@
 </head>
 
 <body>
+    <div class="ACCOUNT__container">
+        <div class="ACCOUNT__body">
+            <div class="ACCOUNT__btn_exit_wrapper">
+                <button type="button" class="button ACCOUNT__btn_exit">
+                    <span class="icon icon_up">
+                        <svg class="svg-inline--fa fa-times fa-w-12 fa-lg" aria-hidden="true" data-prefix="fa"
+                            data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                            data-fa-i2svg="">
+                            <path fill="currentColor"
+                                d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z">
+                            </path>
+                        </svg>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <div class="ACCOUNT__header_wrapper">
+                Are you sure you want to logout?
+                <br/>
+
+                <span>Currently Logged in as: </span>
+            </div>
+            <div class="ACCOUNT__logout">
+                <button class="button btn_color_red btn_logout">Logout</button>
+            </div>
+
+        </div>
+    </div>
     <div class="GROUP__add_group_container">
         <div class="GROUP__add_group_wrapper">
             <div class="GROUP__btn_exit_wrapper">
@@ -32,7 +60,6 @@
                         </svg>
                     </span>
                 </button>
-
             </div>
             <div class="GROUP__header_wrapper">
                 Add a Group
@@ -93,21 +120,7 @@
                     <div class="menu_body">
                         <p class="menu_label">To-do List</p>
                         <ul class="menu_list">
-                            <!-- <li>
-                                <a>
-                                    <button class="button GROUP__btn_delete_group btn_color_red" type="button"><span
-                                            class="icon icon_centered"><svg
-                                                class="svg-inline--fa fa-trash fa-w-14 fa-sm" aria-hidden="true"
-                                                data-prefix="fa" data-icon="trash" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                                data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
-                                                </path>
-                                            </svg></span></button>
-                                    <span>All items</span>
-                                </a>
-                            </li> -->
+
 
                         </ul>
                     </div>
@@ -137,26 +150,24 @@
                     </ul>
                     <p class="menu_label">Settings</p>
                     <ul class="menu_list">
-                        <li>
-                            <a xclass="">
-                                <span class="icon is-small"><i class="mdi mdi-cogs"></i></span>
-                                <span>General Settings</span>
-                            </a>
-                            <!---->
-                        </li>
+
                         <li onclick="displayData()">
                             <a>
                                 <span class="icon is-small"><i class="mdi mdi-information"></i></span>
                                 <span>Display Data</span>
                             </a>
                         </li>
+
                     </ul>
+                    <div class="ACCOUNT__ask_logout">
+                        <button class="button btn_color_red btn_logout" onclick="AccountLogout()">Logout</button>
+                    </div>
                 </div>
             </div>
 
             <div class="column box">
-                <div class="GROUP__ask_add_group_container">
 
+                <div class="GROUP__ask_add_group_container">
                     <div class="GROUP__ask_add_group_body">
                         <p> Start off by creating a group!</p>
                         <br />
@@ -179,7 +190,8 @@
 
                     <div class="titlebar">
                         <div class="MAIN__navigationbar">
-                            <button type="button" class="button btn_open_nav btn_color_blue" aria-label="navigation button">
+                            <button type="button" class="button btn_open_nav btn_color_blue"
+                                aria-label="navigation button">
                                 <span class="icon">
                                     <svg class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" data-prefix="fa"
                                         data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -213,186 +225,6 @@
                     <hr style="margin: 10px 2rem" />
 
                     <div class="PANEL__card">
-                        <!-- <div class="card_container">
-                            <div class="card_body btn-group-vertical card_width">
-                                <div class="card_header">
-                                    <div class="card_header_bottom_fill"></div>
-                                    <div class="card_title">basic card but this is a long card long</div>
-                                    <div class="card_header_options">
-                                        <button type="button"
-                                            class="button PANEL__btn_add_task btn_color_blue btn_padding"
-                                            id="PANEL__btn_add_task">
-                                            <span class="icon icon_up">
-                                                <svg class="svg-inline--fa fa-plus fa-w-14 fa-sm" aria-hidden="true"
-                                                    data-prefix="fa" data-icon="plus" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <button type="button"
-                                            class="button PANEL__btn_delete_card btn_color_red btn_padding"
-                                            id="PANEL__btn_delete_card">
-                                            <span class="icon icon_up">
-                                                <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm" aria-hidden="true"
-                                                    data-prefix="fa" data-icon="trash" role="img"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <button type="button"
-                                            class="button PANEL__btn_edit_card btn_color_white btn_padding"
-                                            id="PANEL__btn_edit_card">
-                                            <span class="icon icon_up">
-                                                <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
-                                                    aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
-                                                    role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                    data-fa-i2svg="">
-                                                    <path fill="currentColor"
-                                                        d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="task_container">
-                                    <div class="task_body">
-                                        <div class="task_options">
-                                            <button type="button"
-                                                class="button PANEL__btn_edit_task btn_color_whitesmoke"
-                                                id="PANEL__btn_edit_task">
-                                                <span class="icon icon_centered">
-                                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
-                                                        aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
-                                                        role="img" xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 512 512" data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red"
-                                                id="PANEL__btn_delete_task">
-                                                <span class="icon icon_centered">
-                                                    <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm"
-                                                        aria-hidden="true" data-prefix="fa" data-icon="trash" role="img"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                                        data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <div class="task_title">
-                                            basic task title basic task title basic task title basic task title
-                                        </div>
-                                        <div class="task_description">
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task
-                                            descriptionbasic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description
-                                        </div>
-                                        <div class="task_date">
-                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
-                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="task_body">
-                                        <div class="task_options">
-                                            <button type="button"
-                                                class="button PANEL__btn_edit_task btn_color_whitesmoke"
-                                                id="PANEL__btn_edit_task">
-                                                <span class="icon icon_centered">
-                                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm"
-                                                        aria-hidden="true" data-prefix="fa" data-icon="pencil-alt"
-                                                        role="img" xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 512 512" data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                            <button type="button" class="button PANEL__btn_delete_task btn_color_red"
-                                                id="PANEL__btn_delete_task">
-                                                <span class="icon icon_centered">
-                                                    <svg class="svg-inline--fa fa-trash fa-w-14 fa-sm"
-                                                        aria-hidden="true" data-prefix="fa" data-icon="trash" role="img"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                                        data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <div class="task_title">
-                                            basic task title basic task title basic task title basic task title
-                                        </div>
-                                        <div class="task_description">
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task description
-                                            basic task description basic task description basic task
-                                            descriptionbasic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description basic task description basic task description basic task
-                                            description
-                                        </div>
-                                        <div class="task_date">
-                                            <div class="task_date_left">Made on: 22 / 02 / 2021</div>
-                                            <div class="task_date_right">Due on: 22 / 02 / 2021</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!~~ End of card_container ~~> -->
-
 
                     </div> <!-- End of PANEL__card-->
                 </div>
@@ -453,32 +285,7 @@
                             </button>
                         </div>
                         <div class="EDIT__select_task_container">
-                            <div class="EDIT__select_task_wrapper">
-                                <h3>Task Title</h3>
-                                <h5>Task Description</h5>
-                                <div class="EDIT__select_task_svg">
-                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-18 fa-lg" aria-hidden="true"
-                                        data-prefix="fa" data-icon="pencil-alt" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="EDIT__select_task_wrapper">
-                                <h3>Task Title</h3>
-                                <h5>Task Description</h5>
-                                <div class="EDIT__select_task_svg">
-                                    <svg class="svg-inline--fa fa-pencil-alt fa-w-18 fa-lg" aria-hidden="true"
-                                        data-prefix="fa" data-icon="pencil-alt" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="EDIT__task_container">
                             <div class="EDIT__task_body">
@@ -561,7 +368,6 @@
                                             <div style="flex: 1 1 0; text-align: right">
                                                 <span id="EDIT__charcount">0 chars</span>
                                                 <span id="EDIT__wordcount">0 words</span>
-                                                <!-- <span class="trigger">❓</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -571,7 +377,6 @@
                     </div>
 
                     <div class="EDIT__confirm_container">
-                        <!-- <div class="EDIT__confirm_body"> -->
                         <div class="EDIT__confirm_panel">
                             <div class="EDIT__confirm_right">
                                 <button type="button" class="button EDIT__btn_confirm_and_add_task btn_color_blue">
@@ -631,7 +436,6 @@
                             </div>
 
                         </div>
-                        <!-- </div> -->
                     </div>
                 </div>
             </div>
@@ -640,8 +444,33 @@
     <!-- Flatpickr script LINK-->
     <!-- <script  src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
 
-    <script src="script.js" type="text/javascript"></script>
 
+
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use, examples here: https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAg39DG220X38J-BqaGfnGJaU7mjTAV8Is",
+            authDomain: "to-do-list-c0bb7.firebaseapp.com",
+            projectId: "to-do-list-c0bb7",
+            storageBucket: "to-do-list-c0bb7.appspot.com",
+            messagingSenderId: "45262729887",
+            appId: "1:45262729887:web:a45b8835f0d160f28328aa"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        db.settings({
+            timestampsInSnapshots: true
+        })
+    </script>
+    <script src="app.js" type="text/javascript"></script>
+
+    <script src="script.js" type="text/javascript"></script>
     <script async src="lib/datepicker/flatpickr/flatpickr.js" onload="loadFlatpickr()"></script>
 
     <!--Markdown Editor Scripts  -->

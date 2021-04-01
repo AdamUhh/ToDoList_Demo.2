@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="auth.css" rel="stylesheet">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="container_padding">
+            <div class="container_body">
+                <form class="account_form" id="login_form">
+                    <span class="account_form_title">
+                        Welcome back!
+                    </span>
+                    <div class="login_form_body">
+                        <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
+                            <input class="account_input" id="login_email" type="email" name="email" placeholder="Email">
+
+                        </div>
+                        <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
+                            <input class="account_input" id="login_password" type="password" name="password"
+                                placeholder="password">
+
+                        </div>
+                        <div class="error"></div>
+                        <button class="button btn_blue">Login</button>
+                    </div>
+                </form>
+                <form class="account_form" id="signup_form">
+                    <span class="account_form_title">
+                        Create Your Account
+                    </span>
+                    <div class="signup_form_body">
+                        <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
+                            <input class="account_input" id="signup_email" type="email" name="email"
+                                placeholder="Email">
+
+                        </div>
+                        <div class="input_field" >
+                            <input class="account_input" id="signup_password" type="password" name="password"
+                                placeholder="password">
+                        </div>
+                        <div class="error"></div>
+                        <button class="button btn_blue">Sign Up</button>
+                    </div>
+                </form>
+                <div class="text_create_account">
+
+                    Create your account →
+
+                </div>
+                <div class="text_go_back">
+
+                    ← Login
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAg39DG220X38J-BqaGfnGJaU7mjTAV8Is",
+            authDomain: "to-do-list-c0bb7.firebaseapp.com",
+            projectId: "to-do-list-c0bb7",
+            // storageBucket: "to-do-list-c0bb7.appspot.com",
+            // messagingSenderId: "45262729887",
+            appId: "1:45262729887:web:a45b8835f0d160f28328aa"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Auth and firestore references
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        db.settings({
+            timestampsInSnapshots: true
+        })
+    </script>
+    <script src="auth.js"></script>
+</body>
+
+</html>

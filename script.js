@@ -1,4 +1,3 @@
-
 function loadFlatpickr() {
     flatpickr("#myDatepicker", {
         mode: "range",
@@ -104,6 +103,11 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         document.querySelector(".GROUP__add_group_container").style.display = "none";
         document.querySelector("#groupTitleInput").value = "";
     });
+
+    // ? User CLICKS/EXITS the ACCOUNT container [X]
+    document.querySelector(".ACCOUNT__btn_exit").addEventListener("click", function () {
+        document.querySelector(".ACCOUNT__container").style.display = "none";
+    });
 }
 
 // * Edit Stuff --------------------------------------------------------------
@@ -115,6 +119,11 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Append groupDict with new title
         groupDict[currentGroupID].groupInfoTitle = obj.value;
+
+        // Update group title in firestore
+        db.collection("Users").doc(userUID).collection("fbGroupDict").doc(currentGroupID).update({
+            groupInfoTitle: obj.value,
+        });
     }
 
     // ? FUNCTION for when User EDITS CARD NAME input (from EDIT titlebar)
@@ -123,7 +132,14 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         if (currentCardID) {
             let cardTitle = document.querySelector("#" + currentCardID);
             cardTitle.querySelector(".card_title").textContent = obj.value;
+
+            // Append cardDict with new title
             cardDict[currentCardID].cardInfoTitle = obj.value;
+
+            // Update card title in firestore
+            db.collection("Users").doc(userUID).collection("fbCardDict").doc(currentCardID).update({
+                cardInfoTitle: obj.value,
+            });
         }
     }
     // ? User CLICKS/GO BACK to edit of CARD->TASK (from CARD-EDIT) [<-]
@@ -200,7 +216,8 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         if (taskDate.value.length > 0) {
             var taskDateArr = taskDate.value.split(" to ");
             if (taskDateArr.length > 1) {
-                task_Date_Left.textContent = "Made On: " + taskDateArr[0] + " —\u00A0";
+                task_Date_Left.textContent = "Made On: " + taskDateArr[0];
+                // task_Date_Left.textContent = "Made On: " + taskDateArr[0] + " —\u00A0";
                 task_Date_Right.textContent = "Due On: " + taskDateArr[1];
             } else {
                 task_Date_Left.textContent = "Made On: " + taskDateArr[0];
@@ -213,6 +230,17 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // save new task data to taskDict
         taskDict[currentTaskID] = taskInfo;
+
+        db.collection("Users")
+            .doc(userUID)
+            .collection("fbTaskDict")
+            .doc(currentTaskID)
+            .update({
+                taskInfoIDNum: currentTaskID.replace("taskBody", ""),
+                taskInfoTitle: taskTitle.value,
+                taskInfoDesc: TaskDescriptionBuffer.innerHTML,
+                taskInfoDate: taskDate.value,
+            });
 
         if (goBack) {
             goBack = false;
@@ -451,7 +479,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // data to store in groupDict
         let groupInfo = {
-            GroupInfoIDNum: groupIDNum,
+            groupInfoIDNum: groupIDNum,
             groupInfoTitle: groupWrapperTitle.value,
             groupInfoContainsCards: [],
         };
@@ -461,6 +489,12 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Store group data in dictionary
         groupDict["group" + groupIDNum] = groupInfo;
+        // Store groupDict to firestore
+        db.collection("Users")
+            .doc(userUID)
+            .collection("fbGroupDict")
+            .doc("group" + groupIDNum)
+            .set({ groupInfoIDNum: groupIDNum, groupInfoTitle: groupWrapperTitle.value, groupInfoContainsCards: [] });
 
         // clear text in group-wrapper name
         groupWrapperTitle.value = "";
@@ -496,7 +530,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // data to store in cardDict
         let cardInfo = {
-            cardInfoID: cardIDNum,
+            cardInfoIDNum: cardIDNum,
             cardInfoTitle: cardTitle.value,
             cardInfoContainsTasks: [],
         };
@@ -504,14 +538,28 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // creation of card
         createCard(cardTitle.value, cardIDNum);
 
+        // assign cardID to currentCardID
+        currentCardID = "cardBody" + cardIDNum;
+
         // Store cardID to groupDict.contains
         groupDict[currentGroupID].groupInfoContainsCards.push("cardBody" + cardIDNum);
+        // Update group.contains data in firestore
+        db.collection("Users")
+            .doc(userUID)
+            .collection("fbGroupDict")
+            .doc(currentGroupID)
+            .update({
+                groupInfoContainsCards: firebase.firestore.FieldValue.arrayUnion("cardBody" + cardIDNum),
+            });
 
         // Store card data in cardDict
         cardDict["cardBody" + cardIDNum] = cardInfo;
-
-        // assign cardID to currentCardID
-        currentCardID = "cardBody" + cardIDNum;
+        // Store card data in firestore
+        db.collection("Users").doc(userUID).collection("fbCardDict").doc(currentCardID).set({
+            cardInfoIDNum: cardIDNum,
+            cardInfoTitle: cardTitle.value,
+            cardInfoContainsTasks: [],
+        });
 
         // Card has been created, this is for when the User CLICKS 'Complete and Add another task (from EDIT - after {+ Add Card}) [+ Complete and Add another task]'
         hasCardBeenAdded = true;
@@ -553,18 +601,38 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
                 taskInfoDate: taskDate.value,
             };
 
+            // Store taskID to cardDict.contains
+            cardDict["cardBody" + cardIDNum].cardInfoContainsTasks.push("taskBody" + taskIDNum);
+            // Update card.contains data in firestore
+            db.collection("Users")
+                .doc(userUID)
+                .collection("fbCardDict")
+                .doc(currentCardID)
+                .update({
+                    cardInfoContainsTasks: firebase.firestore.FieldValue.arrayUnion("taskBody" + taskIDNum),
+                });
+
+            // Store task data in dictionary
+            taskDict["taskBody" + taskIDNum] = taskInfo;
+            // Store task data in firestore
+            db.collection("Users")
+                .doc(userUID)
+                .collection("fbTaskDict")
+                .doc("taskBody" + taskIDNum)
+                .set({
+                    taskInfoIDNum: taskIDNum,
+                    taskInfoTitle: taskTitle.value,
+                    taskInfoDesc: TaskDescriptionBuffer.innerHTML,
+                    taskInfoDate: taskDate.value,
+                });
+
             // clear text in task title, description, date
             taskTitle.value = "";
             TaskDescriptionMarkdown.value = "";
             TaskDescriptionBuffer.innerHTML = "";
             taskDate.value = "";
             taskDate._flatpickr.clear();
-
-            // Store taskID to cardDict.contains
-            cardDict["cardBody" + cardIDNum].cardInfoContainsTasks.push("taskBody" + taskIDNum);
-
-            // Store task data in dictionary
-            taskDict["taskBody" + taskIDNum] = taskInfo;
+            //clearValues()
         } else {
             // hides EDIT screen and displays MAIN screen
             document.querySelector(".EDIT__btn_exit").click();
@@ -887,7 +955,8 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             if (taskDateArr.length > 1) {
                 let task_Date_Left = document.createElement("div");
                 task_Date_Left.className = "task_date_left";
-                task_Date_Left.textContent = "Made On: " + taskDateArr[0] + " —\u00A0";
+                task_Date_Left.textContent = "Made On: " + taskDateArr[0];
+                // task_Date_Left.textContent = "Made On: " + taskDateArr[0] + " —\u00A0";
                 let task_Date_Right = document.createElement("div");
                 task_Date_Right.className = "task_date_right";
                 task_Date_Right.textContent = "Due On: " + taskDateArr[1];
@@ -930,16 +999,20 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 // * Load Elements --------------------------------------------------------------
 // ? Load Cards
 function loadCards() {
-    for (const containedCards of groupDict[currentGroupID].groupInfoContainsCards) {
-        createCard(cardDict[containedCards].cardInfoTitle, containedCards.replace("cardBody", ""));
-        for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
-            createTask(
-                taskDict[containedTasks].taskInfoTitle,
-                taskDict[containedTasks].taskInfoDesc,
-                taskDict[containedTasks].taskInfoDate,
-                containedTasks.replace("taskBody", ""),
-                containedCards.replace("cardBody", "")
-            );
+    if (Object.entries(groupDict).length > 0) {
+        for (const containedCards of groupDict[currentGroupID].groupInfoContainsCards) {
+            createCard(cardDict[containedCards].cardInfoTitle, containedCards.replace("cardBody", ""));
+            if (Object.entries(cardDict[containedCards].cardInfoContainsTasks).length > 0) {
+                for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
+                    createTask(
+                        taskDict[containedTasks].taskInfoTitle,
+                        taskDict[containedTasks].taskInfoDesc,
+                        taskDict[containedTasks].taskInfoDate,
+                        containedTasks.replace("taskBody", ""),
+                        containedCards.replace("cardBody", "")
+                    );
+                }
+            }
         }
     }
 }
@@ -969,10 +1042,16 @@ function loadCards() {
         for (const containedCards of groupDict[tempGroupID].groupInfoContainsCards) {
             for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
                 delete taskDict[containedTasks];
+                // delete task in firestore
+                db.collection("Users").doc(userUID).collection("fbTaskDict").doc(containedTasks).delete();
             }
             delete cardDict[containedCards];
+            // delete card in firestore
+            db.collection("Users").doc(userUID).collection("fbCardDict").doc(containedCards).delete();
         }
         delete groupDict[tempGroupID];
+        // delete group in firestore
+        db.collection("Users").doc(userUID).collection("fbGroupDict").doc(tempGroupID).delete();
 
         // Timeout to delete until animation complete and check if there are any groups left
         setTimeout(function () {
@@ -984,6 +1063,10 @@ function loadCards() {
                 document.querySelector(".btn_add_card").style.display = "none";
                 Main_Padding.querySelector(".titlebar_text").style.display = "none";
                 Main_Padding.querySelector("hr").style.display = "none";
+                // if user deletes the last group, but that group contains cards, hide them all
+                Main_Padding.querySelectorAll(".card_container").forEach((obj) => {
+                    obj.style.display = "none";
+                });
             } else {
                 //automatically select first list in menu_list when a group is deleted
                 let menu_list = document.querySelector(".menu_list");
@@ -1018,12 +1101,27 @@ function loadCards() {
         // delete task data that was inside cardDict.contains
         for (const containedTasks of cardDict[deletedCardID].cardInfoContainsTasks) {
             delete taskDict[containedTasks];
+            // delete task in firestore
+            db.collection("Users").doc(userUID).collection("fbTaskDict").doc(containedTasks).delete();
         }
+
         // delete card data from cardDict
         delete cardDict[deletedCardID];
+        // delete card in firestore
+        db.collection("Users").doc(userUID).collection("fbCardDict").doc(deletedCardID).delete();
+
         // delete card data that was inside groupDict.contains
         let deletedCardIndex = groupDict[currentGroupID].groupInfoContainsCards.indexOf(deletedCardID);
         groupDict[currentGroupID].groupInfoContainsCards.splice(deletedCardIndex, 1);
+        // delete group.contains in firestore
+        db.collection("Users")
+            .doc(userUID)
+            .collection("fbGroupDict")
+            .doc(currentGroupID)
+            .update({
+                groupInfoContainsCards: firebase.firestore.FieldValue.arrayRemove(deletedCardID),
+                // groupInfoContainsCards: groupDict[currentGroupID].groupInfoContainsCards.filter(toBeDeletedCard => toBeDeletedCard !== deletedCardID)
+            });
     }
 
     // ? User deletes a task (from MAIN titlebar)
@@ -1050,11 +1148,24 @@ function loadCards() {
         // Delete all task data
         let deletedTaskID = this.parentNode.parentNode.id;
         currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
+
         // delete task data that was inside cardDict.contains
         let deletedTaskIndex = cardDict[currentCardID].cardInfoContainsTasks.indexOf(deletedTaskID);
         cardDict[currentCardID].cardInfoContainsTasks.splice(deletedTaskIndex, 1);
+        // delete card.contains in firestore
+        db.collection("Users")
+            .doc(userUID)
+            .collection("fbCardDict")
+            .doc(currentCardID)
+            .update({
+                cardInfoContainsTasks: firebase.firestore.FieldValue.arrayRemove(deletedTaskID),
+                // cardInfoContainsTasks: cardDict[currentCardID].cardInfoContainsTasks.filter(toBeDeletedTask => toBeDeletedTask !== deletedTaskID)
+            });
+
         // delete task data from taskDict
         delete taskDict[deletedTaskID];
+        // delete task in firestore
+        db.collection("fbTaskDict").doc(deletedTaskID).delete();
     }
 }
 // * Testing
@@ -1063,3 +1174,13 @@ function displayData() {
     console.log(cardDict);
     console.log(taskDict);
 }
+
+function AccountLogout() {
+    document.querySelector(".ACCOUNT__container").style.display = "block";
+}
+
+
+// logout of account
+document.querySelector(".btn_logout").addEventListener("click", (e) => {
+    auth.signOut();
+});

@@ -2,6 +2,7 @@
 @import "./navigation";
 @import "./edit";
 @import "./textarea";
+@import "./account";
 @import "./resize";
 
 /* Works on Firefox */
@@ -69,6 +70,7 @@ body {
 }
 
 .one_quarter {
+    position: relative;
     -webkit-box-flex: 0;
     -ms-flex: none;
     flex: none;
