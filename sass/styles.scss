@@ -9,42 +9,33 @@
 * {
     scrollbar-width: thin;
     scrollbar-color: rgba(128, 128, 128, 0.219) /*white*/ transparent;
-  }
+}
 
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-width: 4px;
+    width: 4px;
 }
 
 *::-webkit-scrollbar-track {
-background: /*white*/ transparent;
+    background: /*white*/ transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-background-color: rgba(128, 128, 128, 0.219);
-border-radius: 20px;
-border: 3px solid /*white*/ transparent;
-
+    background-color: rgba(128, 128, 128, 0.219);
+    border-radius: 20px;
+    border: 3px solid /*white*/ transparent;
 }
 
 body {
     overflow: hidden;
-    font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
-
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+        Helvetica Neue, Helvetica, Arial, sans-serif;
 }
-
-
-
-
-
-
-
 
 /* * Screen section */
 
 .section {
     padding: 1.25rem 1.25rem;
-
 }
 
 .SECTION__columns {
@@ -64,9 +55,9 @@ body {
     flex-shrink: 1;
 }
 
-.column_padding{
+.column_padding {
     // padding:  .75rem;
-    padding:  .0rem .5rem .75rem 0;
+    padding: 0rem 0.5rem 0.75rem 0;
 }
 
 .one_quarter {
@@ -75,9 +66,7 @@ body {
     -ms-flex: none;
     flex: none;
     width: 17%;
-    // margin-top: 1em;
 }
-
 
 /* * MAIN column */
 .box {
@@ -86,25 +75,24 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 6px;
-    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10 , .1),  0 0 0 1px rgba(10, 10, 10 , .1);
-    box-shadow: 0 2px 3px rgba(10, 10, 10 , .1),  0 0 0 1px rgba(10, 10, 10 , .1);
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     color: #4a4a4a;
     display: block;
     width: 100%;
-    height: 93vh;
+    height: 94vh;
     position: relative;
 
-    .box_filter{
+    .box_filter {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.2);  /*Make sure this color has an opacity of less than 1*/
+        background: rgba(255, 255, 255, 0.2); /*Make sure this color has an opacity of less than 1*/
         backdrop-filter: blur(10px); /*This be the blur*/
     }
 }
-
 
 .MAIN__padding {
     position: relative;
@@ -155,12 +143,10 @@ body {
     }
 }
 
-
 .PANEL__card {
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
-
     height: 90%;
 }
 
@@ -176,56 +162,58 @@ body {
 .card_body {
     background: transparent;
     color: #4a4a4a;
+    max-height: 300px;
+    overflow-y: scroll;
+    width: 100%;
 
     &.card_width {
         min-width: 21em;
     }
+}
 
-    .card_header{
-        position: relative;
+.card_header {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+
+    .card_header_bottom_fill {
+        width: 95%; //96%
+        height: 5px;
+        position: absolute;
         display: flex;
-        width: 100%;
+        bottom: -5px;
+        background: white;
+        border-radius: 0 0 1rem 0;
+        z-index: 1;
+    }
 
-        .card_header_bottom_fill {
-            width: 96%;
-            height: 5px;
-            position: absolute;
-            display: flex;
-            bottom: -5px;
-            background: white;
-            border-radius: 0 0 1rem 0;
-            z-index: 1;
-        }
+    .card_title {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0px 27px 0px 27px;
+        background: #ffffff;
+        border-radius: 10px 10px 1px 1px;
+        overflow: hidden;
+        max-width: 50%;
+    }
 
-        .card_title {
-            font-size: 14px;
-            font-weight: bold;
-            padding: 0px 27px 0px 27px;
-            background: #ffffff;
-            border-radius: 10px 10px 1px 1px;
-            overflow: hidden;
-            max-width: 50%;
-        }
+    .card_header_options {
+        position: absolute;
+        right: 20px;
+        bottom: -5px;
 
-        .card_header_options {
-            position: absolute;
-            right: 20px;
-            bottom: -5px;
-
-            button {
-                margin-right: 5px;
-
-            }
+        button {
+            margin-right: 5px;
         }
     }
 }
-
-.task_container{
+.task_container {
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 1px 1px 30px 5px;
-    box-shadow: 0 4px 2px -2px rgba(10, 10, 10, .1);
+    box-shadow: 0 4px 2px -2px rgba(10, 10, 10, 0.1);
     width: 100%;
 }
 
@@ -239,7 +227,7 @@ body {
     display: block;
     position: relative;
 
-    &::after{
+    &::after {
         content: "";
         height: calc(100% - 15px);
         background: rgb(63, 63, 136);
@@ -258,12 +246,12 @@ body {
     }
 
     &:hover {
-        .task_options{
+        .task_options {
             position: absolute;
             display: flex;
             height: 30px;
         }
-        &:after{
+        &:after {
             background: gray;
         }
     }
@@ -281,7 +269,6 @@ body {
         padding: 10px 0 15px;
     }
 
-
     .task_date {
         display: flex;
         justify-content: space-between;
@@ -290,7 +277,7 @@ body {
 }
 
 .svg-inline--fa.fa-w-14 {
-    width: .875em;
+    width: 0.875em;
 }
 .svg-inline--fa.fa-w-16 {
     width: 1em;
@@ -303,31 +290,11 @@ body {
     font-size: inherit;
     height: 1em;
     overflow: visible;
-    vertical-align: -.125em;
+    vertical-align: -0.125em;
 }
 .fa-sm {
-    font-size: .875em;
+    font-size: 0.875em;
 }
 .fa-lg {
     font-size: 1.25em;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

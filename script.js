@@ -131,7 +131,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // If currentCardID has a value - prevents errors
         if (currentCardID) {
             let cardTitle = document.querySelector("#" + currentCardID);
-            cardTitle.querySelector(".card_title").textContent = obj.value;
+            cardTitle.parentNode.firstChild.querySelector(".card_title").textContent = obj.value;
 
             // Append cardDict with new title
             cardDict[currentCardID].cardInfoTitle = obj.value;
@@ -269,11 +269,12 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         document.querySelector(".EDIT__select_task_container").style.display = "block";
 
         // assign cardID to currentCardID
-        currentCardID = this.parentNode.parentNode.parentNode.id;
-
+        currentCardID = this.parentNode.parentNode.parentNode.lastChild.id;
         // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
-        let cardTitle = document.querySelector("#" + currentCardID);
-        document.querySelector("#cardTitleInput").value = cardTitle.querySelector(".card_title").textContent;
+        // let cardTitle = document.querySelector("#" + currentCardID);
+        document.querySelector("#cardTitleInput").value = this.parentNode.parentNode.querySelector(
+            ".card_title"
+        ).textContent;
 
         // to load -> create selected tasks specific to the currentCardID
         loadEditSelectedTasks();
@@ -407,7 +408,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         document.querySelector(".EDIT__confirm_right").style.display = "inline-flex";
 
         // sets the cardID to currentCardID
-        currentCardID = this.parentNode.parentNode.parentNode.id;
+        currentCardID = this.parentNode.parentNode.parentNode.lastChild.id;
 
         // Card is already created
         hasCardBeenAdded = true;
@@ -415,8 +416,10 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         hasMarkdown = true;
 
         // Since it opens the EDIT screen, this sets the card name to the correct cardTitle (from MAIN)
-        let cardTitle = document.querySelector("#" + currentCardID);
-        document.querySelector("#cardTitleInput").value = cardTitle.querySelector(".card_title").textContent;
+        // let cardTitle = document.querySelector("#" + currentCardID);
+        document.querySelector("#cardTitleInput").value = this.parentNode.parentNode.querySelector(
+            ".card_title"
+        ).textContent;
 
         // focus on the group input so user does not have to click it.
         let css_class_task = document.querySelector(".EDIT__task_body");
@@ -848,7 +851,8 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         card_Header.appendChild(card_Header_Bottom);
         card_Header.appendChild(card_Title);
         card_Header.appendChild(card_Options);
-        card_Body.appendChild(card_Header);
+        card_Container.appendChild(card_Header);
+        // card_Body.appendChild(card_Header);
         card_Container.appendChild(card_Body);
         parent.appendChild(card_Container);
     }
@@ -909,10 +913,11 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
             // assign cardID to currentCardID
             currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
-
             // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
             let cardTitle = document.querySelector("#" + currentCardID);
-            document.querySelector("#cardTitleInput").value = cardTitle.querySelector(".card_title").textContent;
+            document.querySelector("#cardTitleInput").value = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.querySelector(
+                ".card_title"
+            ).textContent;
 
             editTaskScreen("taskBody" + taskIDNumRef);
         };
@@ -1077,7 +1082,7 @@ function loadCards() {
     }
     // ? User deletes a card (from MAIN titlebar)
     function deleteCard() {
-        var c = this.parentNode.parentNode.parentNode.parentNode;
+        var c = this.parentNode.parentNode.parentNode
         //delete animation
         c.animate(
             [
@@ -1097,7 +1102,7 @@ function loadCards() {
         }, 500);
 
         // Delete all card data
-        let deletedCardID = this.parentNode.parentNode.parentNode.id;
+        let deletedCardID = this.parentNode.parentNode.parentNode.lastChild.id;
         // delete task data that was inside cardDict.contains
         for (const containedTasks of cardDict[deletedCardID].cardInfoContainsTasks) {
             delete taskDict[containedTasks];
@@ -1148,7 +1153,6 @@ function loadCards() {
         // Delete all task data
         let deletedTaskID = this.parentNode.parentNode.id;
         currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
-
         // delete task data that was inside cardDict.contains
         let deletedTaskIndex = cardDict[currentCardID].cardInfoContainsTasks.indexOf(deletedTaskID);
         cardDict[currentCardID].cardInfoContainsTasks.splice(deletedTaskIndex, 1);
@@ -1169,16 +1173,15 @@ function loadCards() {
     }
 }
 // * Testing
-function displayData() {
-    console.log(groupDict);
-    console.log(cardDict);
-    console.log(taskDict);
-}
+// function displayData() {
+//     console.log(groupDict);
+//     console.log(cardDict);
+//     console.log(taskDict);
+// }
 
 function AccountLogout() {
     document.querySelector(".ACCOUNT__container").style.display = "block";
 }
-
 
 // logout of account
 document.querySelector(".btn_logout").addEventListener("click", (e) => {

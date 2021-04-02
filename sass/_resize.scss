@@ -10,8 +10,15 @@
     }
 }
 @media (max-width: 720px) {
+    body {
+        height:100vh;
+    }
     .section {
         padding: 0rem 0 0 0 !important;
+        height:100%
+    }
+    .SECTION__columns{
+        height: 100%;
     }
     .box {
         height: 100vh !important;
@@ -23,7 +30,6 @@
         z-index: 1000;
         width: 100% !important;
         height: 100%;
-        min-height: 720px;
         margin-top: 0;
         padding-top: 2em !important;
     }
@@ -34,7 +40,7 @@
     .titlebar {
         padding: 0 .75em 0 2em !important;
         .titlebar_text {
-            margin-left: 5px;
+            margin-left: 10px;
         }
     }
     .MAIN__navigationbar {
@@ -57,21 +63,35 @@
 
     }
     .ACCOUNT__ask_logout {
-        position: relative;
-        margin-top: 10px;
+        position: absolute;
+        bottom: 5em;
     }
 }
 
-@media (max-width: 380px) {
-    .column_padding {
-        padding: 2em 0 3em !important;
+@media (max-width: 363px) {
+    .card_container {
+        width: 100%;
     }
+    .card_title {
+        width: 30%;
+    }
+    .card_header_bottom_fill {
+        width: 85% !important;
+    }
+    .card_header_options {
+        right: 40px !important;
+    }
+    .card_body.card_width {
+        min-width: unset !important;
+    }
+    .task_container{
+        width: 92%  !important;
+    }
+
 }
 
-@media (max-height: 580px) {
-    .ACCOUNT__ask_logout {
-        position: relative;
-        margin-top: 0px;
-        margin-bottom: 10px;
+@media (max-height: 740px) {
+    .menu_body{
+        max-height: 450px;
     }
 }
