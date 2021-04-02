@@ -434,7 +434,7 @@ a {
 .MAIN__navigationbar {
   position: relative;
   display: none;
-  z-index: 100;
+  z-index: 1;
 }
 
 .flatpickr-day.inRange {
@@ -894,6 +894,11 @@ a {
   border-top: 1px solid #eee;
 }
 
+.EDIT__textarea img,
+.task_description img {
+  max-width: 100%;
+}
+
 .ACCOUNT__container {
   display: none;
   position: absolute;
@@ -970,6 +975,9 @@ a {
   .SECTION__columns {
     height: 100%;
   }
+  .PANEL__card {
+    height: 87% !important;
+  }
   .box {
     height: 100vh !important;
   }
@@ -1022,9 +1030,6 @@ a {
 @media (max-width: 363px) {
   .card_container {
     width: 100%;
-  }
-  .card_title {
-    width: 30%;
   }
   .card_header_bottom_fill {
     width: 85% !important;
@@ -1122,7 +1127,7 @@ body {
   position: relative;
 }
 
-.box .box_filter {
+.box_filter {
   position: absolute;
   top: 0;
   left: 0;
@@ -1133,11 +1138,12 @@ body {
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   /*This be the blur*/
+  z-index: 1;
 }
 
 .MAIN__padding {
   position: relative;
-  height: 96%;
+  height: 90%;
   padding: 1rem 0 1rem;
 }
 
@@ -1207,6 +1213,7 @@ body {
   font-family: sans-serif;
   position: relative;
   word-break: break-all;
+  z-index: 10;
 }
 
 .card_body {
@@ -1241,6 +1248,7 @@ body {
   background: white;
   border-radius: 0 0 1rem 0;
   z-index: 1;
+  cursor: pointer;
 }
 
 .card_header .card_title {
@@ -1251,6 +1259,7 @@ body {
   border-radius: 10px 10px 1px 1px;
   overflow: hidden;
   max-width: 50%;
+  cursor: pointer;
 }
 
 .card_header .card_header_options {
@@ -1339,6 +1348,27 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   font-size: 13px;
+}
+
+.SORT__container {
+  position: relative;
+  width: 70%;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.SORT__body {
+  position: relative;
+  left: 20px;
+}
+
+.SORT__btn_sort_card, .SORT__btn_sort_task {
+  display: none;
+}
+
+.sortable-selected .card_header_bottom_fill, .sortable-selected .card_title,
+.sortable-selected .task_body {
+  background-color: bisque;
 }
 
 .svg-inline--fa.fa-w-14 {

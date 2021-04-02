@@ -20,6 +20,9 @@
     .SECTION__columns{
         height: 100%;
     }
+    .PANEL__card {
+        height: 87% !important;
+    }
     .box {
         height: 100vh !important;
     }
@@ -72,9 +75,9 @@
     .card_container {
         width: 100%;
     }
-    .card_title {
-        width: 30%;
-    }
+    // .card_title {
+    //     width: 30%;
+    // }
     .card_header_bottom_fill {
         width: 85% !important;
     }

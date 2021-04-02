@@ -729,6 +729,20 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             document.querySelector("#MainGroupTitleInput").value = document.querySelector(
                 "#" + currentGroupID
             ).textContent;
+
+            // Checks if there are any cards on the screen
+            if (document.querySelector(".card_container") != null) {
+                document.querySelector(".SORT__container").style.display = "block";
+                document.querySelector(".SORT__btn_sort_card").style.display = "inline-flex";
+                // Checks if there are any tasks on the screen
+                if (document.querySelector(".task_container") != null)
+                    document.querySelector(".SORT__btn_sort_task").style.display = "inline-flex";
+                else document.querySelector(".SORT__btn_sort_task").style.display = "none";
+            } else {
+                document.querySelector(".SORT__container").style.display = "none";
+                document.querySelector(".SORT__btn_sort_card").style.display = "none";
+                document.querySelector(".SORT__btn_sort_task").style.display = "none";
+            }
         };
 
         // When user creates a group, make its class active
@@ -740,6 +754,20 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
 
         // Change currentGroupID to newly created group
         currentGroupID = span.id;
+
+        // Checks if there are any cards on the screen
+        if (document.querySelector(".card_container") != null) {
+            document.querySelector(".SORT__container").style.display = "block";
+            document.querySelector(".SORT__btn_sort_card").style.display = "inline-flex";
+            // Checks if there are any tasks on the screen
+            if (document.querySelector(".task_container") != null)
+                document.querySelector(".SORT__btn_sort_task").style.display = "inline-flex";
+            else document.querySelector(".SORT__btn_sort_task").style.display = "none";
+        } else {
+            document.querySelector(".SORT__container").style.display = "none";
+            document.querySelector(".SORT__btn_sort_card").style.display = "none";
+            document.querySelector(".SORT__btn_sort_task").style.display = "none";
+        }
     }
 
     // ? Create Card
@@ -747,7 +775,8 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         let parent = document.querySelector(".PANEL__card");
         let card_Container = document.createElement("div");
         card_Container.className = "card_container";
-        card_Container.id = "cardContainer" + cardIDNumRef; //Don't know if this is needed
+        card_Container.id = "cardContainer"; // + cardIDNumRef; //Don't know if this is needed
+        card_Container.setAttribute("data-id", "cardBody" + cardIDNumRef);
         let card_Body = document.createElement("div");
         card_Body.className = "card_body btn-group-vertical card_width";
         card_Body.id = "cardBody" + cardIDNumRef;
@@ -855,6 +884,16 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         // card_Body.appendChild(card_Header);
         card_Container.appendChild(card_Body);
         parent.appendChild(card_Container);
+
+        // Checks if there are any cards on the screen
+        if (document.querySelector(".card_container") != null) {
+            document.querySelector(".SORT__container").style.display = "block";
+            document.querySelector(".SORT__btn_sort_card").style.display = "inline-flex";
+        } else {
+            document.querySelector(".SORT__container").style.display = "none";
+            document.querySelector(".SORT__btn_sort_card").style.display = "none";
+            document.querySelector(".SORT__btn_sort_task").style.display = "none";
+        }
     }
 
     // ? Create Task
@@ -862,6 +901,7 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         let parent = document.querySelector("#cardBody" + cardIDNumRef);
         let task_Container = document.createElement("div");
         task_Container.className = "task_container";
+        task_Container.setAttribute("data-id", "taskBody" + taskIDNumRef);
         let task_Body = document.createElement("div");
         task_Body.className = "task_body";
         task_Body.id = "taskBody" + taskIDNumRef;
@@ -915,7 +955,9 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
             currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
             // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
             let cardTitle = document.querySelector("#" + currentCardID);
-            document.querySelector("#cardTitleInput").value = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.querySelector(
+            document.querySelector(
+                "#cardTitleInput"
+            ).value = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.querySelector(
                 ".card_title"
             ).textContent;
 
@@ -998,6 +1040,10 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         task_Body.appendChild(task_Options);
         task_Container.appendChild(task_Body);
         parent.appendChild(task_Container);
+
+        // Checks if there are any tasks on the screen
+        if (document.querySelector(".task_container") != null)
+            document.querySelector(".SORT__btn_sort_task").style.display = "inline-flex";
     }
 }
 
@@ -1082,7 +1128,7 @@ function loadCards() {
     }
     // ? User deletes a card (from MAIN titlebar)
     function deleteCard() {
-        var c = this.parentNode.parentNode.parentNode
+        var c = this.parentNode.parentNode.parentNode;
         //delete animation
         c.animate(
             [
@@ -1099,6 +1145,13 @@ function loadCards() {
         // Timeout to delete until animation complete
         setTimeout(function () {
             c.remove();
+
+            // if there are no card containers on the screen
+            if (document.querySelector(".card_container") == null) {
+                document.querySelector(".SORT__container").style.display = "none";
+                document.querySelector(".SORT__btn_sort_card").style.display = "none";
+                document.querySelector(".SORT__btn_sort_task").style.display = "none";
+            }
         }, 500);
 
         // Delete all card data
@@ -1131,7 +1184,7 @@ function loadCards() {
 
     // ? User deletes a task (from MAIN titlebar)
     function deleteTask() {
-        var t = this.parentNode.parentNode;
+        var t = this.parentNode.parentNode.parentNode;
         //delete animation
         t.animate(
             [
@@ -1148,6 +1201,10 @@ function loadCards() {
         // Timeout to delete until animation complete
         setTimeout(function () {
             t.remove();
+
+            // if there are no task containers on the screen
+            if (document.querySelector(".task_container") == null)
+                document.querySelector(".SORT__btn_sort_task ").style.display = "none";
         }, 500);
 
         // Delete all task data
@@ -1172,6 +1229,133 @@ function loadCards() {
         db.collection("fbTaskDict").doc(deletedTaskID).delete();
     }
 }
+
+// ? SORTING CARDS/TASKS
+var sortCard = false;
+var sortTask = false;
+
+var taskOrder = [];
+var sortables = [];
+
+var sortableCard;
+var sortableTask;
+
+var boxFilter;
+
+// ? USER CLICKS/SORTS the CARDS (from MAIN)
+document.querySelector(".SORT__btn_sort_card").addEventListener("click", function () {
+    sortCard = !sortCard;
+    let panel = document.querySelector(".PANEL__card");
+    if (sortCard) {
+        // Make the card containers sortable
+        sortableCard = Sortable.create(panel, {
+            multiDrag: true, // Enable the plugin
+            selectedClass: "sortable-selected", // Class name for selected item
+            animation: 175,
+        });
+        // Add a filter/blur to the entire screen and increase zIndex of sort btn
+        boxFilter = document.createElement("div");
+        boxFilter.className = "box_filter";
+        document.querySelector("body").appendChild(boxFilter);
+        document.querySelector(".SORT__btn_sort_card").style.zIndex = "5";
+    } else {
+        // remove the box filter and decrease zIndex of sort btn
+        boxFilter.remove();
+        document.querySelector(".SORT__btn_sort_card").style.zIndex = "0";
+
+        // disable the sortable state of card containers
+        let state = sortableCard.option("disabled"); // get
+        sortableCard.option("disabled", !state); // set
+
+        // Turn it into an array, containing the order of the data-id's of the card_container's
+        var cardOrder = sortableCard.toArray();
+        console.log(cardOrder);
+
+        // Save new card order to groupDict
+        groupDict[currentGroupID].groupInfoContainsCards = cardOrder;
+        console.log(groupDict);
+
+        // Store/Update new card order to firestore
+        db.collection("Users").doc(userUID).collection("fbGroupDict").doc(currentGroupID).update({
+            groupInfoContainsCards: cardOrder,
+        });
+    }
+});
+
+// ? USER CLICKS/SORTS the TASKS (from MAIN)
+document.querySelector(".SORT__btn_sort_task").addEventListener("click", function () {
+    sortTask = !sortTask;
+
+    if (sortTask) {
+        // Make the task containers sortable
+        document.querySelectorAll(".card_body").forEach((obj) => {
+            // for all elements named '.card_body', make obj/element Sortable and push to sortables array
+            sortables.push(
+                new Sortable(obj, {
+                    multiDrag: true, // Enable the plugin
+                    selectedClass: "sortable-selected", // Class name for selected item
+                    group: ".card_body", // shared group
+                    animation: 175,
+                    onEnd: function (/**Event*/ evt) {
+                        let newTarget = evt.to.id;
+                        let oldTarget = evt.from.id;
+
+                        let cardIDArrContains = document
+                            .querySelector("#" + newTarget)
+                            .querySelectorAll(".task_container");
+
+                        cardIDArrContains.forEach((obj) => {
+                            taskOrder.push(obj.getAttribute("data-id"));
+                        });
+                        cardDict[newTarget].cardInfoContainsTasks = taskOrder;
+
+                        // Reset taskOrder
+                        taskOrder = [];
+
+                        cardIDArrContains = document.querySelector("#" + oldTarget).querySelectorAll(".task_container");
+
+                        cardIDArrContains.forEach((obj) => {
+                            taskOrder.push(obj.getAttribute("data-id"));
+                        });
+                        cardDict[oldTarget].cardInfoContainsTasks = taskOrder;
+
+                        // Reset taskOrder
+                        taskOrder = [];
+                    },
+                })
+            );
+        });
+        // Add a filter/blur to the entire screen and increase zIndex of sort btn
+        boxFilter = document.createElement("div");
+        boxFilter.className = "box_filter";
+        document.querySelector("body").appendChild(boxFilter);
+        document.querySelector(".SORT__btn_sort_task").style.zIndex = "5";
+    } else {
+        // remove the box filter and decrease zIndex of sort btn
+        boxFilter.remove();
+        document.querySelector(".SORT__btn_sort_task").style.zIndex = "0";
+
+        // disable the sortable state of card containers
+        sortables.forEach((obj) => {
+            // disable each obj that has 'new Sortable()'
+            let state = obj.option("disabled"); // get
+            obj.option("disabled", !state); // set
+        });
+
+        // reset sortables array
+        sortables = [];
+
+        let groupContains = groupDict[currentGroupID].groupInfoContainsCards;
+        /// for each cardID in groupDict.contains
+        groupContains.forEach((groupCardID) => {
+            // Store/Update new card order to firestore
+            db.collection("Users").doc(userUID).collection("fbCardDict").doc(groupCardID).update({
+                cardInfoContainsTasks: cardDict[groupCardID].cardInfoContainsTasks,
+            });
+        });
+    }
+});
+
 // * Testing
 // function displayData() {
 //     console.log(groupDict);
