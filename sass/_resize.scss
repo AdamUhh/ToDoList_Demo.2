@@ -2,11 +2,18 @@
     .one_quarter {
         display: block !important;
     }
-    .GROUP__add_group_wrapper, .ACCOUNT__body {
+    .GROUP__add_group_wrapper, .ACCOUNT__body, .DeleteConfirm__wrapper {
         width: 720px;
+
         .GROUP__confirm_center .GROUP__btn_confirm {
             width: 70%;
         }
+    }
+    .column.box {
+        display: block !important;
+    }
+    .MENU__btn_exit_wrapper {
+        display: none !important;
     }
 }
 @media (max-width: 720px) {
@@ -54,6 +61,7 @@
     .menu_container {
         padding: 0 0.75em;
     }
+
     .MENU__exit_wrapper {
         display: block;
     }
@@ -61,9 +69,13 @@
         display: inline-block !important;
         flex-wrap: nowrap;
     }
-    .GROUP__add_group_wrapper, .ACCOUNT__body {
-        width: 320px;
+    .GROUP__add_group_wrapper, .ACCOUNT__body, .DeleteConfirm__wrapper {
+        width: 300px;
+        max-height: 225px;
 
+    }
+    .DeleteConfirm__btn_confirm {
+        margin-top:15px;
     }
     .ACCOUNT__ask_logout {
         position: absolute;

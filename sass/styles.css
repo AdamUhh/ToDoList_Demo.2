@@ -23,6 +23,7 @@
   position: relative;
   vertical-align: top;
   outline: none;
+  font-family: Sen, sans-serif;
 }
 
 .btn_border_10 {
@@ -120,7 +121,7 @@
 
 .EDIT__btn_exit,
 .MENU__btn_exit,
-.GROUP__btn_exit, .ACCOUNT__btn_exit {
+.GROUP__btn_exit, .ACCOUNT__btn_exit, .DeleteConfirm__btn_exit {
   background: transparent;
   color: black;
   padding: 0;
@@ -130,7 +131,7 @@
 
 .EDIT__btn_exit:hover,
 .MENU__btn_exit:hover,
-.GROUP__btn_exit:hover, .ACCOUNT__btn_exit:hover {
+.GROUP__btn_exit:hover, .ACCOUNT__btn_exit:hover, .DeleteConfirm__btn_exit:hover {
   color: #830000;
 }
 
@@ -234,18 +235,22 @@
           justify-content: center;
 }
 
-.GROUP__confirm_center {
+.GROUP__confirm_center, .DeleteConfirm__confirm_center {
   position: relative;
   width: 100%;
   text-align: center;
 }
 
-.GROUP__confirm_center .GROUP__btn_confirm {
+.GROUP__confirm_center .GROUP__btn_confirm, .GROUP__confirm_center .DeleteConfirm__btn_confirm, .DeleteConfirm__confirm_center .GROUP__btn_confirm, .DeleteConfirm__confirm_center .DeleteConfirm__btn_confirm {
   position: relative;
   margin-left: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.DeleteConfirm__btn_confirm {
+  margin-top: 20px;
 }
 
 .GROUP__btn_delete_group {
@@ -260,7 +265,7 @@
   display: none;
 }
 
-.GROUP__add_group_container {
+.GROUP__add_group_container, .DeleteConfirm__container {
   display: none;
   position: absolute;
   width: 100vw;
@@ -269,20 +274,24 @@
   background-color: rgba(255, 255, 255, 0.35);
 }
 
-.GROUP__add_group_wrapper {
+.GROUP__add_group_wrapper, .DeleteConfirm__wrapper {
   position: absolute;
   background-color: #dfdad7;
   z-index: 1002;
-  height: 135px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: 150px;
   border-radius: 5px;
   margin: auto;
   top: -200px;
   left: 0;
   bottom: 0;
   right: 0;
+  padding: 20px;
 }
 
-.GROUP__add_group_wrapper .GROUP__header_wrapper {
+.GROUP__add_group_wrapper .GROUP__header_wrapper, .GROUP__add_group_wrapper .DeleteConfirm__header_wrapper, .GROUP__add_group_wrapper .DeleteConfirm__header_wrapper_title, .DeleteConfirm__wrapper .GROUP__header_wrapper, .DeleteConfirm__wrapper .DeleteConfirm__header_wrapper, .DeleteConfirm__wrapper .DeleteConfirm__header_wrapper_title {
   text-align: center;
   font-weight: bold;
   font-size: larger;
@@ -290,8 +299,12 @@
   padding-top: 0.25em;
 }
 
-.GROUP__add_group_wrapper .titlebar {
+.GROUP__add_group_wrapper .titlebar, .DeleteConfirm__wrapper .titlebar {
   padding: 1rem 1rem 1rem 1rem !important;
+}
+
+.DeleteConfirm__header_wrapper_title {
+  font-size: x-large !important;
 }
 
 .GROUP__ask_add_group_container {
@@ -388,11 +401,13 @@ ul {
 }
 
 .menu_list {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   line-height: 1.25;
 }
 
 .menu_list li {
   position: relative;
+  min-height: 36px;
 }
 
 .menu_list a {
@@ -401,6 +416,7 @@ ul {
   color: #4a4a4a;
   display: block;
   padding: 0.5em 0.75em;
+  min-height: 20px;
 }
 
 .menu_list .button {
@@ -472,7 +488,7 @@ a {
 }
 
 .EDIT__btn_exit_wrapper,
-.GROUP__btn_exit_wrapper, .ACCOUNT__btn_exit_wrapper {
+.GROUP__btn_exit_wrapper, .ACCOUNT__btn_exit_wrapper, .DeleteConfirm__btn_exit_wrapper {
   position: absolute;
   right: 0;
   top: 0;
@@ -956,11 +972,17 @@ a {
   .one_quarter {
     display: block !important;
   }
-  .GROUP__add_group_wrapper, .ACCOUNT__body {
+  .GROUP__add_group_wrapper, .ACCOUNT__body, .DeleteConfirm__wrapper {
     width: 720px;
   }
-  .GROUP__add_group_wrapper .GROUP__confirm_center .GROUP__btn_confirm, .ACCOUNT__body .GROUP__confirm_center .GROUP__btn_confirm {
+  .GROUP__add_group_wrapper .GROUP__confirm_center .GROUP__btn_confirm, .ACCOUNT__body .GROUP__confirm_center .GROUP__btn_confirm, .DeleteConfirm__wrapper .GROUP__confirm_center .GROUP__btn_confirm {
     width: 70%;
+  }
+  .column.box {
+    display: block !important;
+  }
+  .MENU__btn_exit_wrapper {
+    display: none !important;
   }
 }
 
@@ -1018,8 +1040,12 @@ a {
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
   }
-  .GROUP__add_group_wrapper, .ACCOUNT__body {
-    width: 320px;
+  .GROUP__add_group_wrapper, .ACCOUNT__body, .DeleteConfirm__wrapper {
+    width: 300px;
+    max-height: 225px;
+  }
+  .DeleteConfirm__btn_confirm {
+    margin-top: 15px;
   }
   .ACCOUNT__ask_logout {
     position: absolute;
@@ -1170,7 +1196,7 @@ body {
   border: 1px solid transparent;
   border-radius: 3px;
   color: #2a3c4e;
-  font-family: Google Sans;
+  font-family: Sen;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

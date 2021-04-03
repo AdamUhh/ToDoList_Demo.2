@@ -10,6 +10,7 @@ var hasCardBeenAdded = false;
 var hasMarkdown = false;
 var isTaskEditMode = false;
 var goBack = false;
+var confirmed = false;
 var currentGroupID;
 var currentCardID;
 var currentTaskID;
@@ -55,15 +56,18 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         document.querySelector(".column.box").style.display = "block";
         document.querySelector(".column").style.display = "block";
         // Used to fix bug where MAIN won't display if screen size changes from phone to laptop
-        if (window.innerWidth < 1100) {
-            document.querySelector(".one_quarter").style.display = "none";
-        } else if (
-            window.innerWidth >= 1100 &&
-            document.querySelector(".MENU__btn_exit_wrapper").style.display == "block"
-        ) {
-            document.querySelector(".one_quarter").style.display = "none";
-            document.querySelector(".MENU__btn_exit_wrapper").style.display = "none";
-        }
+        document.querySelector(".one_quarter").style.display = "none";
+        document.querySelector(".MENU__btn_exit_wrapper").style.display = "none";
+        // if (window.innerWidth < 1100) {
+        //     console.log("Test")
+        // } else if (
+        //     window.innerWidth >= 1100 &&
+        //     document.querySelector(".MENU__btn_exit_wrapper").style.display == "block"
+        //     ) {
+        //     console.log("TestBB")
+        //     document.querySelector(".one_quarter").style.display = "none";
+        //     document.querySelector(".MENU__btn_exit_wrapper").style.display = "none";
+        // }
     });
 
     // ? User CLICKS/EXITS the EDIT screen [X]
@@ -103,7 +107,12 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         document.querySelector(".GROUP__add_group_container").style.display = "none";
         document.querySelector("#groupTitleInput").value = "";
     });
-
+    // ? User CLICKS/EXITS the DELETECONFIRM container [X]
+    document.querySelector(".DeleteConfirm__btn_exit").addEventListener("click", function () {
+        document.querySelector(".DeleteConfirm__container").style.display = "none";
+        // Users clicks the X and denies confirmation of deletion of element (Group, Card, Task)
+        confirmed = false;
+    });
     // ? User CLICKS/EXITS the ACCOUNT container [X]
     document.querySelector(".ACCOUNT__btn_exit").addEventListener("click", function () {
         document.querySelector(".ACCOUNT__container").style.display = "none";
@@ -693,7 +702,9 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         group_Option_svg.appendChild(group_Option_path);
         group_Option_span.appendChild(group_Option_svg);
         group_Options.appendChild(group_Option_span);
-        group_Options.onclick = deleteGroup;
+        group_Options.onclick = function () {
+            deleteElementConfirm("Group", this);
+        };
 
         // set span to user input
         span.textContent = groupTitle;
@@ -843,7 +854,9 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         card_Option2_span.appendChild(card_Option2_svg);
         card_Option2.appendChild(card_Option2_span);
         card_Options.appendChild(card_Option2);
-        card_Option2.onclick = deleteCard;
+        card_Option2.onclick = function () {
+            deleteElementConfirm("Card", this);
+        };
 
         // Option 3
         let card_Option3 = document.createElement("button");
@@ -990,7 +1003,9 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         task_Option2_span.appendChild(task_Option2_svg);
         task_Option2.appendChild(task_Option2_span);
         task_Options.appendChild(task_Option2);
-        task_Option2.onclick = deleteTask;
+        task_Option2.onclick = function () {
+            deleteElementConfirm("Task", this);
+        };
 
         // set task elements to user input
         task_Title.textContent = taskTitleRef;
@@ -1071,9 +1086,10 @@ function loadCards() {
 // * Delete Stuff --------------------------------------------------------------
 {
     // ? User deletes a group (from MENU)
-    function deleteGroup() {
-        var g = this.parentNode;
-
+    function deleteGroup(thisObj) {
+        var g = thisObj.parentNode;
+        // Used to prevent user from being able to click delete button twice and cause error
+        g.style.pointerEvents = "none";
         //delete animation
         g.animate(
             [
@@ -1087,7 +1103,7 @@ function loadCards() {
             }
         );
 
-        let tempGroupID = this.parentNode.firstChild.lastChild.id;
+        let tempGroupID = thisObj.parentNode.firstChild.lastChild.id;
 
         // delete card data that was inside groupDict.contains
         for (const containedCards of groupDict[tempGroupID].groupInfoContainsCards) {
@@ -1126,9 +1142,63 @@ function loadCards() {
             }
         }, 500);
     }
+
+    function deleteElementConfirm(name, thisObjRef) {
+        let delete_container = document.querySelector(".DeleteConfirm__container");
+        delete_container.style.display = "block";
+        if (name == "Group") {
+            // set up the text for the deleteConfirm container
+            delete_container.querySelector(".DeleteConfirm__header_wrapper").textContent =
+                "Are you sure you want to delete this group:";
+            delete_container.querySelector(".DeleteConfirm__header_wrapper_title").textContent =
+                "'" + thisObjRef.parentNode.firstChild.firstChild.textContent + "'";
+            // when user clicks the confirm btn, call the specific delete 'element' function
+            document.querySelector(".DeleteConfirm__btn_confirm").onclick = () => {
+                deleteGroup(thisObjRef);
+                // hide the deleteConfirm container
+                document.querySelector(".DeleteConfirm__btn_exit").click();
+            };
+        }
+        if (name == "Card") {
+            console.log(thisObjRef);
+            delete_container.querySelector(".DeleteConfirm__header_wrapper").textContent =
+                "Are you sure you want to delete this card:";
+            delete_container.querySelector(".DeleteConfirm__header_wrapper_title").textContent =
+                "'" + thisObjRef.parentNode.parentNode.querySelector("div:nth-child(2)").textContent + "'";
+            // when user clicks the confirm btn, call the specific delete 'element' function
+            document.querySelector(".DeleteConfirm__btn_confirm").onclick = () => {
+                deleteCard(thisObjRef);
+                // hide the deleteConfirm container
+                document.querySelector(".DeleteConfirm__btn_exit").click();
+            };
+        }
+
+        if (name == "Task") {
+            if (thisObjRef.parentNode.parentNode.firstChild.textContent != "") {
+                delete_container.querySelector(".DeleteConfirm__header_wrapper").textContent =
+                    "Are you sure you want to delete this task (title):";
+                delete_container.querySelector(".DeleteConfirm__header_wrapper_title").textContent =
+                    "'" + thisObjRef.parentNode.parentNode.firstChild.textContent + "'";
+            } else {
+                delete_container.querySelector(".DeleteConfirm__header_wrapper").textContent =
+                    "Are you sure you want to delete this task (description):";
+                delete_container.querySelector(".DeleteConfirm__header_wrapper_title").textContent =
+                    "'" +
+                    thisObjRef.parentNode.parentNode.querySelector("div:nth-child(2)").textContent.substring(0, 50) +
+                    "...'";
+            }
+            // when user clicks the confirm btn, call the specific delete 'element' function
+            document.querySelector(".DeleteConfirm__btn_confirm").onclick = () => {
+                deleteTask(thisObjRef);
+                // hide the deleteConfirm container
+                document.querySelector(".DeleteConfirm__btn_exit").click();
+            };
+        }
+    }
+
     // ? User deletes a card (from MAIN titlebar)
-    function deleteCard() {
-        var c = this.parentNode.parentNode.parentNode;
+    function deleteCard(thisObj) {
+        var c = thisObj.parentNode.parentNode.parentNode;
         //delete animation
         c.animate(
             [
@@ -1155,7 +1225,7 @@ function loadCards() {
         }, 500);
 
         // Delete all card data
-        let deletedCardID = this.parentNode.parentNode.parentNode.lastChild.id;
+        let deletedCardID = thisObj.parentNode.parentNode.parentNode.lastChild.id;
         // delete task data that was inside cardDict.contains
         for (const containedTasks of cardDict[deletedCardID].cardInfoContainsTasks) {
             delete taskDict[containedTasks];
@@ -1183,8 +1253,8 @@ function loadCards() {
     }
 
     // ? User deletes a task (from MAIN titlebar)
-    function deleteTask() {
-        var t = this.parentNode.parentNode.parentNode;
+    function deleteTask(thisObj) {
+        var t = thisObj.parentNode.parentNode.parentNode;
         //delete animation
         t.animate(
             [
@@ -1208,8 +1278,8 @@ function loadCards() {
         }, 500);
 
         // Delete all task data
-        let deletedTaskID = this.parentNode.parentNode.id;
-        currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
+        let deletedTaskID = thisObj.parentNode.parentNode.id;
+        currentCardID = thisObj.parentNode.parentNode.parentNode.parentNode.id;
         // delete task data that was inside cardDict.contains
         let deletedTaskIndex = cardDict[currentCardID].cardInfoContainsTasks.indexOf(deletedTaskID);
         cardDict[currentCardID].cardInfoContainsTasks.splice(deletedTaskIndex, 1);
@@ -1252,6 +1322,7 @@ document.querySelector(".SORT__btn_sort_card").addEventListener("click", functio
             multiDrag: true, // Enable the plugin
             selectedClass: "sortable-selected", // Class name for selected item
             animation: 175,
+            fallbackTolerance: 3,
         });
         // Add a filter/blur to the entire screen and increase zIndex of sort btn
         boxFilter = document.createElement("div");
@@ -1269,11 +1340,9 @@ document.querySelector(".SORT__btn_sort_card").addEventListener("click", functio
 
         // Turn it into an array, containing the order of the data-id's of the card_container's
         var cardOrder = sortableCard.toArray();
-        console.log(cardOrder);
 
         // Save new card order to groupDict
         groupDict[currentGroupID].groupInfoContainsCards = cardOrder;
-        console.log(groupDict);
 
         // Store/Update new card order to firestore
         db.collection("Users").doc(userUID).collection("fbGroupDict").doc(currentGroupID).update({
@@ -1296,6 +1365,7 @@ document.querySelector(".SORT__btn_sort_task").addEventListener("click", functio
                     selectedClass: "sortable-selected", // Class name for selected item
                     group: ".card_body", // shared group
                     animation: 175,
+                    fallbackTolerance: 3,
                     onEnd: function (/**Event*/ evt) {
                         let newTarget = evt.to.id;
                         let oldTarget = evt.from.id;

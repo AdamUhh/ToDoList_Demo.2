@@ -1,5 +1,5 @@
 // ADD GROUP STUFF
-.GROUP__add_group_container {
+.GROUP__add_group_container, .DeleteConfirm__container {
     display: none;
     position: absolute;
     width: 100vw;
@@ -7,19 +7,21 @@
     z-index: 1001;
     background-color: rgba(255, 255, 255, 0.35);
 }
-.GROUP__add_group_wrapper {
+.GROUP__add_group_wrapper, .DeleteConfirm__wrapper {
     position: absolute;
     background-color: #dfdad7;
     z-index: 1002;
-    height: 135px;
+    height: fit-content;
+    max-height: 150px;
     border-radius: 5px;
     margin: auto;
     top: -200px;
     left: 0;
     bottom: 0;
     right: 0;
+    padding: 20px;
 
-    .GROUP__header_wrapper {
+    .GROUP__header_wrapper, .DeleteConfirm__header_wrapper, .DeleteConfirm__header_wrapper_title {
         text-align: center;
         font-weight: bold;
         font-size: larger;
@@ -32,6 +34,11 @@
     }
 }
 
+.DeleteConfirm__header_wrapper_title {
+    font-size : x-large !important;
+}
+
+// Ask to create a group in MAIN when there are no groups found
 .GROUP__ask_add_group_container {
     position: absolute;
     width: 100%;
@@ -106,6 +113,7 @@ ul {
 ul {
     list-style: none;
 }
+
 .menu_label {
     color: #7a7a7a;
     font-size: 0.75em;
@@ -119,10 +127,12 @@ ul {
     margin-bottom: 1em;
 }
 .menu_list {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     line-height: 1.25;
 }
 .menu_list li {
     position: relative;
+    min-height: 36px;
 }
 .menu_list a {
     position: relative;
@@ -130,6 +140,7 @@ ul {
     color: #4a4a4a;
     display: block;
     padding: 0.5em 0.75em;
+    min-height: 20px;
 }
 
 .menu_list .button {

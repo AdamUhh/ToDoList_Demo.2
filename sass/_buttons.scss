@@ -23,6 +23,8 @@
     position: relative;
     vertical-align: top;
     outline: none;
+    font-family: Sen, sans-serif;
+
 }
 
 .btn_border_10 {
@@ -125,7 +127,7 @@
 // * For exit buttons
 .EDIT__btn_exit,
 .MENU__btn_exit,
-.GROUP__btn_exit, .ACCOUNT__btn_exit  {
+.GROUP__btn_exit, .ACCOUNT__btn_exit, .DeleteConfirm__btn_exit  {
     background: transparent;
     color: rgb(0, 0, 0);
     padding: 0;
@@ -236,17 +238,20 @@
 }
 
 // For GROUP CONFIRM
-.GROUP__confirm_center {
+.GROUP__confirm_center, .DeleteConfirm__confirm_center {
     position: relative;
     width: 100%;
     text-align: center;
-    .GROUP__btn_confirm {
+    .GROUP__btn_confirm, .DeleteConfirm__btn_confirm {
         position: relative;
         margin-left: auto;
         justify-content: center;
     }
 }
 
+.DeleteConfirm__btn_confirm {
+    margin-top:20px
+}
 .GROUP__btn_delete_group {
     position: absolute;
     right: 10px;
