@@ -331,3 +331,23 @@ body {
 .fa-lg {
     font-size: 1.25em;
 }
+
+
+// ? LOADING SCREEN
+#loading {
+    display: block;
+    position: absolute;
+    top:0;
+    // top: -200px;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    // height: calc(100vh + 200px);
+    background-image: url("https://i.pinimg.com/originals/48/6a/a0/486aa0fa1658b7522ecd8918908ece40.gif") ;
+    // background-image: url("https://i.stack.imgur.com/MnyxU.gif") ;
+    background-color: rgba(192, 192, 192, 0.75);
+    background-color: rgba(192, 192, 192, 0.55);
+    background-repeat: no-repeat;
+    background-position: center;
+  }

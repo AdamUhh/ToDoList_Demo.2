@@ -41,6 +41,7 @@
 // Ask to create a group in MAIN when there are no groups found
 .GROUP__ask_add_group_container {
     position: absolute;
+    display: none;
     width: 100%;
     height: 100%;
     .GROUP__ask_add_group_body {
