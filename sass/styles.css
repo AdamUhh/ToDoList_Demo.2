@@ -835,6 +835,7 @@ a {
 .task_description h5,
 .task_description h6 {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
 }
 
 .EDIT__textarea pre,

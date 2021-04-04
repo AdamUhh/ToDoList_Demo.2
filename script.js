@@ -374,6 +374,14 @@ document.querySelector(".btn_open_nav").addEventListener("click", function () {
         };
         // convert html to markdown and assign to textarea/markdown editor
         var turndownService = new TurndownService(options);
+
+        turndownService.addRule('break', {
+            filter: ['br'],
+            replacement: function (content) {
+              return '<br />\n\n'
+            }
+          })
+
         document.querySelector("#getm").value = turndownService.turndown(taskDict[taskIDRef].taskInfoDesc);
 
         // Simulate Keyup (ENTER) to update markdown incase of LAG
