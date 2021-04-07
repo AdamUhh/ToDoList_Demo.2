@@ -558,6 +558,7 @@ a {
   margin: 0.5rem;
   padding: 0.5rem 0.2rem;
   display: none;
+  list-style-position: inside;
 }
 
 .EDIT__select_task_wrapper {
