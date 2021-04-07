@@ -104,14 +104,15 @@
     margin: 0.5rem;
     padding: 0.5rem 0.2rem;
     display: none;
+    list-style-position: inside;
 }
 
 .EDIT__select_task_wrapper {
     position: relative;
+    list-style-position: inside;
     background-color: white;
     border-radius: 20px;
     padding: 10px 10px 10px 10px;
-    list-style-position: inside;
     margin-bottom: 10px;
 
     &:hover {
