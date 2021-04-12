@@ -1162,12 +1162,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  /*Make sure this color has an opacity of less than 1*/
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   /*This be the blur*/
-  z-index: 1;
+  z-index: 3;
 }
 
 .MAIN__padding {
@@ -1230,6 +1228,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   height: 90%;
+  z-index: 5;
 }
 
 .card_container {
@@ -1242,7 +1241,6 @@ body {
   font-family: sans-serif;
   position: relative;
   word-break: break-all;
-  z-index: 10;
 }
 
 .card_body {
@@ -1251,6 +1249,7 @@ body {
   max-height: 300px;
   overflow-y: scroll;
   width: 100%;
+  z-index: 5;
 }
 
 .card_body.card_width {
@@ -1276,7 +1275,7 @@ body {
   bottom: -5px;
   background: white;
   border-radius: 0 0 1rem 0;
-  z-index: 1;
+  z-index: 5;
   cursor: pointer;
 }
 
@@ -1289,6 +1288,7 @@ body {
   overflow: hidden;
   max-width: 50%;
   cursor: pointer;
+  z-index: 5;
 }
 
 .card_header .card_header_options {
@@ -1345,9 +1345,9 @@ body {
 
 .task_body:hover .task_options {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
   height: 30px;
 }
 

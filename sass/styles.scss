@@ -86,15 +86,16 @@ body {
 
 }
 
+
 .box_filter {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2); /*Make sure this color has an opacity of less than 1*/
+    // background: rgba(255, 255, 255, 0.2); /*Make sure this color has an opacity of less than 1*/
     backdrop-filter: blur(10px); /*This be the blur*/
-    z-index: 1;
+    z-index: 3;
 }
 
 .MAIN__padding {
@@ -151,6 +152,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     height: 90%;
+    z-index: 5;
 }
 
 .card_container {
@@ -160,7 +162,7 @@ body {
     font-family: sans-serif;
     position: relative;
     word-break: break-all;
-    z-index: 10;
+    // z-index: 10;
 }
 
 .card_body {
@@ -169,6 +171,7 @@ body {
     max-height: 300px;
     overflow-y: scroll;
     width: 100%;
+    z-index: 5;
 
     &.card_width {
         min-width: 21em;
@@ -189,7 +192,7 @@ body {
         bottom: -5px;
         background: white;
         border-radius: 0 0 1rem 0;
-        z-index: 1;
+        z-index: 5;
         cursor: pointer;
     }
 
@@ -202,6 +205,8 @@ body {
         overflow: hidden;
         max-width: 50%;
         cursor: pointer;
+        z-index: 5;
+
     }
 
     .card_header_options {
@@ -254,7 +259,7 @@ body {
     &:hover {
         .task_options {
             position: absolute;
-            display: flex;
+            display: flex !important;
             height: 30px;
         }
         &:after {
@@ -338,14 +343,11 @@ body {
     display: block;
     position: absolute;
     top:0;
-    // top: -200px;
     left: 0;
     z-index: 100;
     width: 100vw;
     height: 100vh;
-    // height: calc(100vh + 200px);
     background-image: url("https://i.pinimg.com/originals/48/6a/a0/486aa0fa1658b7522ecd8918908ece40.gif") ;
-    // background-image: url("https://i.stack.imgur.com/MnyxU.gif") ;
     background-color: rgba(192, 192, 192, 0.75);
     background-color: rgba(192, 192, 192, 0.55);
     background-repeat: no-repeat;
