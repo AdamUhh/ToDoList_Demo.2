@@ -1,131 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="auth.css" rel="stylesheet" />
+        <title>Login Page</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="auth.css" rel="stylesheet">
-    <title>Login Page</title>
+        <!-- Manifest -->
+        <link rel="manifest" href="./manifest.json" />
 
-</head>
+        <!-- Manifest - IOS support -->
+        <link rel="apple-touch-icon" href="/assets/icons/icon-96x96.png" />
+        <meta name="apple-mobile-web-app-status-bar" content="#aa7700" />
+        <meta name="theme-color" content="#FFE1C4" />
+    </head>
 
-<body>
-    <div class="container">
-        <div class="container_padding">
-            <div class="container_body">
-                <form class="account_form" id="login_form">
-                    <span class="account_form_title">
-                        Welcome back!
-                    </span>
-                    <div class="login_form_body">
-                        <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
-                            <input class="account_input" id="login_email" type="email" name="email" placeholder="Email">
-                            <span class="svg_container">
-                                <svg class="svg-inline--fa fa-envelope fa-w-16" aria-hidden="true" focusable="false"
-                                    data-prefix="fa" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 512 512" data-fa-i2svg="">
-                                    <path fill="currentColor"
-                                        d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
-                                    </path>
-                                </svg>
-                            </span>
+    <body>
+        <div class="container">
+            <div class="container_padding">
+                <div class="container_body">
+                    <form class="account_form" id="login_form">
+                        <span class="account_form_title"> Welcome back! </span>
+                        <div class="login_form_body">
+                            <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
+                                <input class="account_input" id="login_email" type="email" name="email" placeholder="Email" />
+                                <span class="svg_container">
+                                    <svg
+                                        class="svg-inline--fa fa-envelope fa-w-16"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                        data-prefix="fa"
+                                        data-icon="envelope"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                        data-fa-i2svg=""
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"
+                                        ></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
+                                <input class="account_input" id="login_password" type="password" name="password" placeholder="Password" />
+                                <span class="svg_container">
+                                    <svg
+                                        class="svg-inline--fa fa-lock fa-w-14"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                        data-prefix="fa"
+                                        data-icon="lock"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 448 512"
+                                        data-fa-i2svg=""
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"
+                                        ></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="error"></div>
+                            <button class="button btn_blue">Login</button>
                         </div>
-                        <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
-                            <input class="account_input" id="login_password" type="password" name="password"
-                                placeholder="Password">
-                            <span class="svg_container">
-                                <svg class="svg-inline--fa fa-lock fa-w-14" aria-hidden="true" focusable="false"
-                                    data-prefix="fa" data-icon="lock" role="img" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512" data-fa-i2svg="">
-                                    <path fill="currentColor"
-                                        d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z">
-                                    </path>
-                                </svg>
-                            </span>
+                    </form>
+                    <form class="account_form" id="signup_form">
+                        <span class="account_form_title"> Create Your Account </span>
+                        <div class="signup_form_body">
+                            <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
+                                <input class="account_input" id="signup_email" type="email" name="email" placeholder="Email" />
+                                <span class="svg_container">
+                                    <svg
+                                        class="svg-inline--fa fa-envelope fa-w-16"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                        data-prefix="fa"
+                                        data-icon="envelope"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                        data-fa-i2svg=""
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"
+                                        ></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="input_field">
+                                <input class="account_input" id="signup_password" type="password" name="password" placeholder="Password" />
+                                <span class="svg_container">
+                                    <svg
+                                        class="svg-inline--fa fa-lock fa-w-14"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                        data-prefix="fa"
+                                        data-icon="lock"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 448 512"
+                                        data-fa-i2svg=""
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"
+                                        ></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="error"></div>
+                            <button class="button btn_blue">Sign Up</button>
                         </div>
-                        <div class="error"></div>
-                        <button class="button btn_blue">Login</button>
-                    </div>
-                </form>
-                <form class="account_form" id="signup_form">
-                    <span class="account_form_title">
-                        Create Your Account
-                    </span>
-                    <div class="signup_form_body">
-                        <div class="input_field" data-validate="Valid email is required: ex@abc.xyz">
-                            <input class="account_input" id="signup_email" type="email" name="email"
-                                placeholder="Email">
-                            <span class="svg_container">
-                                <svg class="svg-inline--fa fa-envelope fa-w-16" aria-hidden="true" focusable="false"
-                                    data-prefix="fa" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 512 512" data-fa-i2svg="">
-                                    <path fill="currentColor"
-                                        d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
-                                    </path>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="input_field">
-                            <input class="account_input" id="signup_password" type="password" name="password"
-                                placeholder="Password">
-                            <span class="svg_container">
-                                <svg class="svg-inline--fa fa-lock fa-w-14" aria-hidden="true" focusable="false"
-                                    data-prefix="fa" data-icon="lock" role="img" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512" data-fa-i2svg="">
-                                    <path fill="currentColor"
-                                        d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z">
-                                    </path>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="error"></div>
-                        <button class="button btn_blue">Sign Up</button>
-                    </div>
-                </form>
-                <div class="text_create_account">
-
-                    Create your account →
-
+                    </form>
+                    <div class="text_create_account">Create your account →</div>
+                    <div class="text_go_back">← Login</div>
                 </div>
-                <div class="text_go_back">
-
-                    ← Login
-
-                </div>
-
             </div>
         </div>
-    </div>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+        <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyAg39DG220X38J-BqaGfnGJaU7mjTAV8Is",
-            authDomain: "to-do-list-c0bb7.firebaseapp.com",
-            projectId: "to-do-list-c0bb7",
-            // storageBucket: "to-do-list-c0bb7.appspot.com",
-            // messagingSenderId: "45262729887",
-            appId: "1:45262729887:web:a45b8835f0d160f28328aa"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: 'AIzaSyAg39DG220X38J-BqaGfnGJaU7mjTAV8Is',
+                authDomain: 'to-do-list-c0bb7.firebaseapp.com',
+                projectId: 'to-do-list-c0bb7',
+                // storageBucket: "to-do-list-c0bb7.appspot.com",
+                // messagingSenderId: "45262729887",
+                appId: '1:45262729887:web:a45b8835f0d160f28328aa',
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
 
-        // Auth and firestore references
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        db.settings({
-            timestampsInSnapshots: true
-        })
-    </script>
-    <script src="auth.js"></script>
-</body>
-
+            // Auth and firestore references
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            db.settings({
+                timestampsInSnapshots: true,
+            });
+        </script>
+        <script src="auth.js"></script>
+    </body>
 </html>

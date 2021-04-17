@@ -13,12 +13,20 @@
         onload="this.rel='stylesheet'" />
 
     <!-- REQUIRED Stylesheet -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ=="
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
 
     <!-- REQUIRED Stylesheet -->
     <link href="sass/styles.css" rel='stylesheet' />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <!-- Manifest - IOS support -->
+    <link rel="apple-touch-icon" href="/assets/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+    <meta name="theme-color" content="#FFE1C4">
+
 </head>
 
 <body>
@@ -438,7 +446,7 @@
                                             <div id="EDIT__textarea_left">
                                                 <textarea class="syncscroll" name="sync" id="getm"
                                                     placeholder="paste markdown here ✨" onkeyup="getTextMarkdown(this)"
-                                                    autofocus="" spellcheck="false"></textarea>
+                                                    autofocus="" spellcheck="false" ></textarea>
                                             </div>
                                             <div id="EDIT__textarea_right">
                                                 <div class="markdown" id="buffer" style="display: flex"></div>

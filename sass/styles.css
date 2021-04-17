@@ -916,6 +916,8 @@ a {
 .EDIT__textarea img,
 .task_description img {
   max-width: 100%;
+  width: auto;
+  height: auto;
 }
 
 .ACCOUNT__container {
@@ -1436,8 +1438,7 @@ body {
   z-index: 100;
   width: 100vw;
   height: 100vh;
-  background-image: url("https://i.pinimg.com/originals/48/6a/a0/486aa0fa1658b7522ecd8918908ece40.gif");
-  background-color: rgba(192, 192, 192, 0.75);
+  background-image: url(https://i.imgur.com/N2dWsjq.gif);
   background-color: rgba(192, 192, 192, 0.55);
   background-repeat: no-repeat;
   background-position: center;
