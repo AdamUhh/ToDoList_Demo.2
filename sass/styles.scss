@@ -1,14 +1,15 @@
-@import "./buttons";
-@import "./navigation";
-@import "./edit";
-@import "./textarea";
-@import "./account";
-@import "./resize";
+@import './buttons';
+@import './navigation';
+@import './edit';
+@import './textarea';
+@import './account';
+@import './resize';
 
 /* Works on Firefox */
 * {
     scrollbar-width: thin;
     scrollbar-color: rgba(128, 128, 128, 0.219) /*white*/ transparent;
+
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -28,8 +29,8 @@
 
 body {
     overflow: hidden;
-    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-        Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+
 }
 
 /* * Screen section */
@@ -82,10 +83,7 @@ body {
     width: 100%;
     height: 94vh;
     position: relative;
-
-
 }
-
 
 .box_filter {
     position: absolute;
@@ -206,7 +204,6 @@ body {
         max-width: 50%;
         cursor: pointer;
         z-index: 5;
-
     }
 
     .card_header_options {
@@ -226,6 +223,8 @@ body {
     border-radius: 1px 1px 30px 5px;
     box-shadow: 0 4px 2px -2px rgba(10, 10, 10, 0.1);
     width: 100%;
+    touch-action: manipulation;
+
 }
 
 .task_body {
@@ -239,7 +238,7 @@ body {
     position: relative;
 
     &::after {
-        content: "";
+        content: '';
         height: calc(100% - 15px);
         background: rgb(63, 63, 136);
         width: 7px;
@@ -300,17 +299,18 @@ body {
     left: 20px;
 }
 
-.SORT__btn_sort_card, .SORT__btn_sort_task {
+.SORT__btn_sort_card,
+.SORT__btn_sort_task {
     display: none;
 }
 
 .sortable-selected {
-    .card_header_bottom_fill, .card_title,
+    .card_header_bottom_fill,
+    .card_title,
     .task_body {
         background-color: bisque;
     }
 }
-
 
 // ? SVG
 
@@ -337,12 +337,11 @@ body {
     font-size: 1.25em;
 }
 
-
 // ? LOADING SCREEN
 #loading {
     display: block;
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     z-index: 100;
     width: 100vw;
@@ -352,4 +351,47 @@ body {
     background-color: rgba(192, 192, 192, 0.55);
     background-repeat: no-repeat;
     background-position: center;
-  }
+}
+
+// ? Enlarge Task
+.box_filter2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // background: rgba(255, 255, 255, 0.2); /*Make sure this color has an opacity of less than 1*/
+    backdrop-filter: blur(10px); /*This be the blur*/
+    z-index: 10;
+}
+
+
+.enlarged_background {
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 96%;
+    height: 96%;
+    background-color: rgb(255, 252, 248);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    z-index: 11;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+
+.enlarged_title {
+    font-size: xx-large;
+    margin-bottom: 10px;
+}
+
+.enlarged_desc {
+    position: relative;
+    padding: 5px 5px 20px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    margin-bottom: 5px;
+}

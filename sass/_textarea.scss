@@ -91,7 +91,7 @@
 }
 
 .EDIT__textarea,
-.task_description {
+.task_description, .enlarged_background {
     * {
         box-sizing: border-box;
         outline: 0;
@@ -140,6 +140,10 @@
         font-size: 18px;
         font-family: sans-serif;
         cursor: pointer;
+    }
+
+    .enlarged__btn_exit {
+        padding: 8px 2px 8px 16px;
     }
 
     textarea {

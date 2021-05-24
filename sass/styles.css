@@ -121,7 +121,7 @@
 
 .EDIT__btn_exit,
 .MENU__btn_exit,
-.GROUP__btn_exit, .ACCOUNT__btn_exit, .DeleteConfirm__btn_exit {
+.GROUP__btn_exit, .ACCOUNT__btn_exit, .DeleteConfirm__btn_exit, .enlarged__btn_exit {
   background: transparent;
   color: black;
   padding: 0;
@@ -131,7 +131,7 @@
 
 .EDIT__btn_exit:hover,
 .MENU__btn_exit:hover,
-.GROUP__btn_exit:hover, .ACCOUNT__btn_exit:hover, .DeleteConfirm__btn_exit:hover {
+.GROUP__btn_exit:hover, .ACCOUNT__btn_exit:hover, .DeleteConfirm__btn_exit:hover, .enlarged__btn_exit:hover {
   color: #830000;
 }
 
@@ -489,7 +489,7 @@ a {
 }
 
 .EDIT__btn_exit_wrapper,
-.GROUP__btn_exit_wrapper, .ACCOUNT__btn_exit_wrapper, .DeleteConfirm__btn_exit_wrapper {
+.GROUP__btn_exit_wrapper, .ACCOUNT__btn_exit_wrapper, .DeleteConfirm__btn_exit_wrapper, .enlarged__btn_wrapper {
   position: absolute;
   right: 0;
   top: 0;
@@ -701,7 +701,7 @@ a {
 }
 
 .EDIT__textarea *,
-.task_description * {
+.task_description *, .enlarged_background * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   outline: 0;
@@ -709,58 +709,58 @@ a {
 }
 
 .EDIT__textarea ::-webkit-scrollbar,
-.task_description ::-webkit-scrollbar {
+.task_description ::-webkit-scrollbar, .enlarged_background ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 
 .EDIT__textarea ::-webkit-scrollbar-thumb,
-.task_description ::-webkit-scrollbar-thumb {
+.task_description ::-webkit-scrollbar-thumb, .enlarged_background ::-webkit-scrollbar-thumb {
   background: var(--dbg-color);
 }
 
 .EDIT__textarea ::-webkit-scrollbar-thumb:hover,
-.task_description ::-webkit-scrollbar-thumb:hover {
+.task_description ::-webkit-scrollbar-thumb:hover, .enlarged_background ::-webkit-scrollbar-thumb:hover {
   background: var(--dbgh-color);
 }
 
 .EDIT__textarea ::-webkit-scrollbar-thumb:active,
-.task_description ::-webkit-scrollbar-thumb:active {
+.task_description ::-webkit-scrollbar-thumb:active, .enlarged_background ::-webkit-scrollbar-thumb:active {
   background: var(--dbga-color);
 }
 
 .EDIT__textarea ::-webkit-input-placeholder,
-.task_description ::-webkit-input-placeholder {
+.task_description ::-webkit-input-placeholder, .enlarged_background ::-webkit-input-placeholder {
   color: var(--font-color-gray);
 }
 
 .EDIT__textarea :-ms-input-placeholder,
-.task_description :-ms-input-placeholder {
+.task_description :-ms-input-placeholder, .enlarged_background :-ms-input-placeholder {
   color: var(--font-color-gray);
 }
 
 .EDIT__textarea ::-ms-input-placeholder,
-.task_description ::-ms-input-placeholder {
+.task_description ::-ms-input-placeholder, .enlarged_background ::-ms-input-placeholder {
   color: var(--font-color-gray);
 }
 
 .EDIT__textarea ::placeholder,
-.task_description ::placeholder {
+.task_description ::placeholder, .enlarged_background ::placeholder {
   color: var(--font-color-gray);
 }
 
 .EDIT__textarea ::-moz-selection,
-.task_description ::-moz-selection {
+.task_description ::-moz-selection, .enlarged_background ::-moz-selection {
   background: #c6d5dd;
 }
 
 .EDIT__textarea ::selection,
-.task_description ::selection {
+.task_description ::selection, .enlarged_background ::selection {
   background: #c6d5dd;
 }
 
 .EDIT__textarea a,
-.task_description a {
+.task_description a, .enlarged_background a {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -776,7 +776,7 @@ a {
 }
 
 .EDIT__textarea button,
-.task_description button {
+.task_description button, .enlarged_background button {
   padding: 8px 16px;
   background-color: transparent;
   color: var(--afont-color);
@@ -786,8 +786,13 @@ a {
   cursor: pointer;
 }
 
+.EDIT__textarea .enlarged__btn_exit,
+.task_description .enlarged__btn_exit, .enlarged_background .enlarged__btn_exit {
+  padding: 8px 2px 8px 16px;
+}
+
 .EDIT__textarea textarea,
-.task_description textarea {
+.task_description textarea, .enlarged_background textarea {
   z-index: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -805,7 +810,7 @@ a {
 }
 
 .EDIT__textarea .markdown,
-.task_description .markdown {
+.task_description .markdown, .enlarged_background .markdown {
   z-index: 110;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -834,13 +839,18 @@ a {
 .task_description h3,
 .task_description h4,
 .task_description h5,
-.task_description h6 {
+.task_description h6, .enlarged_background h1,
+.enlarged_background h2,
+.enlarged_background h3,
+.enlarged_background h4,
+.enlarged_background h5,
+.enlarged_background h6 {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 6px;
 }
 
 .EDIT__textarea pre,
-.task_description pre {
+.task_description pre, .enlarged_background pre {
   display: block;
   padding: 0.5em;
   color: #333;
@@ -853,7 +863,7 @@ a {
 }
 
 .EDIT__textarea p code,
-.task_description p code {
+.task_description p code, .enlarged_background p code {
   padding: 0.2em 0.5em;
   color: #333;
   background: #f1f1f1;
@@ -864,40 +874,41 @@ a {
 }
 
 .EDIT__textarea p a,
-.task_description p a {
+.task_description p a, .enlarged_background p a {
   color: #337ab7;
 }
 
 .EDIT__textarea p a:hover,
-.task_description p a:hover {
+.task_description p a:hover, .enlarged_background p a:hover {
   color: #23527c;
 }
 
 .EDIT__textarea p,
-.task_description p {
+.task_description p, .enlarged_background p {
   margin: 4px 0 4px 0;
 }
 
 .EDIT__textarea ul,
-.task_description ul {
+.task_description ul, .enlarged_background ul {
   list-style-type: disc;
 }
 
 .EDIT__textarea ul,
 .EDIT__textarea ol,
 .task_description ul,
-.task_description ol {
+.task_description ol, .enlarged_background ul,
+.enlarged_background ol {
   list-style-position: inside;
 }
 
 .EDIT__textarea ol ul,
-.task_description ol ul {
+.task_description ol ul, .enlarged_background ol ul {
   -webkit-padding-start: 40px;
           padding-inline-start: 40px;
 }
 
 .EDIT__textarea blockquote,
-.task_description blockquote {
+.task_description blockquote, .enlarged_background blockquote {
   font-size: 100%;
   border-left: 5px solid #ccc;
   margin: 1.5em 10px;
@@ -905,7 +916,7 @@ a {
 }
 
 .EDIT__textarea hr,
-.task_description hr {
+.task_description hr, .enlarged_background hr {
   display: block !important;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -914,7 +925,7 @@ a {
 }
 
 .EDIT__textarea img,
-.task_description img {
+.task_description img, .enlarged_background img {
   max-width: 100%;
   width: auto;
   height: auto;
@@ -1005,7 +1016,7 @@ a {
   .PANEL__card {
     height: 87% !important;
   }
-  .box {
+  .box, .enlarged_background {
     height: 100vh !important;
   }
   .one_quarter {
@@ -1105,7 +1116,7 @@ a {
 
 body {
   overflow: hidden;
-  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 /* * Screen section */
@@ -1311,6 +1322,8 @@ body {
   -webkit-box-shadow: 0 4px 2px -2px rgba(10, 10, 10, 0.1);
           box-shadow: 0 4px 2px -2px rgba(10, 10, 10, 0.1);
   width: 100%;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
 }
 
 .task_body {
@@ -1325,7 +1338,7 @@ body {
 }
 
 .task_body::after {
-  content: "";
+  content: '';
   height: calc(100% - 15px);
   background: #3f3f88;
   width: 7px;
@@ -1393,11 +1406,13 @@ body {
   left: 20px;
 }
 
-.SORT__btn_sort_card, .SORT__btn_sort_task {
+.SORT__btn_sort_card,
+.SORT__btn_sort_task {
   display: none;
 }
 
-.sortable-selected .card_header_bottom_fill, .sortable-selected .card_title,
+.sortable-selected .card_header_bottom_fill,
+.sortable-selected .card_title,
 .sortable-selected .task_body {
   background-color: bisque;
 }
@@ -1442,5 +1457,46 @@ body {
   background-color: rgba(192, 192, 192, 0.55);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.box_filter2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  /*This be the blur*/
+  z-index: 10;
+}
+
+.enlarged_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 96%;
+  height: 96%;
+  background-color: #fffcf8;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  z-index: 11;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.enlarged_title {
+  font-size: xx-large;
+  margin-bottom: 10px;
+}
+
+.enlarged_desc {
+  position: relative;
+  padding: 5px 5px 20px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  margin-bottom: 5px;
 }
 /*# sourceMappingURL=styles.css.map */

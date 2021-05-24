@@ -927,6 +927,7 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         let task_Date = document.createElement('div');
         task_Date.className = 'task_date';
 
+        task_Container.ondblclick = enlargeTask;
         // Option 1
         let task_Option1 = document.createElement('button');
         task_Option1.className = 'button PANEL__btn_edit_task btn_color_whitesmoke';
@@ -1169,7 +1170,8 @@ function loadCards() {
             if (thisObjRef.parentNode.parentNode.firstChild.textContent != '') {
                 delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent = 'Are you sure you want to delete this task (title):';
                 delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent = "'" + thisObjRef.parentNode.parentNode.firstChild.textContent + "'";
-            } else { //if task title is empty, show task description
+            } else {
+                //if task title is empty, show task description
                 delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent = 'Are you sure you want to delete this task (description):';
                 delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent =
                     "'" + thisObjRef.parentNode.parentNode.querySelector('div:nth-child(2)').textContent.substring(0, 50) + "...'";
@@ -1319,7 +1321,7 @@ document.querySelector('.SORT__btn_sort_card').addEventListener('click', functio
             obj.style.display = 'none';
         });
         document.querySelectorAll('.task_options').forEach((obj) => {
-            obj.style = 'display: none !important'
+            obj.style = 'display: none !important';
         });
     } else {
         // remove the box filter and decrease zIndex of sort btn and
@@ -1329,9 +1331,8 @@ document.querySelector('.SORT__btn_sort_card').addEventListener('click', functio
             obj.style.display = 'block';
         });
         document.querySelectorAll('.task_options').forEach((obj) => {
-            obj.style = 'display: auto !important'
+            obj.style = 'display: auto !important';
         });
-
 
         // disable the sortable state of card containers
         let state = sortableCard.option('disabled'); // get
@@ -1401,7 +1402,7 @@ document.querySelector('.SORT__btn_sort_task').addEventListener('click', functio
             obj.style.display = 'none';
         });
         document.querySelectorAll('.task_options').forEach((obj) => {
-            obj.style = 'display: none !important'
+            obj.style = 'display: none !important';
         });
     } else {
         // remove the box filter and decrease zIndex of sort btn
@@ -1411,7 +1412,7 @@ document.querySelector('.SORT__btn_sort_task').addEventListener('click', functio
             obj.style.display = 'block';
         });
         document.querySelectorAll('.task_options').forEach((obj) => {
-            obj.style = 'display: auto !important'
+            obj.style = 'display: auto !important';
         });
         // disable the sortable state of card containers
         sortables.forEach((obj) => {
@@ -1433,6 +1434,78 @@ document.querySelector('.SORT__btn_sort_task').addEventListener('click', functio
         });
     }
 });
+// ! TEMPORARY AND BAD IMPLEMENTATION
+// ! THIS ONLY WORKS ON DESKTOP.  DOES NOT WORK ON MOBILE AS ondblclick IS NOT RECOGNIZED
+// * Enlarge Tasks
+function enlargeTask() {
+    enlargedID = this.getAttribute('data-id');
+    if (!sortTask && !sortCard) {
+        if (!this.classList.contains('enlarged') && !this.classList.contains('enlarged__btn_exit')) {
+            //if task_container does not have the class 'enlarged'
+            boxFilter2 = document.createElement('div');
+            boxFilter2.className = 'box_filter2';
+            document.querySelector('body').appendChild(boxFilter2);
+
+            enlargedBackground = document.createElement('div');
+            enlargedBackground.className = 'enlarged_background enlarged';
+            enlargedBackground.ondblclick = enlargeTask;
+
+            enlargedBody = document.createElement('div');
+            enlargedBody.className = 'enlarged_body';
+
+            enlargedTitle = document.createElement('div');
+            enlargedTitle.innerHTML = taskDict[enlargedID].taskInfoTitle;
+            enlargedTitle.className = 'enlarged_title';
+
+            enlargedDesc = document.createElement('div');
+            enlargedDesc.innerHTML = taskDict[enlargedID].taskInfoDesc;
+            enlargedDesc.className = 'enlarged_desc';
+
+            enlargedBody.appendChild(enlargedTitle);
+            enlargedBody.appendChild(enlargedDesc);
+            enlargedBackground.appendChild(enlargedBody);
+
+            enlargedBtnWrapper = document.createElement('div');
+            enlargedBtnWrapper.className = 'enlarged__btn_wrapper';
+
+            enlargedBtn = document.createElement('button');
+            enlargedBtn.className = 'enlarged__btn_exit';
+
+            let enlargedBtn_span = document.createElement('span');
+            enlargedBtn_span.className = 'icon icon_centered';
+
+            let enlargedBtn_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            enlargedBtn_svg.setAttribute('class', 'svg-inline--fa fa-times fa-w-18 fa-lg');
+            enlargedBtn_svg.setAttribute('aria-hidden', 'true');
+            enlargedBtn_svg.setAttribute('data-prefix', 'fa');
+            enlargedBtn_svg.setAttribute('data-icon', 'times');
+            enlargedBtn_svg.setAttribute('role', 'img');
+            enlargedBtn_svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            enlargedBtn_svg.setAttribute('viewBox', '0 0 448 512');
+            enlargedBtn_svg.setAttribute('data-fa-i2svg', '');
+            let enlargedBtn_path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            enlargedBtn_path.setAttribute('fill', 'currentColor');
+            enlargedBtn_path.setAttribute(
+                'd',
+                'M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z'
+            );
+            enlargedBtn.onclick = enlargeTask;
+
+            enlargedBtn_svg.appendChild(enlargedBtn_path);
+            enlargedBtn_span.appendChild(enlargedBtn_svg);
+            enlargedBtn.appendChild(enlargedBtn_span);
+            enlargedBtnWrapper.appendChild(enlargedBtn);
+            enlargedBackground.appendChild(enlargedBtnWrapper);
+            document.querySelector('.box').appendChild(enlargedBackground);
+        } else {
+            // document.querySelectorAll('.enlarged').forEach((element) => {
+            this.classList.remove('enlarged');
+            // });
+            enlargedBackground.remove();
+            boxFilter2.remove();
+        }
+    }
+}
 
 // * Testing
 // function displayData() {
