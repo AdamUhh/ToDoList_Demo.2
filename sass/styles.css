@@ -873,13 +873,15 @@ a {
   font-size: 90%;
 }
 
-.EDIT__textarea p a,
-.task_description p a, .enlarged_background p a {
+.EDIT__textarea p a, .EDIT__textarea a,
+.task_description p a,
+.task_description a, .enlarged_background p a, .enlarged_background a {
   color: #337ab7;
 }
 
-.EDIT__textarea p a:hover,
-.task_description p a:hover, .enlarged_background p a:hover {
+.EDIT__textarea p a:hover, .EDIT__textarea a:hover,
+.task_description p a:hover,
+.task_description a:hover, .enlarged_background p a:hover, .enlarged_background a:hover {
   color: #23527c;
 }
 
@@ -1498,5 +1500,9 @@ body {
   -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   margin-bottom: 5px;
+}
+
+.enlarged_date {
+  font-size: small;
 }
 /*# sourceMappingURL=styles.css.map */

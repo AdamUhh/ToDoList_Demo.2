@@ -9,7 +9,6 @@
 * {
     scrollbar-width: thin;
     scrollbar-color: rgba(128, 128, 128, 0.219) /*white*/ transparent;
-
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -30,7 +29,6 @@
 body {
     overflow: hidden;
     font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-
 }
 
 /* * Screen section */
@@ -224,7 +222,6 @@ body {
     box-shadow: 0 4px 2px -2px rgba(10, 10, 10, 0.1);
     width: 100%;
     touch-action: manipulation;
-
 }
 
 .task_body {
@@ -365,11 +362,10 @@ body {
     z-index: 10;
 }
 
-
 .enlarged_background {
     position: absolute;
     top: 0;
-    left:0;
+    left: 0;
     width: 96%;
     height: 96%;
     background-color: rgb(255, 252, 248);
@@ -380,7 +376,6 @@ body {
     padding: 20px;
     overflow-y: scroll;
 }
-
 
 .enlarged_title {
     font-size: xx-large;
@@ -394,4 +389,8 @@ body {
     -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     margin-bottom: 5px;
+}
+
+.enlarged_date {
+    font-size: small;
 }

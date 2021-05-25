@@ -218,7 +218,7 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         // append task in MAIN to new task description
         task.querySelector('.task_description').innerHTML = TaskDescriptionBuffer.innerHTML;
 
-        // check if task_date has a value and ppend task in MAIN to new task date
+        // check if task_date has a value and append task in MAIN to new task date
         var task_Date = task.querySelector('.task_date');
         var task_Date_Left = task_Date.querySelector('.task_date_left');
         var task_Date_Right = task_Date.querySelector('.task_date_right');
@@ -1461,6 +1461,21 @@ function enlargeTask() {
             enlargedDesc.innerHTML = taskDict[enlargedID].taskInfoDesc;
             enlargedDesc.className = 'enlarged_desc';
 
+            enlargedDate = document.createElement('div');
+            tempTaskDate = taskDict[enlargedID].taskInfoDate;
+            if (tempTaskDate !== '') {
+                enlargedDate.className = 'enlarged_date';
+
+                var taskDateArr = tempTaskDate.split(' to ');
+                if (taskDateArr.length > 1) {
+                    enlargedDate.innerHTML = '<strong>Made On:</strong> ' + taskDateArr[0] + ' | <strong>Due On:</strong> ' + taskDateArr[1];
+                } else {
+                    enlargedDate.innerHTML = '<strong>Made On:</strong> ' + taskDateArr[0];
+                }
+            } else {
+                enlargedDate.innerHTML = '';
+            }
+            enlargedTitle.appendChild(enlargedDate);
             enlargedBody.appendChild(enlargedTitle);
             enlargedBody.appendChild(enlargedDesc);
             enlargedBackground.appendChild(enlargedBody);
