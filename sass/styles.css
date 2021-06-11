@@ -1118,7 +1118,7 @@ a {
 
 body {
   overflow: hidden;
-  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Sen, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 /* * Screen section */
@@ -1195,6 +1195,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  font-family: Sen, Arial, Helvetica, sans-serif;
 }
 
 .titlebar .titlebar_text {
@@ -1212,7 +1213,7 @@ body {
   border: 1px solid transparent;
   border-radius: 3px;
   color: #2a3c4e;
-  font-family: Sen;
+  font-family: Sen, Arial, Helvetica, sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
