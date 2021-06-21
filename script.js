@@ -82,7 +82,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         document.querySelector('.EDIT__btn_go_back_wrapper').style.display = 'none'; //hides EDIT CARD -> Task go back button
 
         // removes all elements inside 'Edit Card -> Select Tasks'
-        document.querySelectorAll('.EDIT__select_task_wrapper').forEach((e) => e.parentNode.removeChild(e));
+        document
+            .querySelectorAll('.EDIT__select_task_wrapper')
+            .forEach((e) => e.parentNode.removeChild(e));
         document.querySelector('.EDIT__select_task_container').style.display = 'none';
 
         // clear task and card input values
@@ -281,7 +283,8 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         currentCardID = this.parentNode.parentNode.parentNode.lastChild.id;
         // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
         // let cardTitle = document.querySelector("#" + currentCardID);
-        document.querySelector('#cardTitleInput').value = this.parentNode.parentNode.querySelector('.card_title').textContent;
+        document.querySelector('#cardTitleInput').value =
+            this.parentNode.parentNode.querySelector('.card_title').textContent;
 
         // to load -> create selected tasks specific to the currentCardID
         loadEditSelectedTasks();
@@ -290,7 +293,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
     // ? Used to LOAD -> CREATE selected tasks in the EDIT CARD Screen
     function loadEditSelectedTasks() {
         // removes all elements inside 'Edit Card -> Select Tasks'
-        document.querySelectorAll('.EDIT__select_task_wrapper').forEach((e) => e.parentNode.removeChild(e));
+        document
+            .querySelectorAll('.EDIT__select_task_wrapper')
+            .forEach((e) => e.parentNode.removeChild(e));
 
         // Creates selected tasks relative to current card
         for (const containedTasks of cardDict[currentCardID].cardInfoContainsTasks) {
@@ -325,7 +330,10 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         task_Select_Option1_svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         task_Select_Option1_svg.setAttribute('viewBox', '0 0 512 512');
         task_Select_Option1_svg.setAttribute('data-fa-i2svg', '');
-        let task_Select_Option1_path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        let task_Select_Option1_path = document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'path'
+        );
         task_Select_Option1_path.setAttribute('fill', 'currentColor');
         task_Select_Option1_path.setAttribute(
             'd',
@@ -340,7 +348,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             document.querySelector('.EDIT__btn_go_back_wrapper').style.display = 'block';
             document.querySelector('.EDIT__select_task_container').style.display = 'none';
             editTaskScreen(taskIDRef);
-            document.querySelectorAll('.EDIT__select_task_wrapper').forEach((e) => e.parentNode.removeChild(e));
+            document
+                .querySelectorAll('.EDIT__select_task_wrapper')
+                .forEach((e) => e.parentNode.removeChild(e));
         };
 
         div.appendChild(h3);
@@ -380,7 +390,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             },
         });
 
-        document.querySelector('#getm').value = turndownService.turndown(taskDict[taskIDRef].taskInfoDesc);
+        document.querySelector('#getm').value = turndownService.turndown(
+            taskDict[taskIDRef].taskInfoDesc
+        );
 
         // Simulate Keyup (ENTER) to update markdown incase of LAG
         var keyEventPress = new KeyboardEvent('keyup', {
@@ -393,7 +405,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         document.querySelector('#getm').dispatchEvent(keyEventPress);
 
         // assign taskDate to correct taskDateInput
-        document.querySelector('#myDatepicker')._flatpickr.setDate(taskDict[taskIDRef].taskInfoDate);
+        document
+            .querySelector('#myDatepicker')
+            ._flatpickr.setDate(taskDict[taskIDRef].taskInfoDate);
 
         // assigns the taskID to currentTaskID
         currentTaskID = taskIDRef;
@@ -432,7 +446,8 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
 
         // Since it opens the EDIT screen, this sets the card name to the correct cardTitle (from MAIN)
         // let cardTitle = document.querySelector("#" + currentCardID);
-        document.querySelector('#cardTitleInput').value = this.parentNode.parentNode.querySelector('.card_title').textContent;
+        document.querySelector('#cardTitleInput').value =
+            this.parentNode.parentNode.querySelector('.card_title').textContent;
 
         // focus on the group input so user does not have to click it.
         let css_class_task = document.querySelector('.EDIT__task_body');
@@ -453,20 +468,22 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
     });
 
     // ? User CLICKS Complete and Add another task (from EDIT - after {+ Add Card}) [+ Complete and Add another task]
-    document.querySelector('.EDIT__btn_confirm_and_add_task ').addEventListener('click', function () {
-        hasMarkdown = true;
+    document
+        .querySelector('.EDIT__btn_confirm_and_add_task ')
+        .addEventListener('click', function () {
+            hasMarkdown = true;
 
-        // if card has not been created yet - used to create card once
-        if (!hasCardBeenAdded) {
-            getCardInput();
-        }
+            // if card has not been created yet - used to create card once
+            if (!hasCardBeenAdded) {
+                getCardInput();
+            }
 
-        // get task data and create task to specific cardID
-        getTaskInput();
+            // get task data and create task to specific cardID
+            getTaskInput();
 
-        // focus on the group input so user does not have to click it.
-        document.querySelector('#taskTitleInput').focus();
-    });
+            // focus on the group input so user does not have to click it.
+            document.querySelector('#taskTitleInput').focus();
+        });
 
     // ? User CLICKS and DISPLAYS the GROUP_container for user to create new group (from MAIN - MENU) [+ Add Group]
     document.querySelectorAll('.MENU__btn_add_group').forEach((obj) => {
@@ -510,7 +527,11 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             .doc(userUID)
             .collection('fbGroupDict')
             .doc('group' + groupIDNum)
-            .set({ groupInfoIDNum: groupIDNum, groupInfoTitle: groupWrapperTitle.value, groupInfoContainsCards: [] });
+            .set({
+                groupInfoIDNum: groupIDNum,
+                groupInfoTitle: groupWrapperTitle.value,
+                groupInfoContainsCards: [],
+            });
 
         // clear text in group-wrapper name
         groupWrapperTitle.value = '';
@@ -565,7 +586,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             .collection('fbGroupDict')
             .doc(currentGroupID)
             .update({
-                groupInfoContainsCards: firebase.firestore.FieldValue.arrayUnion('cardBody' + cardIDNum),
+                groupInfoContainsCards: firebase.firestore.FieldValue.arrayUnion(
+                    'cardBody' + cardIDNum
+                ),
             });
 
         // Store card data in cardDict
@@ -609,7 +632,13 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             });
             TaskDescriptionMarkdown.dispatchEvent(keyEventPress);
 
-            createTask(taskTitle.value, TaskDescriptionBuffer.innerHTML, taskDate.value, taskIDNum, cardIDNum);
+            createTask(
+                taskTitle.value,
+                TaskDescriptionBuffer.innerHTML,
+                taskDate.value,
+                taskIDNum,
+                cardIDNum
+            );
             taskInfo = {
                 taskInfoIDNum: taskIDNum,
                 taskInfoTitle: taskTitle.value,
@@ -625,7 +654,9 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
                 .collection('fbCardDict')
                 .doc(currentCardID)
                 .update({
-                    cardInfoContainsTasks: firebase.firestore.FieldValue.arrayUnion('taskBody' + taskIDNum),
+                    cardInfoContainsTasks: firebase.firestore.FieldValue.arrayUnion(
+                        'taskBody' + taskIDNum
+                    ),
                 });
 
             // Store task data in dictionary
@@ -726,7 +757,8 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             currentGroupID = a.lastChild.id;
             let listItems = parent.querySelectorAll('li');
             for (let i = 0; i < listItems.length; i++) {
-                if (listItems[i].classList.contains('active')) listItems[i].classList.remove('active');
+                if (listItems[i].classList.contains('active'))
+                    listItems[i].classList.remove('active');
             }
             a.parentNode.className = 'active';
             // Hide all card containers
@@ -741,14 +773,17 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             // Load appropriate card containers, relative to the currentGroupID
             loadCards();
             // set group name input in MAIN to user input
-            document.querySelector('#MainGroupTitleInput').value = document.querySelector('#' + currentGroupID).textContent;
+            document.querySelector('#MainGroupTitleInput').value = document.querySelector(
+                '#' + currentGroupID
+            ).textContent;
 
             // Checks if there are any cards on the screen
             if (document.querySelector('.card_container') != null) {
                 document.querySelector('.SORT__container').style.display = 'block';
                 document.querySelector('.SORT__btn_sort_card').style.display = 'inline-flex';
                 // Checks if there are any tasks on the screen
-                if (document.querySelector('.task_container') != null) document.querySelector('.SORT__btn_sort_task').style.display = 'inline-flex';
+                if (document.querySelector('.task_container') != null)
+                    document.querySelector('.SORT__btn_sort_task').style.display = 'inline-flex';
                 else document.querySelector('.SORT__btn_sort_task').style.display = 'none';
             } else {
                 document.querySelector('.SORT__container').style.display = 'none';
@@ -772,7 +807,8 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             document.querySelector('.SORT__container').style.display = 'block';
             document.querySelector('.SORT__btn_sort_card').style.display = 'inline-flex';
             // Checks if there are any tasks on the screen
-            if (document.querySelector('.task_container') != null) document.querySelector('.SORT__btn_sort_task').style.display = 'inline-flex';
+            if (document.querySelector('.task_container') != null)
+                document.querySelector('.SORT__btn_sort_task').style.display = 'inline-flex';
             else document.querySelector('.SORT__btn_sort_task').style.display = 'none';
         } else {
             document.querySelector('.SORT__container').style.display = 'none';
@@ -799,6 +835,7 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         card_Title.className = 'card_title';
         let card_Options = document.createElement('div');
         card_Options.className = 'card_header_options';
+        card_Title.ondblclick = enlargeCard;
 
         // Option 1
         let card_Option1 = document.createElement('button');
@@ -969,7 +1006,10 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
             currentCardID = this.parentNode.parentNode.parentNode.parentNode.id;
             // Since it opens a new screen, it sets the card input to the correct cardTitle (from MAIN)
             let cardTitle = document.querySelector('#' + currentCardID);
-            document.querySelector('#cardTitleInput').value = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.querySelector('.card_title').textContent;
+            document.querySelector('#cardTitleInput').value =
+                this.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.querySelector(
+                    '.card_title'
+                ).textContent;
 
             editTaskScreen('taskBody' + taskIDNumRef);
         };
@@ -1054,7 +1094,8 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
         parent.appendChild(task_Container);
 
         // Checks if there are any tasks on the screen
-        if (document.querySelector('.task_container') != null) document.querySelector('.SORT__btn_sort_task').style.display = 'inline-flex';
+        if (document.querySelector('.task_container') != null)
+            document.querySelector('.SORT__btn_sort_task').style.display = 'inline-flex';
     }
 }
 
@@ -1063,7 +1104,10 @@ document.querySelector('.btn_open_nav').addEventListener('click', function () {
 function loadCards() {
     if (Object.entries(groupDict).length > 0) {
         for (const containedCards of groupDict[currentGroupID].groupInfoContainsCards) {
-            createCard(cardDict[containedCards].cardInfoTitle, containedCards.replace('cardBody', ''));
+            createCard(
+                cardDict[containedCards].cardInfoTitle,
+                containedCards.replace('cardBody', '')
+            );
             if (Object.entries(cardDict[containedCards].cardInfoContainsTasks).length > 0) {
                 for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
                     createTask(
@@ -1106,11 +1150,19 @@ function loadCards() {
             for (const containedTasks of cardDict[containedCards].cardInfoContainsTasks) {
                 delete taskDict[containedTasks];
                 // delete task in firestore
-                db.collection('Users').doc(userUID).collection('fbTaskDict').doc(containedTasks).delete();
+                db.collection('Users')
+                    .doc(userUID)
+                    .collection('fbTaskDict')
+                    .doc(containedTasks)
+                    .delete();
             }
             delete cardDict[containedCards];
             // delete card in firestore
-            db.collection('Users').doc(userUID).collection('fbCardDict').doc(containedCards).delete();
+            db.collection('Users')
+                .doc(userUID)
+                .collection('fbCardDict')
+                .doc(containedCards)
+                .delete();
         }
         delete groupDict[tempGroupID];
         // delete group in firestore
@@ -1144,8 +1196,10 @@ function loadCards() {
         delete_container.style.display = 'block';
         if (name == 'Group') {
             // set up the text for the deleteConfirm container
-            delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent = 'Are you sure you want to delete this group:';
-            delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent = "'" + thisObjRef.parentNode.firstChild.firstChild.textContent + "'";
+            delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent =
+                'Are you sure you want to delete this group:';
+            delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent =
+                "'" + thisObjRef.parentNode.firstChild.firstChild.textContent + "'";
             // when user clicks the confirm btn, call the specific delete 'element' function
             document.querySelector('.DeleteConfirm__btn_confirm').onclick = () => {
                 deleteGroup(thisObjRef);
@@ -1154,9 +1208,12 @@ function loadCards() {
             };
         }
         if (name == 'Card') {
-            delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent = 'Are you sure you want to delete this card:';
+            delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent =
+                'Are you sure you want to delete this card:';
             delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent =
-                "'" + thisObjRef.parentNode.parentNode.querySelector('div:nth-child(2)').textContent + "'";
+                "'" +
+                thisObjRef.parentNode.parentNode.querySelector('div:nth-child(2)').textContent +
+                "'";
             // when user clicks the confirm btn, call the specific delete 'element' function
             document.querySelector('.DeleteConfirm__btn_confirm').onclick = () => {
                 deleteCard(thisObjRef);
@@ -1168,13 +1225,20 @@ function loadCards() {
         if (name == 'Task') {
             // If task title is NOT empty
             if (thisObjRef.parentNode.parentNode.firstChild.textContent != '') {
-                delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent = 'Are you sure you want to delete this task (title):';
-                delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent = "'" + thisObjRef.parentNode.parentNode.firstChild.textContent + "'";
+                delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent =
+                    'Are you sure you want to delete this task (title):';
+                delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent =
+                    "'" + thisObjRef.parentNode.parentNode.firstChild.textContent + "'";
             } else {
                 //if task title is empty, show task description
-                delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent = 'Are you sure you want to delete this task (description):';
+                delete_container.querySelector('.DeleteConfirm__header_wrapper').textContent =
+                    'Are you sure you want to delete this task (description):';
                 delete_container.querySelector('.DeleteConfirm__header_wrapper_title').textContent =
-                    "'" + thisObjRef.parentNode.parentNode.querySelector('div:nth-child(2)').textContent.substring(0, 50) + "...'";
+                    "'" +
+                    thisObjRef.parentNode.parentNode
+                        .querySelector('div:nth-child(2)')
+                        .textContent.substring(0, 50) +
+                    "...'";
             }
             // when user clicks the confirm btn, call the specific delete 'element' function
             document.querySelector('.DeleteConfirm__btn_confirm').onclick = () => {
@@ -1219,7 +1283,11 @@ function loadCards() {
         for (const containedTasks of cardDict[deletedCardID].cardInfoContainsTasks) {
             delete taskDict[containedTasks];
             // delete task in firestore
-            db.collection('Users').doc(userUID).collection('fbTaskDict').doc(containedTasks).delete();
+            db.collection('Users')
+                .doc(userUID)
+                .collection('fbTaskDict')
+                .doc(containedTasks)
+                .delete();
         }
 
         // delete card data from cardDict
@@ -1228,7 +1296,8 @@ function loadCards() {
         db.collection('Users').doc(userUID).collection('fbCardDict').doc(deletedCardID).delete();
 
         // delete card data that was inside groupDict.contains
-        let deletedCardIndex = groupDict[currentGroupID].groupInfoContainsCards.indexOf(deletedCardID);
+        let deletedCardIndex =
+            groupDict[currentGroupID].groupInfoContainsCards.indexOf(deletedCardID);
         groupDict[currentGroupID].groupInfoContainsCards.splice(deletedCardIndex, 1);
         // delete group.contains in firestore
         db.collection('Users')
@@ -1262,7 +1331,8 @@ function loadCards() {
             t.remove();
 
             // if there are no task containers on the screen
-            if (document.querySelector('.task_container') == null) document.querySelector('.SORT__btn_sort_task ').style.display = 'none';
+            if (document.querySelector('.task_container') == null)
+                document.querySelector('.SORT__btn_sort_task ').style.display = 'none';
         }, 500);
 
         // Delete all task data
@@ -1370,7 +1440,9 @@ document.querySelector('.SORT__btn_sort_task').addEventListener('click', functio
                         let newTarget = evt.to.id;
                         let oldTarget = evt.from.id;
 
-                        let cardIDArrContains = document.querySelector('#' + newTarget).querySelectorAll('.task_container');
+                        let cardIDArrContains = document
+                            .querySelector('#' + newTarget)
+                            .querySelectorAll('.task_container');
 
                         cardIDArrContains.forEach((obj) => {
                             taskOrder.push(obj.getAttribute('data-id'));
@@ -1380,7 +1452,9 @@ document.querySelector('.SORT__btn_sort_task').addEventListener('click', functio
                         // Reset taskOrder
                         taskOrder = [];
 
-                        cardIDArrContains = document.querySelector('#' + oldTarget).querySelectorAll('.task_container');
+                        cardIDArrContains = document
+                            .querySelector('#' + oldTarget)
+                            .querySelectorAll('.task_container');
 
                         cardIDArrContains.forEach((obj) => {
                             taskOrder.push(obj.getAttribute('data-id'));
@@ -1440,7 +1514,10 @@ document.querySelector('.SORT__btn_sort_task').addEventListener('click', functio
 function enlargeTask() {
     enlargedID = this.getAttribute('data-id');
     if (!sortTask && !sortCard) {
-        if (!this.classList.contains('enlarged') && !this.classList.contains('enlarged__btn_exit')) {
+        if (
+            !this.classList.contains('enlarged') &&
+            !this.classList.contains('enlarged__btn_exit')
+        ) {
             //if task_container does not have the class 'enlarged'
             boxFilter2 = document.createElement('div');
             boxFilter2.className = 'box_filter2';
@@ -1468,7 +1545,11 @@ function enlargeTask() {
 
                 var taskDateArr = tempTaskDate.split(' to ');
                 if (taskDateArr.length > 1) {
-                    enlargedDate.innerHTML = '<strong>Made On:</strong> ' + taskDateArr[0] + ' | <strong>Due On:</strong> ' + taskDateArr[1];
+                    enlargedDate.innerHTML =
+                        '<strong>Made On:</strong> ' +
+                        taskDateArr[0] +
+                        ' | <strong>Due On:</strong> ' +
+                        taskDateArr[1];
                 } else {
                     enlargedDate.innerHTML = '<strong>Made On:</strong> ' + taskDateArr[0];
                 }
@@ -1479,6 +1560,101 @@ function enlargeTask() {
             enlargedBody.appendChild(enlargedTitle);
             enlargedBody.appendChild(enlargedDesc);
             enlargedBackground.appendChild(enlargedBody);
+
+            enlargedBtnWrapper = document.createElement('div');
+            enlargedBtnWrapper.className = 'enlarged__btn_wrapper';
+
+            enlargedBtn = document.createElement('button');
+            enlargedBtn.className = 'enlarged__btn_exit';
+
+            let enlargedBtn_span = document.createElement('span');
+            enlargedBtn_span.className = 'icon icon_centered';
+
+            let enlargedBtn_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            enlargedBtn_svg.setAttribute('class', 'svg-inline--fa fa-times fa-w-18 fa-lg');
+            enlargedBtn_svg.setAttribute('aria-hidden', 'true');
+            enlargedBtn_svg.setAttribute('data-prefix', 'fa');
+            enlargedBtn_svg.setAttribute('data-icon', 'times');
+            enlargedBtn_svg.setAttribute('role', 'img');
+            enlargedBtn_svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            enlargedBtn_svg.setAttribute('viewBox', '0 0 448 512');
+            enlargedBtn_svg.setAttribute('data-fa-i2svg', '');
+            let enlargedBtn_path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            enlargedBtn_path.setAttribute('fill', 'currentColor');
+            enlargedBtn_path.setAttribute(
+                'd',
+                'M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z'
+            );
+            enlargedBtn.onclick = enlargeTask;
+
+            enlargedBtn_svg.appendChild(enlargedBtn_path);
+            enlargedBtn_span.appendChild(enlargedBtn_svg);
+            enlargedBtn.appendChild(enlargedBtn_span);
+            enlargedBtnWrapper.appendChild(enlargedBtn);
+            enlargedBackground.appendChild(enlargedBtnWrapper);
+            document.querySelector('.box').appendChild(enlargedBackground);
+        } else {
+            // document.querySelectorAll('.enlarged').forEach((element) => {
+            this.classList.remove('enlarged');
+            // });
+            enlargedBackground.remove();
+            boxFilter2.remove();
+        }
+    }
+}
+
+function enlargeCard() {
+    enlargedID = this.parentNode.parentNode.getAttribute('data-id');
+    if (!sortTask && !sortCard) {
+        if (
+            !this.classList.contains('enlarged') &&
+            !this.classList.contains('enlarged__btn_exit')
+        ) {
+            //if task_container does not have the class 'enlarged'
+            boxFilter2 = document.createElement('div');
+            boxFilter2.className = 'box_filter2';
+            document.querySelector('body').appendChild(boxFilter2);
+
+            enlargedBackground = document.createElement('div');
+            enlargedBackground.className = 'enlarged_background enlarged';
+            enlargedBackground.ondblclick = enlargeCard;
+
+            // add tasks to the enlargedBackground
+            cardDict[enlargedID].cardInfoContainsTasks.forEach((task) => {
+                enlargedBody = document.createElement('div');
+                enlargedBody.className = 'enlarged_card_body';
+
+                enlargedTitle = document.createElement('div');
+                enlargedTitle.innerHTML = taskDict[task].taskInfoTitle;
+                enlargedTitle.className = 'enlarged_title';
+
+                enlargedDesc = document.createElement('div');
+                enlargedDesc.innerHTML = taskDict[task].taskInfoDesc;
+                enlargedDesc.className = 'enlarged_card_desc';
+
+                enlargedDate = document.createElement('div');
+                tempTaskDate = taskDict[task].taskInfoDate;
+                if (tempTaskDate !== '') {
+                    enlargedDate.className = 'enlarged_date';
+
+                    var taskDateArr = tempTaskDate.split(' to ');
+                    if (taskDateArr.length > 1) {
+                        enlargedDate.innerHTML =
+                            '<strong>Made On:</strong> ' +
+                            taskDateArr[0] +
+                            ' | <strong>Due On:</strong> ' +
+                            taskDateArr[1];
+                    } else {
+                        enlargedDate.innerHTML = '<strong>Made On:</strong> ' + taskDateArr[0];
+                    }
+                } else {
+                    enlargedDate.innerHTML = '';
+                }
+                enlargedTitle.appendChild(enlargedDate);
+                enlargedBody.appendChild(enlargedTitle);
+                enlargedBody.appendChild(enlargedDesc);
+                enlargedBackground.appendChild(enlargedBody);
+            });
 
             enlargedBtnWrapper = document.createElement('div');
             enlargedBtnWrapper.className = 'enlarged__btn_wrapper';
